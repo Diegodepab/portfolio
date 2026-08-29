@@ -184,6 +184,10 @@
   background-color: color-mix(in srgb, var(--color-accent-2) 10%, transparent);
 }
 
+.nav-pokemon-trigger {
+  display: none;
+}
+
 @media (max-width: 1080px) {
   .site-header {
     padding: 0 28px;
@@ -235,6 +239,11 @@
 
   .site-header {
     padding: 0 22px;
+  }
+
+  .nav-pokemon-trigger {
+    display: block;
+    margin-left: -5px;
   }
 }
 

@@ -66,9 +66,8 @@ export const ChatWidget: React.FC<ChatWidgetProps> = ({ hidden = false, forceOpe
             className="chat-widget-trigger"
             onClick={handleOpen}
             initial={{ scale: 0, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            exit={{ scale: 0, opacity: 0 }}
-            transition={{ type: 'spring', stiffness: 400, damping: 25, delay: 1.5 }}
+            animate={{ scale: 1, opacity: 1, transition: { type: 'spring', stiffness: 400, damping: 25, delay: 0.5 } }}
+            exit={{ scale: 0, opacity: 0, transition: { duration: 0.15, delay: 0 } }}
             aria-label={lang === 'en' ? 'Open chat with dIAgo' : 'Abrir chat con dIAgo'}
             aria-expanded={false}
             aria-haspopup="dialog"

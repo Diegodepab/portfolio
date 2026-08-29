@@ -3,9 +3,16 @@ import { Link, useLocation } from 'react-router-dom';
 import { motion, useScroll, useMotionValueEvent, useReducedMotion } from 'motion/react';
 import { navLinks } from '../../data/config';
 import { useLanguage } from '../../context/LanguageContext';
+import { PokemonButton } from './SideElements';
+import type { Palette } from '../../utils/palettes';
 import './Nav.css';
 
-export const Nav: React.FC = () => {
+export interface NavProps {
+  pokemon?: Palette;
+  onPokemonChange?: () => void;
+}
+
+export const Nav: React.FC<NavProps> = ({ pokemon, onPokemonChange }) => {
   const [hidden, setHidden] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const { scrollY } = useScroll();
@@ -125,6 +132,16 @@ export const Nav: React.FC = () => {
             {lang === 'en' ? 'Resume' : 'Currículum'}
           </a>
         </motion.div>
+        {pokemon && onPokemonChange && (
+          <motion.div
+            initial={shouldReduceMotion ? false : { opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: (navLinks.length + 2) * 0.1 }}
+            className="nav-pokemon-trigger"
+          >
+            <PokemonButton pokemon={pokemon} onPokemonChange={onPokemonChange} compact />
+          </motion.div>
+        )}
       </nav>
     </motion.header>
   );

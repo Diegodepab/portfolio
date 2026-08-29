@@ -14,7 +14,7 @@ interface PokemonButtonProps extends SideElementsProps {
   compact?: boolean;
 }
 
-const PokemonButton: React.FC<PokemonButtonProps> = ({ pokemon, onPokemonChange, compact = false }) => {
+export const PokemonButton: React.FC<PokemonButtonProps> = ({ pokemon, onPokemonChange, compact = false }) => {
   const shouldReduceMotion = useReducedMotion();
 
   return (
@@ -119,14 +119,7 @@ export const SideElements: React.FC<SideElementsProps> = ({ pokemon, onPokemonCh
         </div>
       </div>
 
-      <motion.div
-        className="pokemon-mobile-trigger"
-        initial={shouldReduceMotion ? false : { opacity: 0, scale: 0.7 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ delay: 0.8 }}
-      >
-        <PokemonButton pokemon={pokemon} onPokemonChange={onPokemonChange} compact />
-      </motion.div>
+
 
       <span id="pokemon-palette-status" className="visually-hidden" aria-live="polite">
         Paleta de {pokemon.name} activada

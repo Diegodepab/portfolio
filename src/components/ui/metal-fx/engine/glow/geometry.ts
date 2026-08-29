@@ -151,7 +151,7 @@ export function buildSvgMarkup(opts: GlowOptions, p: string): string {
     `<filter id="${p}_ebC" ${fr}><feGaussianBlur stdDeviation="${sd(EXTRA_BLUR_CORE)}"/></filter>`,
     `<radialGradient id="${p}_fg" cx="0.5" cy="0.5" r="0.5"><stop offset="0" stop-color="white"/><stop offset="0.30" stop-color="white"/><stop offset="0.65" stop-color="#404040"/><stop offset="1" stop-color="black"/></radialGradient>`,
     `<mask id="${p}_fm" maskUnits="userSpaceOnUse" ${fRect}><rect ${fRect} fill="black"/><circle id="${p}_fc" cx="0" cy="0" r="${(EXTRA_FADE_R * s).toFixed(3)}" fill="url(#${p}_fg)"/></mask>`,
-    `<mask id="${p}_rm" maskUnits="userSpaceOnUse" ${fRect}><rect ${fRect} fill="#808080"/><rect x="0" y="0" width="${W}" height="${H}" rx="${R}" ry="${R}" fill="white"/><rect x="${ringInset}" y="${ringInset}" width="${W - ringInset * 2}" height="${H - ringInset * 2}" rx="${innerR}" ry="${innerR}" fill="black"/></mask>`,
+    `<mask id="${p}_rm" maskUnits="userSpaceOnUse" ${fRect}><rect ${fRect} fill="#808080"/><rect x="0" y="0" width="${Math.max(0, W)}" height="${Math.max(0, H)}" rx="${R}" ry="${R}" fill="white"/><rect x="${ringInset}" y="${ringInset}" width="${Math.max(0, W - ringInset * 2)}" height="${Math.max(0, H - ringInset * 2)}" rx="${innerR}" ry="${innerR}" fill="black"/></mask>`,
     '</defs>',
     // Safari clips mask to the masked element's bbox; our horizontal strokes
     // have zero height, so the mask becomes a sliver. These spacer rects
