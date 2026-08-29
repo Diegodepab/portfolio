@@ -1,6 +1,6 @@
 # Diego De Pablo — Software Engineer Portfolio
 
-[Ver Portafolio Online](https://tu-dominio-vercel.vercel.app) *(Actualizar cuando esté desplegado)*
+[Ver Portafolio Online](https://portfolio-murex-seven-49.vercel.app)
 
 Este repositorio contiene el código fuente de mi portafolio profesional. Está construido como una aplicación web altamente interactiva y enfocada en el rendimiento, diseñada para demostrar mi experiencia en arquitectura frontend, diseño de sistemas y UX engineering.
 

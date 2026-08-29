@@ -77,6 +77,7 @@ export default defineConfig(({ mode }) => {
       },
     ],
     build: {
+      sourcemap: true,
       rolldownOptions: {
         output: {
           codeSplitting: {
@@ -95,7 +96,6 @@ export default defineConfig(({ mode }) => {
                 name: 'vendor',
                 test: /node_modules/,
                 priority: 10,
-                maxSize: 300_000,
               },
             ],
           },
