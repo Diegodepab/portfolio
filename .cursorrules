@@ -1,0 +1,42 @@
+# =============================================================================
+# .cursorrules — Reglas de comportamiento para agentes IA en este repositorio
+# =============================================================================
+
+# =============================================================================
+# 1. FILOSOFÍA Y PRINCIPIOS
+# =============================================================================
+# Prioriza siempre:
+#   - KISS (Keep It Simple, Stupid): La solución más simple que funcione.
+#   - YAGNI (You Aren't Gonna Need It): No implementes funcionalidad especulativa.
+#   - DRY (Don't Repeat Yourself): Extrae duplicación, pero no prematuramente.
+#   - Prevención de sobreingeniería.
+
+# =============================================================================
+# 2. FRONTEND — Guía de Trabajo
+# =============================================================================
+# Stack de referencia: React + Vite + TypeScript.
+
+# ─────────────────────────────────────────────────────────────────────────────
+# ESTRUCTURA DE CARPETAS
+# ─────────────────────────────────────────────────────────────────────────────
+# src/
+# ├── assets/          # Recursos procesados (SVG, fuentes)
+# ├── components/      # Componentes de UI y layout
+# ├── data/            # Archivos TypeScript de configuración de contenido (config, experience, projects)
+# ├── hooks/           # Custom hooks
+# ├── styles/          # tokens.css, reset.css, global.css
+# └── types/           # Interfaces TypeScript
+
+# ─────────────────────────────────────────────────────────────────────────────
+# DESIGN SYSTEM Y TOKENS
+# ─────────────────────────────────────────────────────────────────────────────
+# - Definir valores visuales en src/styles/tokens.css usando CSS Custom Properties nativas.
+# - NUNCA hardcodear colores, fuentes o espaciados inline en componentes. Usar siempre var(--token-name).
+
+# ─────────────────────────────────────────────────────────────────────────────
+# COMPONENTES Y ESTILOS
+# ─────────────────────────────────────────────────────────────────────────────
+# - Props SIEMPRE tipadas con interface.
+# - Un componente = una responsabilidad.
+# - Usar Vanilla CSS o CSS Modules para estilos, no Tailwind (a menos que se pida expresamente).
+# - Animaciones orgánicas (staggering) con motion (Framer Motion).

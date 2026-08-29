@@ -1,0 +1,31 @@
+.site-shell {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+.main-content {
+  width: 100%;
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding-inline: var(--page-gutter);
+  flex: 1;
+}
+
+@media (max-width: 1080px) {
+  .main-content {
+    padding-inline: 4.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .main-content {
+    padding-inline: 2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .main-content {
+    padding-inline: 1.25rem;
+  }
+}

@@ -1,0 +1,286 @@
+.ambient-backdrop {
+  --ambient-pointer-x: 0px;
+  --ambient-pointer-y: 0px;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  z-index: 0;
+  width: min(100vw, calc(100% + 12rem));
+  overflow: hidden;
+  pointer-events: none;
+  transform: translateX(-50%);
+  mask-image: linear-gradient(to bottom, transparent 1%, black 13%, black 87%, transparent 99%);
+  -webkit-mask-image: linear-gradient(to bottom, transparent 1%, black 13%, black 87%, transparent 99%);
+}
+
+.ambient-backdrop svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.career-routes {
+  fill: none;
+  stroke-width: 0.85;
+  vector-effect: non-scaling-stroke;
+  transition: transform 850ms var(--ease-out-expo);
+}
+
+.career-routes--far {
+  stroke: url('#career-route-secondary');
+  opacity: 0.17;
+  transform: translate(
+    calc(var(--ambient-pointer-x) * -0.35),
+    calc(var(--ambient-pointer-y) * -0.35)
+  );
+}
+
+.career-routes--near {
+  stroke: url('#career-route-primary');
+  opacity: 0.24;
+  transform: translate(var(--ambient-pointer-x), var(--ambient-pointer-y));
+}
+
+.career-routes--near path:nth-child(2) {
+  stroke-dasharray: 4 11;
+  opacity: 0.72;
+}
+
+.career-routes--near path:nth-child(3) {
+  opacity: 0.58;
+}
+
+.career-milestones {
+  transform: translate(
+    calc(var(--ambient-pointer-x) * 0.55),
+    calc(var(--ambient-pointer-y) * 0.55)
+  );
+  transition: transform 720ms var(--ease-out-expo);
+}
+
+.career-milestone {
+  color: var(--color-accent-1);
+  opacity: 0.13;
+  transition: opacity 420ms ease, filter 420ms ease;
+}
+
+.career-milestone[data-tone='secondary'] {
+  color: var(--color-accent-3);
+  opacity: 0.11;
+}
+
+.career-milestone circle {
+  fill: currentColor;
+  transition: r 420ms var(--ease-out-expo);
+}
+
+.career-milestone line {
+  stroke: currentColor;
+  stroke-width: 0.65;
+  vector-effect: non-scaling-stroke;
+}
+
+.career-milestone.is-active {
+  opacity: 0.42;
+  filter: drop-shadow(0 0 4px color-mix(in srgb, currentColor 45%, transparent));
+}
+
+.career-milestone.is-active circle {
+  r: 4.8px;
+}
+
+.signal-dust-field {
+  transform: translate(
+    calc(var(--ambient-pointer-x) * 0.65),
+    calc(var(--ambient-pointer-y) * 0.65)
+  );
+  transition: transform 900ms var(--ease-out-expo);
+}
+
+.signal-star {
+  color: var(--color-accent-1);
+  opacity: 0.12;
+  transition: opacity 380ms ease, filter 380ms ease;
+}
+
+.signal-star[data-tone='secondary'] {
+  color: var(--color-accent-3);
+  opacity: 0.1;
+}
+
+.signal-star circle {
+  fill: currentColor;
+  transition: r 380ms var(--ease-out-expo);
+}
+
+.signal-star line {
+  stroke: currentColor;
+  stroke-width: 0.75;
+  vector-effect: non-scaling-stroke;
+}
+
+.signal-star.is-active {
+  opacity: 0.44;
+  filter: drop-shadow(0 0 4px color-mix(in srgb, currentColor 42%, transparent));
+}
+
+.signal-star.is-active circle {
+  r: 3.1px;
+}
+
+.signal-star.is-twinkling:not(.is-active) {
+  animation: ambient-signal-twinkle 10s ease-in-out infinite;
+}
+
+.signal-star.is-twinkling:nth-child(3n) { animation-delay: -3.5s; }
+.signal-star.is-twinkling:nth-child(5n) { animation-delay: -7s; }
+
+.orbit-field {
+  fill: none;
+  transform-origin: center;
+}
+
+.orbit-field--far {
+  stroke: var(--color-accent-3);
+  stroke-width: 0.7;
+  opacity: 0.075;
+  transform: translate(
+    calc(var(--ambient-pointer-x) * -0.35),
+    calc(var(--ambient-pointer-y) * -0.35)
+  );
+  transition: transform 900ms var(--ease-out-expo);
+}
+
+.orbit-field--far path:nth-child(2) {
+  stroke-dasharray: 3 13;
+}
+
+.orbit-field--near {
+  transform: translate(var(--ambient-pointer-x), var(--ambient-pointer-y));
+  transition: transform 760ms var(--ease-out-expo);
+}
+
+.orbit-node {
+  color: var(--color-accent-1);
+  opacity: 0.105;
+  transition: opacity 420ms ease, filter 420ms ease;
+}
+
+.orbit-node[data-tone='secondary'] {
+  color: var(--color-accent-3);
+  opacity: 0.09;
+}
+
+.orbit-node ellipse {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 0.7;
+  vector-effect: non-scaling-stroke;
+}
+
+.orbit-node circle {
+  fill: currentColor;
+  transition: r 420ms var(--ease-out-expo);
+}
+
+.orbit-node.is-active {
+  opacity: 0.34;
+  filter: drop-shadow(0 0 3px color-mix(in srgb, currentColor 36%, transparent));
+}
+
+.orbit-node.is-active circle {
+  r: 3.5px;
+}
+
+.contour-field {
+  fill: none;
+  transform: translate(
+    calc(var(--ambient-pointer-x) * 0.72),
+    calc(var(--ambient-pointer-y) * 0.72)
+  );
+  transition: transform 840ms var(--ease-out-expo);
+}
+
+.contour-island {
+  color: var(--color-accent-1);
+  opacity: 0.095;
+  transition: opacity 440ms ease, filter 440ms ease;
+}
+
+.contour-island[data-tone='secondary'] {
+  color: var(--color-accent-3);
+  opacity: 0.08;
+}
+
+.contour-island ellipse {
+  stroke: currentColor;
+  stroke-width: 0.62;
+  vector-effect: non-scaling-stroke;
+}
+
+.contour-island ellipse:nth-child(2) {
+  stroke-dasharray: 8 5;
+}
+
+.contour-island.is-active {
+  opacity: 0.29;
+  filter: drop-shadow(0 0 3px color-mix(in srgb, currentColor 32%, transparent));
+}
+
+@keyframes ambient-signal-twinkle {
+  0%, 38%, 62%, 100% { opacity: 0.1; }
+  49%, 53% { opacity: 0.25; }
+}
+
+@media (max-width: 768px), (hover: none), (pointer: coarse) {
+  .ambient-backdrop {
+    width: 100vw;
+  }
+
+  .career-routes,
+  .career-milestones,
+  .signal-dust-field,
+  .orbit-field,
+  .contour-field {
+    transform: none;
+  }
+
+  .career-milestone:nth-child(even),
+  .signal-star:nth-child(3n),
+  .signal-star:nth-child(4n),
+  .orbit-node:nth-child(even),
+  .contour-island:nth-child(even) {
+    display: none;
+  }
+
+  .signal-star.is-twinkling {
+    animation: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .career-routes,
+  .career-milestones,
+  .signal-dust-field,
+  .orbit-field,
+  .contour-field {
+    transition: none;
+    transform: none;
+  }
+
+  .career-milestone,
+  .career-milestone circle,
+  .signal-star,
+  .signal-star circle,
+  .orbit-node,
+  .orbit-node circle,
+  .contour-island {
+    transition: none;
+  }
+
+  .signal-star.is-twinkling {
+    animation: none;
+  }
+}

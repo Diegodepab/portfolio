@@ -1,0 +1,30 @@
+.site-footer {
+  display: flex;
+  padding: 15px;
+  flex-direction: column;
+  align-items: center;
+  color: var(--color-text-primary);
+  font: 0.75rem var(--font-mono);
+  text-align: center;
+}
+
+.social-links-mobile {
+  display: none;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.site-footer__credit {
+  margin-bottom: 10px;
+}
+
+.site-footer__theme {
+  font-size: 0.625rem;
+  opacity: 0.65;
+}
+
+@media (max-width: 768px) {
+  .social-links-mobile {
+    display: flex;
+  }
+}

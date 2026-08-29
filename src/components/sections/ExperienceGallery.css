@@ -1,0 +1,174 @@
+.experience-gallery {
+  width: 100%;
+  max-width: 38rem;
+  margin-top: 2rem;
+}
+
+.experience-gallery__main {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 16 / 9;
+  border: 1px solid color-mix(in srgb, var(--color-accent-1) 26%, transparent);
+  border-radius: var(--border-radius);
+  background: var(--color-bg-secondary);
+}
+
+.experience-gallery__main::after {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, color-mix(in srgb, var(--color-bg-primary) 48%, transparent), transparent 45%);
+  content: '';
+  pointer-events: none;
+}
+
+.experience-gallery__media {
+  width: 100%;
+  height: 100%;
+}
+
+.experience-gallery__media > img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: saturate(0.82) contrast(1.03);
+}
+
+.experience-gallery__media--logo {
+  display: grid;
+  background:
+    radial-gradient(circle at 30% 30%, color-mix(in srgb, var(--color-accent-1) 22%, transparent), transparent 38%),
+    radial-gradient(circle at 72% 68%, color-mix(in srgb, var(--color-accent-2) 20%, transparent), transparent 42%),
+    linear-gradient(135deg, color-mix(in srgb, var(--color-accent-3) 8%, #000), #000);
+  place-items: center;
+}
+
+.experience-gallery__media--logo > img {
+  width: min(38%, 16rem);
+  height: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 8px 18px hsl(0 0% 0% / 75%));
+}
+
+.experience-gallery__brand {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  padding: 0 20px;
+  z-index: 1;
+}
+
+.experience-gallery__brand img {
+  height: 90px;
+  width: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 8px 24px rgba(0, 0, 0, 0.4));
+}
+
+.experience-gallery__brand-text {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.experience-gallery__brand-text span {
+  font-family: var(--font-sans);
+  font-size: 2.2rem;
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  color: var(--color-text-heading);
+}
+
+.experience-gallery__brand-text small {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  color: var(--color-accent-1);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+
+.experience-gallery__count {
+  position: absolute;
+  right: 0.75rem;
+  bottom: 0.6rem;
+  z-index: 1;
+  color: var(--color-accent-3);
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+}
+
+.experience-gallery__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 0.75rem;
+}
+
+.experience-gallery figcaption {
+  color: var(--color-text-muted);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+}
+
+.experience-gallery__thumbnails {
+  display: flex;
+  gap: 0.55rem;
+}
+
+.experience-gallery__thumbnails button {
+  width: 3.1rem;
+  padding: 2px;
+  overflow: hidden;
+  aspect-ratio: 16 / 10;
+  border: 1px solid var(--color-bg-surface);
+  border-radius: 2px;
+  background: transparent;
+  cursor: pointer;
+  opacity: 0.62;
+  transition: border-color var(--duration-fast), opacity var(--duration-fast);
+}
+
+.experience-gallery__thumbnails button:hover,
+.experience-gallery__thumbnails button:focus-visible,
+.experience-gallery__thumbnails button.is-active {
+  border-color: var(--color-accent-2);
+  opacity: 1;
+}
+
+.experience-gallery__thumbnails button:focus-visible {
+  outline: 2px solid var(--color-accent-3);
+  outline-offset: 3px;
+}
+
+.experience-gallery__thumbnails img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.experience-gallery__thumbnails button.is-logo {
+  background: linear-gradient(135deg, color-mix(in srgb, var(--color-accent-1) 14%, #000), color-mix(in srgb, var(--color-accent-2) 10%, #000));
+}
+
+.experience-gallery__thumbnails button.is-logo img {
+  padding: 4px;
+  object-fit: contain;
+}
+
+@media (max-width: 480px) {
+  .experience-gallery__footer {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+  .experience-gallery__brand img {
+    height: 60px;
+  }
+  .experience-gallery__brand-text span {
+    font-size: 1.6rem;
+  }
+  .experience-gallery__brand-text small {
+    font-size: 0.55rem;
+  }
+}

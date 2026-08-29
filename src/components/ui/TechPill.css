@@ -1,0 +1,10 @@
+.tech-pill {
+  display: inline-flex;
+  padding: 0.25rem 0.75rem;
+  align-items: center;
+  border-radius: 2rem;
+  background-color: var(--color-bg-surface);
+  color: var(--color-accent-3);
+  font: 500 0.75rem var(--font-mono);
+  white-space: nowrap;
+}

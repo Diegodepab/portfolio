@@ -1,0 +1,46 @@
+:root {
+  /* Base palette — Dark navy theme */
+  --color-bg-primary: hsl(222 47% 6%);       /* Deep navy (#0a0f1c) */
+  --color-bg-secondary: hsl(222 40% 10%);    /* Slightly lighter navy */
+  --color-bg-surface: hsl(222 30% 14%);      /* Card/surface bg */
+  
+  /* Semantic accent palette — dynamically replaced by the Pokémon theme */
+  --color-accent-1: #64ffda;
+  --color-accent-2: #35c9a7;
+  --color-accent-3: #a8ffe9;
+  --color-surface-tint: #102c2b;
+  
+  /* Text hierarchy */
+  --color-text-primary: hsl(220 24% 91%);    /* Crisp light slate for body */
+  --color-text-heading: hsl(220 34% 97%);    /* Nearly white for headings */
+  --color-text-muted: hsl(220 18% 65%);      /* Secondary text with accessible contrast */
+  
+  /* Typography */
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+  
+  /* Spacing (4px base) */
+  --space-unit: 0.25rem;
+  --space-xs: calc(var(--space-unit) * 2);    /* 8px */
+  --space-sm: calc(var(--space-unit) * 3);    /* 12px */
+  --space-md: calc(var(--space-unit) * 4);    /* 16px */
+  --space-lg: calc(var(--space-unit) * 6);    /* 24px */
+  --space-xl: calc(var(--space-unit) * 8);    /* 32px */
+  --space-2xl: calc(var(--space-unit) * 16);  /* 64px */
+  --space-section: calc(var(--space-unit) * 25); /* 100px */
+  
+  /* Layout */
+  --max-width: 92rem;                         /* 1472px — wide desktop canvas */
+  --content-wide: 75rem;                      /* 1200px — grids and project pages */
+  --content-standard: 65rem;                  /* 1040px — regular sections */
+  --content-reading: 48rem;                   /* 768px — long-form text */
+  --page-gutter: clamp(4.5rem, 6vw, 7rem);    /* Clears the fixed side rails */
+  --nav-height: 4.375rem;                     /* 70px */
+  --border-radius: 0.25rem;
+  
+  /* Transitions */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --duration-fast: 150ms;
+  --duration-normal: 300ms;
+  --duration-slow: 500ms;
+}

@@ -1,0 +1,98 @@
+/* Floating Avatar Trigger */
+.avatar-guide-trigger { position: fixed; bottom: 30px; right: 30px; display: flex; flex-direction: column; align-items: center; background: transparent; border: none; cursor: pointer; z-index: 900; overflow: visible; padding: 0; outline: none; }
+.avatar-guide-trigger-img { width: 70px; height: 70px; object-fit: contain; filter: drop-shadow(0 4px 8px color-mix(in srgb, var(--color-bg-primary) 80%, transparent)); }
+.avatar-guide-trigger-text { margin-top: 8px; font-family: var(--font-mono); font-size: 0.7rem; color: var(--color-text-primary); font-weight: 500; white-space: nowrap; background: color-mix(in srgb, var(--color-bg-secondary) 95%, var(--color-accent-2)); padding: 4px 10px; border-radius: 6px; border: 1px solid var(--color-accent-1); box-shadow: 0 4px 12px color-mix(in srgb, var(--color-accent-1) 15%, transparent); position: relative; }
+.avatar-guide-trigger-text::before { content: ''; position: absolute; top: -5px; left: 50%; transform: translateX(-50%); border-width: 0 5px 5px 5px; border-style: solid; border-color: transparent transparent var(--color-accent-1) transparent; }
+.avatar-guide-trigger-text::after { content: ''; position: absolute; top: -3px; left: 50%; transform: translateX(-50%); border-width: 0 4px 4px 4px; border-style: solid; border-color: transparent transparent color-mix(in srgb, var(--color-bg-secondary) 95%, var(--color-accent-2)) transparent; }
+
+/* RPG Dialog Styles */
+.avatar-dialog-wrapper { width: 100%; min-width: 320px; max-width: 480px; pointer-events: none; }
+.avatar-dialog-container { display: flex; align-items: flex-end; gap: 20px; pointer-events: auto; }
+
+/* Custom driver.js Popover container */
+.custom-driver-popover {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 10px !important; /* Some padding to keep it off the highlight box */
+  max-width: none !important;
+  min-width: 0 !important;
+}
+/* Hide the driver's native elements */
+.custom-driver-popover .driver-popover-arrow,
+.custom-driver-popover .driver-popover-title,
+.custom-driver-popover .driver-popover-description,
+.custom-driver-popover .driver-popover-footer,
+.custom-driver-popover .driver-popover-close-btn {
+  display: none !important;
+}
+
+/* driver.js disables pointer events globally while a tour is active. */
+.driver-active .avatar-dialog-wrapper { pointer-events: none; }
+.driver-active .avatar-dialog-container,
+.driver-active .avatar-dialog-container * { pointer-events: auto; }
+
+.driver-active { --driver-animation-duration: 0.2s; }
+
+/* Portrait */
+.avatar-dialog-portrait-wrapper { flex: 0 0 auto; width: 95px; height: 95px; border-radius: 12px; border: 3px solid color-mix(in srgb, var(--color-accent-1) 80%, var(--color-bg-primary)); background: var(--color-bg-primary); overflow: hidden; box-shadow: 0 10px 40px hsl(222 60% 2% / 80%); }
+.avatar-dialog-portrait { width: 100%; height: 100%; object-fit: cover; border-radius: 9px; }
+.avatar-dialog-portrait.is-talking { animation: talk-bounce 0.18s alternate infinite; }
+
+@keyframes talk-bounce {
+  0% { transform: translateY(0) scaleY(1); }
+  100% { transform: translateY(-3px) scaleY(1.03); }
+}
+
+/* Dialog Box */
+.avatar-dialog-content { flex: 1 1 auto; background: color-mix(in srgb, var(--color-bg-secondary) 95%, var(--color-accent-3)); border: 2px solid var(--color-accent-1); border-radius: 12px; padding: 16px 20px; position: relative; box-shadow: 0 10px 40px hsl(222 60% 2% / 80%); display: flex; flex-direction: column; min-height: 110px; }
+.avatar-dialog-content::before { content: ''; position: absolute; left: -10px; bottom: 20px; border-width: 10px 10px 10px 0; border-style: solid; border-color: transparent var(--color-accent-1) transparent transparent; }
+.avatar-dialog-content::after { content: ''; position: absolute; left: -7px; bottom: 20px; border-width: 10px 10px 10px 0; border-style: solid; border-color: transparent color-mix(in srgb, var(--color-bg-secondary) 95%, var(--color-accent-3)) transparent transparent; }
+
+.avatar-dialog-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; border-bottom: 1px solid color-mix(in srgb, var(--color-accent-3) 20%, transparent); padding-bottom: 6px; }
+.avatar-dialog-header h3 { margin: 0; color: var(--color-accent-3); font-family: var(--font-mono); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; }
+.avatar-dialog-close { background: transparent; border: none; color: var(--color-text-muted); font-size: 1.2rem; cursor: pointer; padding: 0; line-height: 1; transition: color 0.2s; }
+.avatar-dialog-close:hover { color: var(--color-accent-3); }
+
+.avatar-dialog-body { flex: 1; cursor: pointer; position: relative; }
+.avatar-dialog-body p { margin: 0; color: var(--color-text-primary); font-family: var(--font-sans); font-size: 0.95rem; line-height: 1.5; }
+.avatar-dialog-cursor { display: inline-block; color: var(--color-accent-3); font-size: 0.7rem; margin-left: 6px; animation: cursor-blink 0.8s infinite; }
+.avatar-dialog-cursor.is-hidden { opacity: 0 !important; animation: none; }
+
+@keyframes cursor-blink { 0%, 100% { opacity: 1; transform: translateY(0); } 50% { opacity: 0; transform: translateY(2px); } }
+
+.avatar-dialog-actions { display: flex; justify-content: flex-end; align-items: center; gap: 8px; margin-top: 10px; }
+.avatar-dialog-next-btn { min-height: 28px; background: transparent; border: 1px solid var(--color-accent-1); color: var(--color-accent-1); border-radius: 5px; padding: 5px 12px; font-family: var(--font-mono); font-size: 0.7rem; line-height: 1.15; cursor: pointer; transition: color 0.2s, background-color 0.2s, border-color 0.2s, transform 0.2s; text-transform: uppercase; white-space: nowrap; }
+.avatar-dialog-next-btn:hover { background: color-mix(in srgb, var(--color-accent-1) 13%, transparent); }
+.avatar-dialog-next-btn:active { transform: translateY(1px); }
+.avatar-dialog-next-btn--secondary { position: relative; overflow: hidden; }
+.avatar-dialog-next-btn--secondary > span { position: relative; z-index: 1; }
+.avatar-dialog-metal-action { background: color-mix(in srgb, var(--color-accent-3) 8%, var(--color-bg-primary)) !important; border-radius: 5px; opacity: 1 !important; visibility: visible !important; }
+.avatar-dialog-next-btn--primary { border: 0; color: var(--color-accent-3); }
+.avatar-dialog-next-btn--primary:hover { background: color-mix(in srgb, var(--color-accent-3) 10%, transparent); }
+.avatar-dialog-next-btn:focus-visible,
+.avatar-dialog-close:focus-visible {
+  outline: 2px solid var(--color-accent-3);
+  outline-offset: 3px;
+}
+.avatar-dialog-next-btn--secondary:focus-visible { outline-color: var(--color-accent-1); }
+.avatar-dialog-next-btn--primary:focus-visible { outline-color: var(--color-accent-3); }
+
+@media (prefers-reduced-motion: reduce) {
+  .avatar-dialog-portrait.is-talking,
+  .avatar-dialog-cursor { animation: none; }
+  .avatar-dialog-metal-action .metal-fx-canvas,
+  .avatar-dialog-metal-action .metal-fx-glow-svg,
+  .avatar-dialog-next-btn--secondary [data-metal-fx-reflection] { display: none; }
+}
+
+@media (max-width: 768px) {
+  .avatar-guide-trigger { right: 16px; bottom: 82px; }
+  .avatar-guide-trigger-img { width: 52px; height: 52px; }
+  .avatar-guide-trigger-text { display: none; }
+  .avatar-dialog-wrapper { bottom: 15px; padding: 0 15px; }
+  .avatar-dialog-container { flex-direction: column; align-items: flex-end; gap: 12px; }
+  .avatar-dialog-portrait-wrapper { width: 70px; height: 70px; border-width: 2px; }
+  .avatar-dialog-content { width: 100%; }
+  .avatar-dialog-content::before, .avatar-dialog-content::after { display: none; }
+}

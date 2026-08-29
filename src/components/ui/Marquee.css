@@ -1,0 +1,86 @@
+.marquee-container {
+  display: flex;
+  overflow: hidden;
+  gap: var(--marquee-gap, 1rem);
+  width: 100%;
+}
+
+.marquee-row {
+  flex-direction: row;
+}
+
+.marquee-col {
+  flex-direction: column;
+}
+
+.marquee-inner {
+  display: flex;
+  flex-shrink: 0;
+  justify-content: space-around;
+  gap: var(--marquee-gap, 1rem);
+}
+
+.marquee-inner-row {
+  flex-direction: row;
+}
+
+.marquee-inner-col {
+  flex-direction: column;
+}
+
+/* Pause animation on hover */
+.marquee-container:hover .marquee-pause-hover {
+  animation-play-state: paused;
+}
+
+/* Expand on hover (show all items, hide duplicates) */
+.marquee-container.marquee-expand-hover:hover {
+  mask-image: none !important;
+  -webkit-mask-image: none !important;
+  overflow: visible;
+}
+
+.marquee-container.marquee-expand-hover:hover .marquee-inner {
+  animation: none !important;
+  transform: none !important;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  width: 100%;
+}
+
+.marquee-container.marquee-expand-hover:hover .marquee-inner:not(:first-child) {
+  display: none;
+}
+
+/* Reverse direction */
+.marquee-reverse {
+  animation-direction: reverse !important;
+}
+
+/* Keyframes */
+@keyframes marquee-horizontal {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(calc(-100% - var(--marquee-gap, 1rem)));
+  }
+}
+
+@keyframes marquee-vertical {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(calc(-100% - var(--marquee-gap, 1rem)));
+  }
+}
+
+/* Animation classes */
+.animate-marquee-horizontal {
+  animation: marquee-horizontal var(--marquee-duration, 40s) linear infinite;
+}
+
+.animate-marquee-vertical {
+  animation: marquee-vertical var(--marquee-duration, 40s) linear infinite;
+}

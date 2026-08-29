@@ -1,0 +1,70 @@
+.image-transition-stage {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.image-transition-stage__layer {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.image-transition-stage__layer--current {
+  z-index: 0;
+}
+
+.image-transition-stage__layer--incoming {
+  z-index: 1;
+  will-change: opacity, transform, clip-path;
+}
+
+.image-transition-stage__layer--incoming[data-effect='fade'] {
+  animation: image-transition-fade 680ms var(--ease-out-expo) both;
+}
+
+
+
+.image-transition-stage__pixel-layer {
+  position: absolute !important;
+  inset: 0;
+  z-index: 3;
+  display: block !important;
+  width: 100%;
+  height: 100%;
+  background: transparent !important;
+  opacity: 0;
+  animation: image-transition-pixel-layer 140ms ease-out forwards;
+}
+
+.image-transition-stage__pixel-host {
+  width: 100%;
+  height: 100%;
+}
+
+@keyframes image-transition-fade {
+  from {
+    opacity: 0;
+    transform: scale(1.028);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+
+@keyframes image-transition-pixel-layer {
+  to { opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .image-transition-stage__layer--incoming,
+  .image-transition-stage__pixel-layer {
+    animation: none;
+  }
+}
+

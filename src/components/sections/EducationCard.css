@@ -1,0 +1,381 @@
+/* ─── Education Expandable Card ──────────────────────────────────────────── */
+
+.edu-card {
+  margin-top: 40px;
+  max-width: 100%;
+  border-radius: var(--border-radius);
+}
+
+/* ─── Folder Tab (collapsed trigger) ─────────────────────────────────────── */
+
+.edu-card__trigger {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 14px 20px;
+  border: 1px solid color-mix(in srgb, var(--color-accent-1) 20%, transparent);
+  border-radius: var(--border-radius);
+  background: var(--color-bg-surface);
+  color: var(--color-text-heading);
+  font-family: var(--font-mono);
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--duration-normal) var(--ease-out-expo);
+}
+
+.edu-card__trigger:hover {
+  border-color: var(--color-accent-1);
+  background: color-mix(in srgb, var(--color-accent-1) 6%, var(--color-bg-surface));
+}
+
+.edu-card__trigger[aria-expanded="true"] {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  border-color: color-mix(in srgb, var(--color-accent-1) 35%, transparent);
+}
+
+.edu-card__trigger-icon {
+  color: var(--color-accent-1);
+  flex-shrink: 0;
+}
+
+.edu-card__trigger-label {
+  flex: 1;
+  text-align: left;
+}
+
+.edu-card__trigger-chevron {
+  color: var(--color-text-muted);
+  transition: transform var(--duration-normal) var(--ease-out-expo);
+  flex-shrink: 0;
+}
+
+.edu-card__trigger[aria-expanded="true"] .edu-card__trigger-chevron {
+  transform: rotate(180deg);
+}
+
+/* ─── Content Panel ──────────────────────────────────────────────────────── */
+
+.edu-card__content {
+  overflow: hidden;
+  border: 1px solid color-mix(in srgb, var(--color-accent-1) 15%, transparent);
+  border-top: none;
+  border-bottom-left-radius: var(--border-radius);
+  border-bottom-right-radius: var(--border-radius);
+  background: var(--color-bg-secondary);
+}
+
+.edu-card__inner {
+  padding: 20px;
+}
+
+/* ─── Category Tabs (Carreras | Certificados) ────────────────────────────── */
+
+.edu-tabs {
+  display: flex;
+  gap: 0;
+  margin-bottom: 24px;
+  border-bottom: 1px solid var(--color-bg-surface);
+}
+
+.edu-tab {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  border: none;
+  border-bottom: 2px solid transparent;
+  background: transparent;
+  color: var(--color-text-muted);
+  font-family: var(--font-mono);
+  font-size: 13px;
+  cursor: pointer;
+  transition: all var(--duration-fast);
+}
+
+.edu-tab:hover {
+  color: var(--color-text-heading);
+  background: color-mix(in srgb, var(--color-bg-surface) 50%, transparent);
+}
+
+.edu-tab--active {
+  color: var(--color-accent-2);
+  border-bottom-color: var(--color-accent-2);
+}
+
+.edu-tab__icon {
+  flex-shrink: 0;
+}
+
+.edu-tab__count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 6px;
+  border-radius: 10px;
+  background: color-mix(in srgb, var(--color-accent-2) 15%, transparent);
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--color-accent-2);
+}
+
+/* ─── Entry Card (individual degree / certificate) ───────────────────────── */
+
+.edu-entry {
+  position: relative;
+  padding: 24px;
+  margin-bottom: 16px;
+  border: 1px solid color-mix(in srgb, var(--color-accent-1) 12%, transparent);
+  border-radius: var(--border-radius);
+  background: var(--color-bg-primary);
+  transition: border-color var(--duration-normal) var(--ease-out-expo);
+}
+
+.edu-entry:last-child {
+  margin-bottom: 0;
+}
+
+.edu-entry:hover {
+  border-color: color-mix(in srgb, var(--color-accent-1) 30%, transparent);
+}
+
+/* Header row */
+.edu-entry__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+  margin-bottom: 12px;
+}
+
+/* Title block */
+.edu-entry__title-block {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.edu-entry__title {
+  margin: 0;
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--color-text-heading);
+  line-height: 1.4;
+}
+
+/* Grade badge — right aligned */
+.edu-entry__grade-wrapper {
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.edu-entry__grade {
+  display: inline-flex;
+  align-items: baseline;
+  padding: 4px 14px;
+  border-radius: 14px;
+  border: 1px solid color-mix(in srgb, var(--color-accent-3) 35%, transparent);
+  background: color-mix(in srgb, var(--color-accent-3) 12%, transparent);
+  color: var(--color-accent-3);
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 15px;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+
+.edu-entry__grade-max {
+  font-weight: 400;
+  font-size: 11px;
+  opacity: 0.7;
+  margin-left: 1px;
+}
+
+.edu-entry__institution {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+
+.edu-entry__institution a {
+  color: var(--color-accent-1);
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.edu-entry__meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--color-text-muted);
+}
+
+.edu-entry__discipline {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 10px;
+  border-radius: 12px;
+  background: color-mix(in srgb, var(--color-accent-2) 12%, transparent);
+  color: var(--color-accent-2);
+  font-size: 12px;
+}
+
+/* Description with whitespace preserved for line breaks */
+.edu-entry__description {
+  margin: 16px 0;
+  font-size: 14px;
+  line-height: 1.7;
+  color: var(--color-text-primary);
+  white-space: pre-line;
+}
+
+/* ─── Skills pills ───────────────────────────────────────────────────────── */
+
+.edu-skills-marquee-wrapper {
+  margin-top: 16px;
+  width: 100%;
+  --marquee-gap: 12px;
+}
+
+.edu-skills-marquee-inner {
+  align-items: center;
+}
+
+.edu-skill-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 12px;
+  border: 1px solid color-mix(in srgb, var(--color-accent-2) 20%, transparent);
+  border-radius: 16px;
+  background: color-mix(in srgb, var(--color-accent-2) 6%, transparent);
+  color: var(--color-text-primary);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  transition: all var(--duration-fast);
+}
+
+.edu-skill-pill:hover {
+  border-color: var(--color-accent-2);
+  color: var(--color-accent-2);
+  transform: translateY(-1px);
+}
+
+
+
+/* ─── Media Viewer (thumbnail) ───────────────────────────────────────────── */
+
+.edu-media {
+  margin-top: 20px;
+}
+
+.edu-media__toggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border: 1px solid color-mix(in srgb, var(--color-accent-3) 20%, transparent);
+  border-radius: var(--border-radius);
+  background: transparent;
+  color: var(--color-accent-3);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  cursor: pointer;
+  transition: all var(--duration-fast);
+}
+
+.edu-media__toggle:hover {
+  background: color-mix(in srgb, var(--color-accent-3) 8%, transparent);
+  border-color: var(--color-accent-3);
+}
+
+/* Thumbnail container — protected overlay */
+.edu-media__thumbnail {
+  position: relative;
+  margin-top: 12px;
+  border: 1px solid color-mix(in srgb, var(--color-accent-1) 15%, transparent);
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  background: #fff;
+}
+
+/* Invisible overlay to block clicks / downloads */
+.edu-media__overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  cursor: default;
+}
+
+.edu-media__pdf {
+  display: block;
+  width: 100%;
+  height: 450px;
+  border: none;
+  pointer-events: none; /* Secondary prevention */
+}
+
+.edu-media__img {
+  display: block;
+  width: 100%;
+  height: auto;
+  pointer-events: none;
+}
+
+/* ─── Responsive ─────────────────────────────────────────────────────────── */
+
+@media (max-width: 768px) {
+  .edu-card__inner {
+    padding: 14px;
+  }
+
+  .edu-entry {
+    padding: 16px;
+  }
+
+  .edu-entry__header {
+    flex-direction: column;
+  }
+
+  .edu-entry__title-block {
+    gap: 8px;
+  }
+
+  .edu-tabs {
+    overflow-x: auto;
+  }
+
+  .edu-tab {
+    padding: 8px 14px;
+    white-space: nowrap;
+  }
+}
+
+@media (max-width: 480px) {
+  .edu-card__trigger {
+    padding: 12px 16px;
+    font-size: 13px;
+  }
+
+  .edu-media__pdf {
+    height: 220px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .edu-card__trigger,
+  .edu-card__trigger-chevron,
+  .edu-entry,
+  .edu-skill-pill {
+    transition: none;
+  }
+}

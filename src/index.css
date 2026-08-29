@@ -1,0 +1,12 @@
+/* Application shell only. Component and design-system styles live in styles/global.css. */
+html,
+body,
+#root {
+  min-width: 20rem;
+  min-height: 100%;
+}
+
+#root {
+  width: 100%;
+  min-height: 100svh;
+}
