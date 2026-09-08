@@ -78,6 +78,7 @@ export default defineConfig(({ mode }) => {
     ],
     build: {
       sourcemap: true,
+      chunkSizeWarningLimit: 1000,
       rolldownOptions: {
         output: {
           codeSplitting: {
@@ -85,7 +86,17 @@ export default defineConfig(({ mode }) => {
               {
                 name: 'react-vendor',
                 test: /node_modules[\\/](react|react-dom|react-router|react-router-dom|scheduler)[\\/]/,
-                priority: 20,
+                priority: 50,
+              },
+              {
+                name: 'three-vendor',
+                test: /node_modules[\\/](three|img-fx)[\\/]/,
+                priority: 25,
+              },
+              {
+                name: 'markdown-vendor',
+                test: /node_modules[\\/](react-markdown|unified|remark|rehype|micromark|mdast|hast|unist|vfile|property-information|space-separated-tokens|comma-separated-tokens|decode-named-character-reference|trim-lines|trough|bail|devlop|extend|inline-style-parser|is-plain-obj|style-to)/,
+                priority: 22,
               },
               {
                 name: 'ui-vendor',
