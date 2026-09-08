@@ -1,18 +1,26 @@
 import { useLanguage } from '../../context/LanguageContext';
 import { CrossfadeGallery, type GalleryImage } from '../ui/CrossfadeGallery';
 
+const landscapeMedia = (name: string) => ({
+  src: `/images/landscapes/${name}.webp`,
+  srcSet: `/images/landscapes/${name}-mob.webp 400w, /images/landscapes/${name}.webp 700w`,
+  sizes: '(max-width: 600px) 300px, 450px',
+  width: 700,
+  height: 933,
+});
+
 const landscapes: Record<'es' | 'en', GalleryImage[]> = {
   es: [
-    { src: '/images/landscapes/atardecer.webp', alt: 'Camino al atardecer entre árboles' },
-    { src: '/images/landscapes/mar.webp', alt: 'Costa rocosa junto al mar' },
-    { src: '/images/landscapes/muelle.webp', alt: 'Muelle frente al mar al atardecer' },
-    { src: '/images/landscapes/naturaleza.webp', alt: 'Arroyo rodeado de vegetación' },
+    { ...landscapeMedia('atardecer'), alt: 'Camino al atardecer entre árboles' },
+    { ...landscapeMedia('mar'), alt: 'Costa rocosa junto al mar' },
+    { ...landscapeMedia('muelle'), alt: 'Muelle frente al mar al atardecer' },
+    { ...landscapeMedia('naturaleza'), alt: 'Arroyo rodeado de vegetación' },
   ],
   en: [
-    { src: '/images/landscapes/atardecer.webp', alt: 'Path at sunset between trees' },
-    { src: '/images/landscapes/mar.webp', alt: 'Rocky coastline by the sea' },
-    { src: '/images/landscapes/muelle.webp', alt: 'Pier facing the sea at sunset' },
-    { src: '/images/landscapes/naturaleza.webp', alt: 'Stream surrounded by vegetation' },
+    { ...landscapeMedia('atardecer'), alt: 'Path at sunset between trees' },
+    { ...landscapeMedia('mar'), alt: 'Rocky coastline by the sea' },
+    { ...landscapeMedia('muelle'), alt: 'Pier facing the sea at sunset' },
+    { ...landscapeMedia('naturaleza'), alt: 'Stream surrounded by vegetation' },
   ],
 };
 
@@ -36,6 +44,8 @@ export const HeroCollage = () => {
           alt={lang === 'en' ? 'Formal portrait of Diego De Pablo' : 'Retrato formal de Diego De Pablo'}
           loading="eager"
           fetchPriority="high"
+          width={450}
+          height={594}
         />
       </div>
 

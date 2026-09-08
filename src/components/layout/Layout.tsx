@@ -16,10 +16,12 @@ export const Layout: React.FC<LayoutProps> = ({ children, themeName, pokemon, on
   return (
     <div className="site-shell">
       <Nav pokemon={pokemon} onPokemonChange={onPokemonChange} />
-      <SideElements pokemon={pokemon} onPokemonChange={onPokemonChange} />
+      <div className="layout-columns">
+        <SideElements pokemon={pokemon} onPokemonChange={onPokemonChange} />
 
-      <div className="main-content">
-        {children}
+        <div className="main-content">
+          {children}
+        </div>
       </div>
 
       <Footer themeName={themeName} />

@@ -55,9 +55,10 @@ export const Nav: React.FC<NavProps> = ({ pokemon, onPokemonChange }) => {
       transition={{ duration: 0.3, ease: 'easeInOut' }}
       className="site-header"
     >
-      <div className="site-logo">
-        <Link to="/">DDP</Link>
-      </div>
+      <div className="site-header-inner">
+        <div className="site-logo">
+          <Link to="/">DDP</Link>
+        </div>
 
       <nav className={`site-nav${menuOpen ? ' is-open' : ''}`} aria-label={lang === 'en' ? 'Main navigation' : 'Navegación principal'}>
         <button
@@ -143,6 +144,7 @@ export const Nav: React.FC<NavProps> = ({ pokemon, onPokemonChange }) => {
           </motion.div>
         )}
       </nav>
+      </div>
     </motion.header>
   );
 };

@@ -6,7 +6,7 @@
 }
 
 .side-elements-left {
-  left: 40px;
+  left: max(1.5rem, calc(50% - (clamp(320px, 90vw, 1200px) / 2) - 4rem));
   bottom: 0;
   top: auto;
   width: 48px;
@@ -15,7 +15,7 @@
 .side-elements-right {
   top: 50%;
   bottom: auto;
-  right: 40px;
+  right: max(1.5rem, calc(50% - (clamp(320px, 90vw, 1200px) / 2) - 4rem));
   width: 48px;
   transform: translateY(-50%);
 }
