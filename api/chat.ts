@@ -1,6 +1,6 @@
 import Groq from 'groq-sdk';
 import type { VercelRequest, VercelResponse } from '@vercel/node';
-import { retrieveRelevantChunks } from './knowledge';
+import { retrieveRelevantChunks } from './knowledge.js';
 
 type Language = 'en' | 'es';
 type ChatRole = 'user' | 'assistant';
@@ -79,7 +79,7 @@ export function parseMessages(body: ChatBody): IncomingMessage[] | null {
     messages.push({ role, content: normalizedContent });
   }
 
-  return messages.at(-1)?.role === 'user' ? messages : null;
+  return messages[messages.length - 1]?.role === 'user' ? messages : null;
 }
 
 function buildSystemPrompt(context: string, lang: Language): string {
@@ -145,7 +145,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     });
   }
 
-  const lastMessage = messages.at(-1)!;
+  const lastMessage = messages[messages.length - 1];
   const chunks = retrieveRelevantChunks(lastMessage.content, 4);
   const context = chunks.map((chunk) => chunk.content).join('\n\n---\n\n');
   const references = Array.from(
