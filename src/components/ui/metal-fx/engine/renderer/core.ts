@@ -120,67 +120,94 @@ function buildGLPipeline(gl: WebGLRenderingContext): {
   return { program, buffer, uniforms };
 }
 
-export function ensureSharedRenderer(): SharedRenderer {
+let _webGLSupported: boolean | null = null;
+
+export function isWebGLSupported(): boolean {
+  if (_webGLSupported !== null) return _webGLSupported;
+  if (typeof window === 'undefined' || typeof document === 'undefined') {
+    return false;
+  }
+  try {
+    const canvas = document.createElement('canvas');
+    const gl = canvas.getContext('webgl') ?? canvas.getContext('experimental-webgl');
+    _webGLSupported = Boolean(gl);
+  } catch {
+    _webGLSupported = false;
+  }
+  return _webGLSupported;
+}
+
+export function ensureSharedRenderer(): SharedRenderer | null {
   if (SHARED) return SHARED;
+  if (!isWebGLSupported()) return null;
 
   const dpr = Math.min(GL_DPR_CAP, typeof window !== 'undefined' ? window.devicePixelRatio || 1 : 1);
   const size = Math.round(CANONICAL_GL_SIZE * dpr);
   const useOffscreen = false; // Forced false to ensure WebGL compat on Linux dev env
 
   let glCanvas: HTMLCanvasElement | OffscreenCanvas;
-  let gl: WebGLRenderingContext | null;
+  let gl: WebGLRenderingContext | null = null;
 
-  if (useOffscreen) {
-    glCanvas = new OffscreenCanvas(size, size);
-    gl = glCanvas.getContext('webgl', {
-      alpha: true, premultipliedAlpha: false, antialias: false,
-    }) as WebGLRenderingContext | null;
-  } else {
-    const htmlCanvas = document.createElement('canvas');
-    htmlCanvas.width = size;
-    htmlCanvas.height = size;
-    gl = (htmlCanvas.getContext('webgl', {
-      alpha: true, premultipliedAlpha: false, antialias: false, preserveDrawingBuffer: true,
-    }) ?? htmlCanvas.getContext('experimental-webgl')) as WebGLRenderingContext | null;
-    glCanvas = htmlCanvas;
+  try {
+    if (useOffscreen && typeof OffscreenCanvas !== 'undefined') {
+      glCanvas = new OffscreenCanvas(size, size);
+      gl = glCanvas.getContext('webgl', {
+        alpha: true, premultipliedAlpha: false, antialias: false,
+      }) as WebGLRenderingContext | null;
+    } else {
+      const htmlCanvas = document.createElement('canvas');
+      htmlCanvas.width = size;
+      htmlCanvas.height = size;
+      gl = (htmlCanvas.getContext('webgl', {
+        alpha: true, premultipliedAlpha: false, antialias: false, preserveDrawingBuffer: true,
+      }) ?? htmlCanvas.getContext('experimental-webgl')) as WebGLRenderingContext | null;
+      glCanvas = htmlCanvas;
+    }
+    if (!gl) return null;
+
+    const { program, buffer, uniforms } = buildGLPipeline(gl);
+
+    const renderer: SharedRenderer = {
+      glCanvas, gl, program, buffer, uniforms,
+      preset: PRESETS.chromatic.modes.dark, presetDirty: true,
+      contextLost: false, useOffscreen, frameBitmap: null,
+      startMs: performance.now(), pausedMs: 0, pausedAtMs: null,
+      rafId: 0, dpr, instances: new Set(), frameCount: 0,
+      glowQueue: [], glowIdx: 0, glowSkip: 0,
+      glowPixels: new Uint8Array(size * size * 4),
+      glowPixelsW: size, glowPixelsH: size,
+    };
+
+    // Context events can arrive after a renderer has been torn down (notably
+    // during React StrictMode's development remount). Keep those stale events
+    // from mutating the replacement shared renderer.
+    const onContextLost = (e: Event) => {
+      e.preventDefault();
+      if (SHARED === renderer) renderer.contextLost = true;
+    };
+    const onContextRestored = () => {
+      if (SHARED !== renderer) return;
+      try {
+        const rebuilt = buildGLPipeline(renderer.gl);
+        renderer.program = rebuilt.program;
+        renderer.buffer = rebuilt.buffer;
+        renderer.uniforms = rebuilt.uniforms;
+        renderer.presetDirty = true;
+        renderer.contextLost = false;
+        _onContextRestored?.();
+      } catch {
+        renderer.contextLost = true;
+      }
+    };
+    glCanvas.addEventListener('webglcontextlost', onContextLost as EventListener, false);
+    glCanvas.addEventListener('webglcontextrestored', onContextRestored as EventListener, false);
+
+    SHARED = renderer;
+    return renderer;
+  } catch (err) {
+    console.warn('[metal-fx] WebGL initialization failed, falling back to CSS styling:', err);
+    return null;
   }
-  if (!gl) throw new Error('metal-fx: WebGL not supported');
-
-  const { program, buffer, uniforms } = buildGLPipeline(gl);
-
-  const renderer: SharedRenderer = {
-    glCanvas, gl, program, buffer, uniforms,
-    preset: PRESETS.chromatic.modes.dark, presetDirty: true,
-    contextLost: false, useOffscreen, frameBitmap: null,
-    startMs: performance.now(), pausedMs: 0, pausedAtMs: null,
-    rafId: 0, dpr, instances: new Set(), frameCount: 0,
-    glowQueue: [], glowIdx: 0, glowSkip: 0,
-    glowPixels: new Uint8Array(size * size * 4),
-    glowPixelsW: size, glowPixelsH: size,
-  };
-
-  // Context events can arrive after a renderer has been torn down (notably
-  // during React StrictMode's development remount). Keep those stale events
-  // from mutating the replacement shared renderer.
-  const onContextLost = (e: Event) => {
-    e.preventDefault();
-    if (SHARED === renderer) renderer.contextLost = true;
-  };
-  const onContextRestored = () => {
-    if (SHARED !== renderer) return;
-    const rebuilt = buildGLPipeline(renderer.gl);
-    renderer.program = rebuilt.program;
-    renderer.buffer = rebuilt.buffer;
-    renderer.uniforms = rebuilt.uniforms;
-    renderer.presetDirty = true;
-    renderer.contextLost = false;
-    _onContextRestored?.();
-  };
-  glCanvas.addEventListener('webglcontextlost', onContextLost as EventListener, false);
-  glCanvas.addEventListener('webglcontextrestored', onContextRestored as EventListener, false);
-
-  SHARED = renderer;
-  return renderer;
 }
 
 export function teardownSharedRenderer(): void {

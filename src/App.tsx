@@ -59,7 +59,7 @@ const ScrollHandler = () => {
   return null;
 };
 
-const SiteMetadata = () => {
+const SiteMetadata = ({ sprite }: { sprite?: string }) => {
   const { lang } = useLanguage();
   const { pathname } = useLocation();
   const title = `${siteConfig.name} | ${siteConfig.title[lang]}`;
@@ -75,6 +75,7 @@ const SiteMetadata = () => {
       <meta property="og:image" content={`${window.location.origin}/images/portraits/diego-formal.webp`} />
       <meta name="twitter:card" content="summary_large_image" />
       <link rel="canonical" href={canonicalUrl} />
+      {sprite && <link rel="preload" as="image" href={sprite} />}
     </Helmet>
   );
 };
@@ -119,7 +120,7 @@ function MainApp() {
   return (
     <HelmetProvider>
       <BrowserRouter>
-        <SiteMetadata />
+        <SiteMetadata sprite={currentPalette.sprite} />
         <ScrollHandler />
         <Layout
           themeName={currentPalette.name}

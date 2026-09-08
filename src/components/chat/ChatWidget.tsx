@@ -73,10 +73,14 @@ export const ChatWidget: React.FC<ChatWidgetProps> = ({ hidden = false, forceOpe
             aria-haspopup="dialog"
           >
             <img
-              src="/images/avatar-pixel.png"
+              src="/images/avatar-pixel.webp"
               alt="dIAgo"
+              width={38}
+              height={38}
+              loading="lazy"
+              decoding="async"
               onError={(e) => {
-                (e.target as HTMLImageElement).style.display = 'none';
+                (e.target as HTMLImageElement).src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="%2364ffda" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>';
               }}
             />
           </motion.button>

@@ -55,9 +55,11 @@ export const ChatWindow: React.FC<ChatWindowProps> = ({ onClose }) => {
       {/* Header */}
       <div className="chat-header">
         <img
-          src="/images/avatar-pixel.png"
+          src="/images/avatar-pixel.webp"
           alt="dIAgo"
           className="chat-header-avatar"
+          width={40}
+          height={40}
           onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }}
         />
         <div className="chat-header-info">

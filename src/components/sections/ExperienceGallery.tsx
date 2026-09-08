@@ -44,14 +44,26 @@ export const ExperienceGallery = ({ photos }: ExperienceGalleryProps) => {
             <div className={`experience-gallery__media${photo.kind === 'logo' ? ' experience-gallery__media--logo' : ''}`}>
               {photo.kind === 'logo' && photo.brandText ? (
                 <div className="experience-gallery__brand">
-                  <img src={photo.src} alt={photo.alt[lang]} loading="lazy" />
+                  <img
+                    src={photo.src}
+                    alt={photo.alt[lang]}
+                    loading="lazy"
+                    width={photo.kind === 'logo' ? 120 : 640}
+                    height={photo.kind === 'logo' ? 52 : 360}
+                  />
                   <div className="experience-gallery__brand-text">
                     <span>{photo.brandText}</span>
                     {photo.brandSubtext && <small>{photo.brandSubtext}</small>}
                   </div>
                 </div>
               ) : (
-                <img src={photo.src} alt={photo.alt[lang]} loading="lazy" />
+                <img
+                  src={photo.src}
+                  alt={photo.alt[lang]}
+                  loading="lazy"
+                  width={photo.kind === 'logo' ? 120 : 640}
+                  height={photo.kind === 'logo' ? 52 : 360}
+                />
               )}
             </div>
           )}
@@ -71,7 +83,7 @@ export const ExperienceGallery = ({ photos }: ExperienceGalleryProps) => {
               aria-label={`${lang === 'en' ? 'Show photo' : 'Mostrar foto'} ${index + 1}`}
               aria-pressed={activeIndex === index}
             >
-              <img src={photo.src} alt="" loading="lazy" />
+              <img src={photo.src} alt="" loading="lazy" width={50} height={31} />
             </button>
           ))}
         </div>

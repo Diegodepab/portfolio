@@ -32,9 +32,11 @@ export const MessageBubble: React.FC<MessageBubbleProps> = ({ message, isStreami
   return (
     <div className="chat-bubble chat-bubble--assistant" role="log">
       <img
-        src="/images/avatar-pixel.png"
+        src="/images/avatar-pixel.webp"
         alt="dIAgo"
         className="chat-bubble-avatar"
+        width={32}
+        height={32}
         onError={(e) => {
           (e.target as HTMLImageElement).style.display = 'none';
         }}

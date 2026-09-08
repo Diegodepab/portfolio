@@ -84,7 +84,7 @@ export const Experience: React.FC = () => {
         </div>
 
         <AnimatePresence mode="wait">
-          <motion.article key={job.id} id={`job-panel-${activeTabId}`} role="tabpanel" aria-labelledby={`job-tab-${activeTabId}`} className={`experience-card experience-card--${job.id}${projects.length > 0 ? ' experience-card--with-projects' : ''}`} initial={{ opacity: 0, x: 18 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -12 }} transition={{ duration: .22 }}>
+          <motion.div key={job.id} id={`job-panel-${activeTabId}`} role="tabpanel" aria-labelledby={`job-tab-${activeTabId}`} className={`experience-card experience-card--${job.id}${projects.length > 0 ? ' experience-card--with-projects' : ''}`} initial={{ opacity: 0, x: 18 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -12 }} transition={{ duration: .22 }}>
             <header className="experience-header">
               <p className="experience-eyebrow">{String(activeTabId + 1).padStart(2, '0')} / {String(experiences.length).padStart(2, '0')} · {start} — {end}</p>
               <h3>
@@ -111,7 +111,7 @@ export const Experience: React.FC = () => {
               </div>
             </div>
             {job.photos && job.photos.length > 0 && <ExperienceGallery photos={job.photos} />}
-          </motion.article>
+          </motion.div>
         </AnimatePresence>
       </div>
     </section>

@@ -1,0 +1,28 @@
+# Diego De Pablo
+
+> Full-stack software engineer specializing in large-scale data management, federated data spaces, and AI applications.
+
+Diego De Pablo is a software engineer based in Málaga, Spain, working at Khaos Research (University of Málaga) and building modern web applications, distributed pipelines, and AI systems.
+
+## Key Projects
+
+- [MetaDataXtract](https://github.com/KhaosResearch/MetaDataXtract): Automatic metadata extraction pipeline supporting 30+ scientific data formats.
+- [MetaDataSearch](https://github.com/KhaosResearch/metadataSearchTool): Semantic search and retrieval system powered by LLMs for distributed data catalogs.
+- [AlignX](https://github.com/KhaosResearch/AlignX): Intelligent alignment and reconciliation tool for federated data space schemas.
+- [mSurgery Platform](https://msurgery.com/): Immersive telepresence and surgical collaboration system.
+- [Kubernetes GitOps Platform](https://github.com/Diegodepab): Production-grade microservices deployment with Argo CD, Helm, and Envoy Gateway.
+- [Patient Monitoring IoT](https://github.com/Diegodepab): Real-time biomedical telemetry streaming and alert platform.
+
+## Portfolio Navigation
+
+- [Home](https://diegodepablo.dev/): Main portfolio landing page.
+- [Work & Projects](https://diegodepablo.dev/projects): Comprehensive catalog of software engineering and research projects.
+- [Experience](https://diegodepablo.dev/#jobs): Professional history, research groups, and company roles.
+- [About](https://diegodepablo.dev/#about): Technical background, philosophy, and personal interests.
+- [Contact](https://diegodepablo.dev/#contact): Contact channels and inquiry form.
+
+## Contact & Profiles
+
+- [GitHub](https://github.com/Diegodepab): Open-source repositories and contributions.
+- [LinkedIn](https://www.linkedin.com/in/diego-de-pablo/): Professional profile and network.
+- [Email](mailto:diegodepablo.programa@gmail.com): Direct contact.

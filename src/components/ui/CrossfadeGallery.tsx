@@ -10,6 +10,10 @@ export interface GalleryImage {
   src: string;
   alt: string;
   position?: string;
+  srcSet?: string;
+  sizes?: string;
+  width?: number;
+  height?: number;
 }
 
 interface CrossfadeGalleryProps {
@@ -69,6 +73,10 @@ export const CrossfadeGallery: FC<CrossfadeGalleryProps> = ({
           renderItem={(image, index) => (
             <img
               src={image.src}
+              srcSet={image.srcSet}
+              sizes={image.sizes}
+              width={image.width ?? 700}
+              height={image.height ?? 933}
               alt={image.alt}
               className="crossfade-gallery__image"
               style={{ objectPosition: image.position }}

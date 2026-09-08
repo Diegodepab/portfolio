@@ -34,6 +34,7 @@ export const ChatInput: React.FC<ChatInputProps> = ({ onSend, disabled, state, l
     const el = textareaRef.current;
     if (!el) return;
     // Remove control characters (except common whitespace) and trim
+    // eslint-disable-next-line no-control-regex
     const text = value.replace(/[\u0000-\u0009\u000b-\u001f\u007f-\u009f]/g, '').trim();
     if (!text || text.length > MAX_CHARS) return;
     onSend(text);

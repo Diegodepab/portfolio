@@ -35,6 +35,8 @@ export const PokemonButton: React.FC<PokemonButtonProps> = ({ pokemon, onPokemon
         alt=""
         width={compact ? 44 : 40}
         height={compact ? 44 : 40}
+        loading="eager"
+        decoding="async"
         initial={shouldReduceMotion ? false : { opacity: 0, scale: 0.6, y: 8 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
         transition={{ type: 'spring', stiffness: 420, damping: 18 }}
@@ -120,6 +122,10 @@ export const SideElements: React.FC<SideElementsProps> = ({ pokemon, onPokemonCh
       </div>
 
 
+
+      <div className="pokemon-mobile-trigger">
+        <PokemonButton pokemon={pokemon} onPokemonChange={onPokemonChange} compact />
+      </div>
 
       <span id="pokemon-palette-status" className="visually-hidden" aria-live="polite">
         Paleta de {pokemon.name} activada

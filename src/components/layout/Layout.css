@@ -2,30 +2,39 @@
   display: flex;
   min-height: 100vh;
   flex-direction: column;
+  width: clamp(320px, 90vw, 1200px);
+  margin-inline: auto;
+  padding-inline: 2rem;
+  position: relative;
+}
+
+.layout-columns {
+  display: flex;
+  justify-content: center;
+  gap: 3.5rem;
+  width: 100%;
+  flex: 1;
+  position: relative;
 }
 
 .main-content {
   width: 100%;
-  max-width: var(--max-width);
   margin: 0 auto;
-  padding-inline: var(--page-gutter);
   flex: 1;
 }
 
-@media (max-width: 1080px) {
-  .main-content {
-    padding-inline: 4.5rem;
-  }
-}
-
 @media (max-width: 768px) {
-  .main-content {
-    padding-inline: 2rem;
+  .site-shell {
+    padding-inline: 1.25rem;
+  }
+
+  .layout-columns {
+    gap: 0;
   }
 }
 
 @media (max-width: 480px) {
-  .main-content {
-    padding-inline: 1.25rem;
+  .site-shell {
+    padding-inline: 1rem;
   }
 }

@@ -111,9 +111,11 @@ export const AvatarGuide: React.FC<AvatarGuideProps> = ({ onOpenChat }) => {
             aria-label={lang === 'en' ? 'Start guided tour' : 'Iniciar tour guiado'}
           >
             <img 
-              src="/images/avatar-pixel.png" 
+              src="/images/avatar-pixel.webp" 
               alt="" 
               className="avatar-guide-trigger-img"
+              width={52}
+              height={52}
               onError={(e) => {
                 (e.target as HTMLImageElement).src = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSJjdXJyZW50Q29sb3IiIHN0cm9rZS13aWR0aD0iMiIgY3Vyb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj48cGF0aCBkPSJNMjAgMjF2LTJhNCA0IDAgMCAwLTRtLTRoNGE0IDQgMCAwIDAtNC00SDhhNCA0IDAgMCAwLTQgNHYyIi8+PGNpcmNsZSBjeD0iMTIiIGN5PSI3IiByPSI0Ii8+PC9zdmc+';
               }}
@@ -144,9 +146,11 @@ export const AvatarGuide: React.FC<AvatarGuideProps> = ({ onOpenChat }) => {
                 >
                 <div className="avatar-dialog-portrait-wrapper">
                   <img 
-                    src="/images/avatar-pixel.png" 
+                    src="/images/avatar-pixel.webp" 
                     alt="Avatar Guide" 
                     className={`avatar-dialog-portrait ${isTyping ? 'is-talking' : ''}`}
+                    width={64}
+                    height={64}
                     onError={(e) => {
                       (e.target as HTMLImageElement).src = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSJjdXJyZW50Q29sb3IiIHN0cm9rZS13aWR0aD0iMiIgY3Vyb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj48cGF0aCBkPSJNMjAgMjF2LTJhNCA0IDAgMCAwLTRtLTRoNGE0IDQgMCAwIDAtNC00SDhhNCA0IDAgMCAwLTQgNHYyIi8+PGNpcmNsZSBjeD0iMTIiIGN5PSI3IiByPSI0Ii8+PC9zdmc+';
                       (e.target as HTMLImageElement).style.padding = '12px';
