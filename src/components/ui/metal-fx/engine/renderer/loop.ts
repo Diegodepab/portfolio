@@ -50,10 +50,11 @@ interface CreateInstanceOptions {
   onFirstCopy?: () => void;
 }
 
-export function createInstance(opts: CreateInstanceOptions): MetalFxInstance {
+export function createInstance(opts: CreateInstanceOptions): MetalFxInstance | null {
   const renderer = ensureSharedRenderer();
+  if (!renderer) return null;
   const ctx = opts.hostCanvas.getContext('2d', { alpha: true });
-  if (!ctx) throw new Error('metal-fx: canvas 2D context unavailable');
+  if (!ctx) return null;
 
   const scale = opts.scale ?? 1;
   const inst: MetalFxInstance = {
@@ -134,6 +135,7 @@ export function setInstanceVisible(inst: MetalFxInstance, visible: boolean): voi
 
 export function setSharedPreset(name: PresetName, theme: PresetTheme): void {
   const s = ensureSharedRenderer();
+  if (!s) return;
   s.preset = PRESETS[name].modes[theme];
   s.presetDirty = true;
 }

@@ -197,7 +197,10 @@ export const MetalFx = forwardRef<HTMLDivElement, MetalFxProps>(function MetalFx
     };
 
     const initial = measure();
-    instanceRef.current = createInstance({
+    root.style.setProperty('--mfx-radius', `${initial.cornerRadius}px`);
+    root.style.borderRadius = `${initial.cornerRadius}px`;
+
+    const inst = createInstance({
       hostCanvas: canvas,
       cssWidth: initial.cssWidth,
       cssHeight: initial.cssHeight,
@@ -209,8 +212,18 @@ export const MetalFx = forwardRef<HTMLDivElement, MetalFxProps>(function MetalFx
       scale,
       onFirstCopy: () => setReady(true),
     });
-    root.style.setProperty('--mfx-radius', `${initial.cornerRadius}px`);
-    root.style.borderRadius = `${initial.cornerRadius}px`;
+
+    if (!inst) {
+      setReady(true);
+      return;
+    }
+
+    instanceRef.current = inst;
+
+    // Safety fallback: if onFirstCopy is throttled or delayed, transition ready state
+    const fallbackTimer = window.setTimeout(() => {
+      setReady(true);
+    }, 350);
 
     if (glowHost) {
       glowHandlesRef.current = injectGlow(glowHost, {
@@ -230,9 +243,9 @@ export const MetalFx = forwardRef<HTMLDivElement, MetalFxProps>(function MetalFx
       resizeRaf = requestAnimationFrame(() => {
         resizeRaf = 0;
         const next = measure();
-        const inst = instanceRef.current;
-        if (!inst) return;
-        updateInstance(inst, { cssWidth: next.cssWidth, cssHeight: next.cssHeight, cornerRadius: next.cornerRadius });
+        const currentInst = instanceRef.current;
+        if (!currentInst) return;
+        updateInstance(currentInst, { cssWidth: next.cssWidth, cssHeight: next.cssHeight, cornerRadius: next.cornerRadius });
         root.style.setProperty('--mfx-radius', `${next.cornerRadius}px`);
         root.style.borderRadius = `${next.cornerRadius}px`;
         if (glowHost) {
@@ -240,8 +253,8 @@ export const MetalFx = forwardRef<HTMLDivElement, MetalFxProps>(function MetalFx
           glowHandlesRef.current = injectGlow(glowHost, {
             width: next.cssWidth, height: next.cssHeight, cornerRadius: next.cornerRadius, kind: shape, scale,
           });
-          if (inst && glowHandlesRef.current) {
-            glowHandlesMap.set(inst, { handles: glowHandlesRef.current, themeRef });
+          if (currentInst && glowHandlesRef.current) {
+            glowHandlesMap.set(currentInst, { handles: glowHandlesRef.current, themeRef });
           }
         }
       });
@@ -249,22 +262,22 @@ export const MetalFx = forwardRef<HTMLDivElement, MetalFxProps>(function MetalFx
     ro.observe(root);
 
     // Force visible true to bypass IntersectionObserver bugs in Portals
-    const inst = instanceRef.current;
-    if (inst) setInstanceVisible(inst, true);
+    setInstanceVisible(inst, true);
 
-    if (instanceRef.current && glowHandlesRef.current) {
-      glowHandlesMap.set(instanceRef.current, { handles: glowHandlesRef.current, themeRef });
-      registerGlowInstance(instanceRef.current);
+    if (glowHandlesRef.current) {
+      glowHandlesMap.set(inst, { handles: glowHandlesRef.current, themeRef });
+      registerGlowInstance(inst);
     }
 
     return () => {
+      window.clearTimeout(fallbackTimer);
       ro.disconnect();
       if (resizeRaf !== 0) cancelAnimationFrame(resizeRaf);
-      const inst = instanceRef.current;
-      if (inst) {
-        glowHandlesMap.delete(inst);
-        unregisterGlowInstance(inst);
-        destroyInstance(inst);
+      const currentInst = instanceRef.current;
+      if (currentInst) {
+        glowHandlesMap.delete(currentInst);
+        unregisterGlowInstance(currentInst);
+        destroyInstance(currentInst);
       }
       instanceRef.current = null;
       glowHandlesRef.current = null;
@@ -320,11 +333,8 @@ export const MetalFx = forwardRef<HTMLDivElement, MetalFxProps>(function MetalFx
     () => ({
       ...style,
       ['--mfx-strength' as string]: String(Math.min(1, Math.max(0, strength))),
-      opacity: ready ? 1 : 0,
-      visibility: ready ? 'visible' : 'hidden',
-      transition: ready ? 'opacity 0.15s ease-out' : 'none',
     }),
-    [style, strength, ready]
+    [style, strength]
   );
 
   return (
@@ -339,9 +349,26 @@ export const MetalFx = forwardRef<HTMLDivElement, MetalFxProps>(function MetalFx
       data-normalize={normalizeHostStyles ? 'true' : 'false'}
       style={wrapperStyle}
     >
-      <canvas ref={canvasRef} className="metal-fx-canvas" style={CANVAS_STYLE} />
+      <canvas
+        ref={canvasRef}
+        className="metal-fx-canvas"
+        style={{
+          ...CANVAS_STYLE,
+          opacity: ready ? 1 : 0,
+          transition: ready ? 'opacity 0.2s ease-out' : 'none',
+        }}
+      />
       <div className="metal-fx-inner" aria-hidden="true" style={INNER_STYLE} />
-      <div ref={glowHostRef} aria-hidden="true" style={{ ...GLOW_HOST_STYLE, display: glowEnabled ? undefined : 'none' }} />
+      <div
+        ref={glowHostRef}
+        aria-hidden="true"
+        style={{
+          ...GLOW_HOST_STYLE,
+          display: glowEnabled ? undefined : 'none',
+          opacity: ready ? 1 : 0,
+          transition: ready ? 'opacity 0.2s ease-out' : 'none',
+        }}
+      />
       <div ref={contentRef} className="metal-fx-content">{children}</div>
     </div>
   );
