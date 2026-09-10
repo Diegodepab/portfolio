@@ -14,6 +14,7 @@ interface PixelTransitionLayerProps {
   effect: Extract<ImageTransitionEffect, 'pixels-mechanic' | 'pixels-organic'>;
   src: string;
   onComplete: () => void;
+  onFailure: () => void;
 }
 
 let engineConfigured = false;
@@ -54,7 +55,14 @@ const readThemeColors = (): { colors: (string | null)[]; cardBg: string } => {
 
 configureEngine();
 
-export const PixelTransitionLayer = ({ effect, src, onComplete }: PixelTransitionLayerProps) => {
+export const PixelTransitionLayer = ({ effect, src, onComplete, onFailure }: PixelTransitionLayerProps) => {
+  const hostRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const host = hostRef.current;
+    if (!host) return;
+    host.addEventListener('webglcontextlost', onFailure, true);
+    return () => host.removeEventListener('webglcontextlost', onFailure, true);
+  }, [onFailure]);
   const generationRef = useRef<ImageGenerationHandle>(null);
   const completedRef = useRef(false);
   const onCompleteRef = useRef(onComplete);
@@ -78,7 +86,7 @@ export const PixelTransitionLayer = ({ effect, src, onComplete }: PixelTransitio
   };
 
   return (
-    <ImageGeneration
+    <div ref={hostRef} className="image-transition-stage__pixel-container"><ImageGeneration
       ref={generationRef}
       className="image-transition-stage__pixel-layer"
       preset={effect as ImageGenerationPreset}
@@ -93,7 +101,7 @@ export const PixelTransitionLayer = ({ effect, src, onComplete }: PixelTransitio
       style={{ background: 'transparent' }}
     >
       <div className="image-transition-stage__pixel-host" />
-    </ImageGeneration>
+    </ImageGeneration></div>
   );
 };
 

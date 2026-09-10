@@ -13,7 +13,7 @@ export const GLOW_READBACK_INTERVAL_MS = 1500;
 
 // Only run the glow callback every Nth rendered frame. Each update triggers
 // Chrome to re-rasterize + re-blur 6 SVG paths through 2 masks.
-export const GLOW_SKIP_FRAMES = 1;
+export const GLOW_SKIP_FRAMES = 2;
 
 // Points sampled around the perimeter to find the brightest hotspot.
 export const PERIM_SAMPLES = 16;

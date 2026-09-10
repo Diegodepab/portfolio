@@ -1,3 +1,4 @@
+import { imageAssets } from '../../data/imageAssets';
 import React, { lazy, Suspense, useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { useLocation } from 'react-router-dom';
@@ -73,7 +74,8 @@ export const ChatWidget: React.FC<ChatWidgetProps> = ({ hidden = false, forceOpe
             aria-haspopup="dialog"
           >
             <img
-              src="/images/avatar-pixel.webp"
+              src={imageAssets['/images/avatar-pixel.webp'].src}
+              srcSet={imageAssets['/images/avatar-pixel.webp'].srcSet} sizes="38px"
               alt="dIAgo"
               width={38}
               height={38}

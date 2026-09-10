@@ -1,4 +1,6 @@
 import React, { useEffect, useRef } from 'react';
+import { useEffectVisibility, useVisualEffects } from '../../performance/useVisualEffects';
+import { scheduleVisualMeasurement, cancelVisualMeasurement } from '../../performance/frameTasks';
 import { antsCursor } from '../../utils/antsCursor';
 
 interface AntsCursorProps {
@@ -19,8 +21,14 @@ export const AntsCursor: React.FC<AntsCursorProps> = ({
   sizeMultiplier = 0.7
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
+  const { visible } = useEffectVisibility(containerRef);
+  const { reducedMotion } = useVisualEffects();
+  const active = visible && !reducedMotion;
 
   useEffect(() => {
+    if (!active) return;
+    const measurementKey = {};
+    const container = containerRef.current;
     let cursor: ReturnType<typeof antsCursor> | undefined;
     let previousColor = '';
 
@@ -30,33 +38,35 @@ export const AntsCursor: React.FC<AntsCursorProps> = ({
       return getComputedStyle(document.documentElement).getPropertyValue(varName).trim() || '#ffffff';
     };
 
-    const createCursor = (): void => {
-      const resolvedColor = resolveColor();
-      if (cursor && resolvedColor === previousColor) return;
-      cursor?.destroy();
-      previousColor = resolvedColor;
-      cursor = antsCursor({
-        element: containerRef.current,
-        color: resolvedColor,
-        numberOfAnts,
-        speed,
-        zIndex,
-        opacity,
-        sizeMultiplier,
+    const syncCursor = (): void => {
+      scheduleVisualMeasurement(measurementKey, () => {
+        const resolvedColor = resolveColor();
+        const initialSize = container ? { width: container.clientWidth, height: container.clientHeight } : undefined;
+        return () => {
+          if (cursor && resolvedColor === previousColor) return;
+          previousColor = resolvedColor;
+          if (cursor) {
+            cursor.updateColor(resolvedColor);
+            return;
+          }
+          cursor = antsCursor({ element: container, initialSize, color: resolvedColor,
+            numberOfAnts, speed, zIndex, opacity, sizeMultiplier });
+        };
       });
     };
 
-    createCursor();
+    syncCursor();
     const paletteObserver = color.startsWith('var(')
-      ? new MutationObserver(createCursor)
+      ? new MutationObserver(syncCursor)
       : null;
     paletteObserver?.observe(document.documentElement, { attributes: true, attributeFilter: ['style'] });
 
     return () => {
+      cancelVisualMeasurement(measurementKey);
       paletteObserver?.disconnect();
       cursor?.destroy();
     };
-  }, [color, numberOfAnts, speed, zIndex, opacity, sizeMultiplier]);
+  }, [active, color, numberOfAnts, speed, zIndex, opacity, sizeMultiplier]);
 
   return (
     <div

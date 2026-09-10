@@ -1,3 +1,4 @@
+import { useVisualEffects } from '../../performance/useVisualEffects';
 import React, { useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'motion/react';
@@ -11,6 +12,7 @@ import './Projects.css';
 
 export const Projects: React.FC = () => {
   const { lang } = useLanguage();
+  const animateEntrance = !useVisualEffects().reducedMotion;
   const previewItems = useMemo(
     () => getUnifiedItems(lang).filter(item => item.type === 'project' && item.featured).slice(0, 2),
     [lang],
@@ -19,7 +21,7 @@ export const Projects: React.FC = () => {
   return (
     <motion.section
       id="projects"
-      initial={{ opacity: 0, y: 40 }}
+      initial={animateEntrance ? { opacity: 0, y: 40 } : false}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-100px' }}
       transition={{ duration: 0.5 }}
@@ -51,7 +53,7 @@ export const Projects: React.FC = () => {
               id={`featured-project-${item.id}`}
               key={item.id}
               className="featured-project"
-              initial={{ opacity: 0, y: 28 }}
+              initial={animateEntrance ? { opacity: 0, y: 28 } : false}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.45, delay: index * 0.08 }}

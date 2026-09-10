@@ -1,4 +1,5 @@
-import { useEffect, useRef, useState, type FC } from 'react';
+import { useRef, type FC } from 'react';
+import { useEffectVisibility } from '../../performance/useVisualEffects';
 import { useMediaRotation } from '../../hooks/useMediaRotation';
 import {
   ImageTransitionStage,
@@ -40,26 +41,14 @@ export const CrossfadeGallery: FC<CrossfadeGalleryProps> = ({
   effects,
 }) => {
   const galleryRef = useRef<HTMLDivElement>(null);
-  const [isVisible, setIsVisible] = useState(true);
-
-  useEffect(() => {
-    const gallery = galleryRef.current;
-    if (!gallery || typeof IntersectionObserver === 'undefined') return;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => setIsVisible(entry?.isIntersecting ?? true),
-      { rootMargin: '120px' },
-    );
-    observer.observe(gallery);
-    return () => observer.disconnect();
-  }, []);
+  const { active } = useEffectVisibility(galleryRef);
 
   const { activeIndex, setActiveIndex } = useMediaRotation(
     images.length,
     interval,
     initialIndex,
     initialDelay,
-    !isVisible,
+    !active,
   );
 
   return (
@@ -68,12 +57,12 @@ export const CrossfadeGallery: FC<CrossfadeGalleryProps> = ({
         <ImageTransitionStage
           items={images}
           activeIndex={activeIndex}
-          getSource={(image) => image.src}
+          getSource={(image) => image}
           effects={effects}
-          renderItem={(image, index) => (
+          renderItem={(image, index, selected) => (
             <img
-              src={image.src}
-              srcSet={image.srcSet}
+              src={selected ?? image.src}
+              srcSet={selected ? undefined : image.srcSet}
               sizes={image.sizes}
               width={image.width ?? 700}
               height={image.height ?? 933}
@@ -81,7 +70,7 @@ export const CrossfadeGallery: FC<CrossfadeGalleryProps> = ({
               className="crossfade-gallery__image"
               style={{ objectPosition: image.position }}
               loading={eagerFirst && index === initialIndex ? 'eager' : 'lazy'}
-              fetchPriority={eagerFirst && index === initialIndex ? 'high' : 'auto'}
+              decoding="async"
             />
           )}
         />

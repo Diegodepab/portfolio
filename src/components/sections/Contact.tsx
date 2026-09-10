@@ -1,3 +1,4 @@
+import { useVisualEffects } from '../../performance/useVisualEffects';
 import { useState, type FormEvent } from 'react';
 import { motion } from 'motion/react';
 import { FiAlertCircle, FiArrowUpRight, FiCheckCircle, FiSend } from 'react-icons/fi';
@@ -22,6 +23,7 @@ const formEndpoint = import.meta.env.DEV
 
 export const Contact = () => {
   const { lang } = useLanguage();
+  const animateEntrance = !useVisualEffects().reducedMotion;
   const [status, setStatus] = useState<SubmissionStatus>('idle');
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
@@ -64,12 +66,12 @@ export const Contact = () => {
     <motion.section
       id="contact"
       className="contact-section"
-      initial={{ opacity: 0, y: 40 }}
+      initial={animateEntrance ? { opacity: 0, y: 40 } : false}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-100px' }}
       transition={{ duration: 0.5 }}
     >
-      <AntsCursor color="var(--color-accent-1)" numberOfAnts={35} speed={1.1} sizeMultiplier={0.5} opacity={0.3} zIndex="-1" />
+      <AntsCursor color="var(--color-accent-1)" numberOfAnts={20} speed={1.1} sizeMultiplier={0.5} opacity={0.3} zIndex="-1" />
       <SectionHeading title={lang === 'en' ? "Let's talk" : 'Contacto'} />
 
       <div className="contact-panel">
@@ -170,7 +172,7 @@ export const Contact = () => {
               {status === 'success' && <><FiCheckCircle aria-hidden="true" /> {lang === 'en' ? 'Message sent. I will get back to you soon.' : 'Mensaje enviado. Te responderé pronto.'}</>}
               {status === 'error' && <><FiAlertCircle aria-hidden="true" /> {lang === 'en' ? 'It could not be sent. Please try again.' : 'No se pudo enviar. Inténtalo de nuevo.'}</>}
             </p>
-            <MetalFx variant="button" preset="silver" strength={0.8} normalizeHostStyles={false}>
+            <MetalFx theme="dark" variant="button" preset="silver" strength={0.8} normalizeHostStyles={false}>
               <motion.button
                 type="submit"
                 className="contact-submit"

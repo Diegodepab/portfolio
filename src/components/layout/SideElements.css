@@ -194,10 +194,6 @@
   transform: translate(0, 50%);
 }
 
-.pokemon-mobile-trigger {
-  display: none;
-}
-
 .visually-hidden {
   position: absolute;
   width: 1px;
@@ -223,29 +219,6 @@
 @media (max-width: 768px) {
   .side-elements {
     display: none;
-  }
-
-  .pokemon-mobile-trigger {
-    position: fixed;
-    right: 18px;
-    bottom: 18px;
-    z-index: 20;
-    display: block;
-    border-radius: 50%;
-    background: color-mix(in srgb, var(--color-bg-surface) 88%, transparent);
-    box-shadow: 0 8px 24px hsl(222 47% 3% / 45%);
-    backdrop-filter: blur(8px);
-  }
-
-  .pokemon-mobile-trigger .pokemon-tooltip {
-    right: calc(100% + 10px);
-    left: auto;
-    transform: translate(4px, 50%);
-  }
-
-  .pokemon-mobile-trigger .pokemon-trigger-wrap:hover .pokemon-tooltip,
-  .pokemon-mobile-trigger .pokemon-trigger-wrap:focus-within .pokemon-tooltip {
-    transform: translate(0, 50%);
   }
 }
 

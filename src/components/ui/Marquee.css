@@ -84,3 +84,6 @@
 .animate-marquee-vertical {
   animation: marquee-vertical var(--marquee-duration, 40s) linear infinite;
 }
+
+.marquee-container[data-static='true'] { overflow: visible; mask-image: none !important; }
+.marquee-container[data-static='true'] .marquee-inner { animation: none; flex-wrap: wrap; transform: none; }

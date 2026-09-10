@@ -1,0 +1,4 @@
+.projects-page > :not(.project-route-backdrop), .project-detail-page > :not(.project-route-backdrop) { position: relative; z-index: 1; }
+.project-route-backdrop { position: absolute; top: 0; bottom: 0; left: 50%; z-index: 0; width: 100vw; overflow: hidden; pointer-events: none; transform: translateX(-50%); }
+.project-route-backdrop > .ambient-backdrop { width: 100%; }
+.project-route-backdrop > .technical-backdrop { opacity: .48; mask-image: linear-gradient(to bottom, transparent 1%, black 13%, black 87%, transparent 99%); -webkit-mask-image: linear-gradient(to bottom, transparent 1%, black 13%, black 87%, transparent 99%); }

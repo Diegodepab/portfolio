@@ -1,3 +1,4 @@
+import './ProjectDetailPage.css';
 import React from 'react';
 import { Link, Navigate, useParams } from 'react-router-dom';
 import { motion } from 'motion/react';

@@ -89,6 +89,11 @@ export default defineConfig(({ mode }) => {
                 priority: 50,
               },
               {
+                name: 'tour-vendor',
+                test: /node_modules[\\/](driver\.js)[\\/]/,
+                priority: 40,
+              },
+              {
                 name: 'three-vendor',
                 test: /node_modules[\\/](three|img-fx)[\\/]/,
                 priority: 25,

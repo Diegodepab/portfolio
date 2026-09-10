@@ -102,9 +102,10 @@
   .project-orbit-detail-visual { height: 92px; margin: -20px -20px 14px; }
 }
 @media (max-width: 1180px) { .experience-body { grid-template-columns: 1fr; }.experience-card--with-projects .experience-story { grid-template-columns: minmax(0, 1fr) minmax(280px, .8fr); gap: 28px; }.experience-story .experience-gallery { margin-top: 0; }.project-orbit-stage { min-height: 0; } }
-@media (max-width: 900px) { .experience-shell { grid-template-columns: 1fr; }.experience-tabs { position: relative; top: auto; display: flex; width: calc(100% + 9rem); margin-left: -4.5rem; padding: 0 4.5rem; overflow-x: auto; scrollbar-width: none; }.experience-tabs button { min-width: max-content; border-left: 0; border-bottom: 1px solid var(--color-bg-surface); }.experience-tab-marker { display: none; }.experience-story { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 900px) { .experience-shell { grid-template-columns: 1fr; }.experience-tabs { position: relative; top: auto; display: flex; width: calc(100% + 4rem); margin-inline: -2rem; padding-inline: 2rem; overflow-x: auto; scrollbar-width: none; }.experience-tabs button { min-width: max-content; border-left: 0; border-bottom: 1px solid var(--color-bg-surface); }.experience-tab-marker { display: none; }.experience-story { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 768px) { .experience-tabs { width: calc(100% + 2.5rem); margin-inline: -1.25rem; padding-inline: 1.25rem; } }
 @media (max-width: 680px) { .experience-section { padding: 76px 0; }.experience-card--with-projects { padding-right: 0; }.experience-card--with-projects .experience-story { grid-template-columns: 1fr; }.experience-header h3 { font-size: 1.8rem; }.project-orbit { position: relative; inset: auto; margin: 18px 0 8px; }.project-orbit-stage { position: relative; inset: auto; display: flex; min-height: 0; padding: 0 0 12px; flex-wrap: nowrap; justify-content: flex-start; gap: 10px; overflow-x: auto; pointer-events: auto; scrollbar-width: none; }.project-orbit-node, .project-orbit-node--1, .project-orbit-node--2, .project-orbit-node--3, .project-orbit-node--4, .project-orbit-node--5, .project-orbit-node--6 { position: relative; top: auto; right: auto; bottom: auto; left: auto; flex: 0 0 88px; width: 88px; height: 88px; transform: none; }.project-orbit.is-expanded .project-orbit-node:not(.is-active) { display: none; }.project-orbit-node.is-active { position: relative; top: auto; left: auto; width: 100%; max-width: 360px; height: 410px; flex-basis: 100%; transform: none; } }
-@media (max-width: 480px) { .experience-tabs { width: calc(100% + 2.5rem); margin-left: -1.25rem; padding: 0 1.25rem; }.experience-highlights li { grid-template-columns: 28px 1fr; }.project-orbit-node, .project-orbit-node--1, .project-orbit-node--2, .project-orbit-node--3, .project-orbit-node--4, .project-orbit-node--5, .project-orbit-node--6 { flex-basis: 96px; width: 96px; height: 96px; } }
+@media (max-width: 480px) { .experience-tabs { width: calc(100% + 2rem); margin-inline: -1rem; padding-inline: 1rem; }.experience-highlights li { grid-template-columns: 28px 1fr; }.project-orbit-node, .project-orbit-node--1, .project-orbit-node--2, .project-orbit-node--3, .project-orbit-node--4, .project-orbit-node--5, .project-orbit-node--6 { flex-basis: 96px; width: 96px; height: 96px; } }
 @media (prefers-reduced-motion: reduce) { .experience-header h3 a svg, .project-orbit-node { transition: none; }.project-orbit-hint span { animation: none; } }
 
 /* Horizontal project preview shelf */
@@ -145,9 +146,15 @@
 .project-dock__mark--surgery .mark-surgery-focus { fill: var(--color-accent-1); animation: blink 2s infinite; }
 .project-dock__mark--smotts .mark-smotts-wave { stroke: var(--color-accent-1); stroke-linejoin: round; }
 .project-dock__mark--smotts .mark-smotts-dot { fill: var(--color-accent-3); }
+.project-dock__mark--kubernetes svg { animation: k8s-rotate 16s linear infinite; }
+.project-dock__mark--kubernetes .mark-k8s-helm { stroke: var(--color-accent-1); }
+.project-dock__mark--kubernetes .mark-k8s-core { fill: var(--color-accent-2); stroke: var(--color-accent-2); }
+.project-dock__mark--kubernetes .mark-k8s-spoke { stroke: var(--color-accent-3); stroke-dasharray: 1; }
 .project-dock__mark--twins .mark-twins-organ { stroke: color-mix(in srgb, var(--color-accent-2) 40%, transparent); stroke-dasharray: 2; }
 .project-dock__mark--twins .mark-twins-vessel { stroke: color-mix(in srgb, var(--color-accent-3) 60%, transparent); }
 .project-dock__mark--twins .mark-twins-node { fill: var(--color-accent-1); }
+@keyframes k8s-rotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+@keyframes blink { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.25; transform: scale(0.8); } }
 .project-dock__logo { display: block; width: 100%; height: 100%; padding: 5px; user-select: none; }
 .project-dock__logo--contain { object-fit: contain; }
 .project-dock__logo--cover { padding: 0; object-fit: cover; }

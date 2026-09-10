@@ -1,5 +1,6 @@
+import { useEffectVisibility, useVisualEffects } from '../../performance/useVisualEffects';
 import { memo, useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { AnimatePresence, motion, useReducedMotion } from 'motion/react';
+import { AnimatePresence, motion } from 'motion/react';
 import { Link } from 'react-router-dom';
 import { FiArrowRight, FiArrowUpRight, FiBox, FiCloud, FiCpu, FiDatabase, FiLayers, FiX } from 'react-icons/fi';
 import type { FocusEvent, KeyboardEvent } from 'react';
@@ -62,6 +63,23 @@ const ProjectMark = memo(({ project }: { project: Project }) => {
 
   const kind = VISUAL_KINDS[project.id];
   
+  if (kind === 'kubernetes') {
+    return (
+      <span className="project-dock__mark project-dock__mark--kubernetes" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+          <polygon points="12 2 21 7 21 17 12 22 3 17 3 7" className="mark-k8s-helm" />
+          <circle cx="12" cy="12" r="3" className="mark-k8s-core" />
+          <line x1="12" y1="2" x2="12" y2="9" className="mark-k8s-spoke" />
+          <line x1="12" y1="15" x2="12" y2="22" className="mark-k8s-spoke" />
+          <line x1="3" y1="7" x2="9.5" y2="10.5" className="mark-k8s-spoke" />
+          <line x1="14.5" y1="13.5" x2="21" y2="17" className="mark-k8s-spoke" />
+          <line x1="3" y1="17" x2="9.5" y2="13.5" className="mark-k8s-spoke" />
+          <line x1="14.5" y1="10.5" x2="21" y2="7" className="mark-k8s-spoke" />
+        </svg>
+      </span>
+    );
+  }
+
   if (kind === 'extract') {
     return (
       <span className="project-dock__mark project-dock__mark--extract" aria-hidden="true">
@@ -170,6 +188,8 @@ const ProjectBubble = memo(({
   onClose,
   onToggle,
 }: ProjectBubbleProps) => {
+  const bubbleRef = useRef<HTMLLIElement>(null);
+  const { active: animationActive } = useEffectVisibility(bubbleRef);
   const previewId = `project-preview-${project.id}`;
   const previewTitleId = `${previewId}-title`;
   const description = project.description[lang].trim()
@@ -184,10 +204,11 @@ const ProjectBubble = memo(({
 
   return (
     <motion.li
+      ref={bubbleRef}
+      data-animation-active={animationActive}
       id={`project-dock-item-${project.id}`}
       className={`project-dock__item${active ? ' is-active' : ''}`}
       data-project-index={index}
-      layout
       initial={reduceMotion ? false : { opacity: 0, scale: 0.9 }}
       animate={{ opacity: 1, scale: 1 }}
       exit={reduceMotion ? { opacity: 0 } : { opacity: 0, scale: 0.9 }}
@@ -259,7 +280,7 @@ export const ExperienceProjectDock = memo(({ job, projects, lang }: ExperiencePr
   const openTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const automaticPreviewConsumed = useRef(false);
-  const reduceMotion = useReducedMotion() ?? false;
+  const reduceMotion = useVisualEffects().reducedMotion;
   const companyProjectsUrl = `/projects?company=${encodeURIComponent(job.company)}`;
   const initiallyVisibleProjects = useMemo(() => projects.slice(0, MAX_VISIBLE_PROJECTS), [projects]);
   const visibleProjects = showAllProjects ? projects : initiallyVisibleProjects;

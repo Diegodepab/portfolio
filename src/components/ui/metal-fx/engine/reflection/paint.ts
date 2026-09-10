@@ -1,3 +1,4 @@
+import { GL_DPR_CAP } from '../perfConfig';
 /** Proximity reflection — public API and per-frame paint loop. */
 import type { MetalFxInstance } from '../renderer/core';
 import {
@@ -126,12 +127,17 @@ export function removeReflectionTarget(el: HTMLElement): void {
 
 export function paintReflections(): void {
   if (targets.size === 0) return;
-  const dpr = typeof window !== 'undefined' ? window.devicePixelRatio || 1 : 1;
+  const dpr = Math.min(GL_DPR_CAP, typeof window !== 'undefined' ? window.devicePixelRatio || 1 : 1);
 
   const anchorRects = new Map<HTMLElement, DOMRect>();
 
-  for (const t of targets) {
-    const tRect = t.el.getBoundingClientRect();
+  // Read all target and anchor rectangles before resizing any canvases.
+  const targetRects = new Map([...targets].filter((t) => t.anchor.visible && !t.anchor.paused)
+    .map((t) => [t, t.el.getBoundingClientRect()]));
+  for (const t of targetRects.keys()) {
+    if (!anchorRects.has(t.anchorEl)) anchorRects.set(t.anchorEl, t.anchorEl.getBoundingClientRect());
+  }
+  for (const [t, tRect] of targetRects) {
     let aRect = anchorRects.get(t.anchorEl);
     if (!aRect) {
       aRect = t.anchorEl.getBoundingClientRect();
@@ -189,8 +195,10 @@ export function paintReflections(): void {
     );
 
     const overscanCssPx = t.hairlineOuterCssPx;
-    t.wrap.style.inset = `${-overscanCssPx}px`;
-    t.wrap.style.borderRadius = `${Math.max(0, t.cornerRadius)}px`;
+    const inset = `${-overscanCssPx}px`;
+    const radius = `${Math.max(0, t.cornerRadius)}px`;
+    if (t.wrap.style.inset !== inset) t.wrap.style.inset = inset;
+    if (t.wrap.style.borderRadius !== radius) t.wrap.style.borderRadius = radius;
 
     const tw = Math.max(1, Math.round((tRect.width + overscanCssPx * 2) * dpr));
     const th = Math.max(1, Math.round((tRect.height + overscanCssPx * 2) * dpr));

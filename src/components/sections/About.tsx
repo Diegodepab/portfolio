@@ -1,3 +1,5 @@
+import { useVisualEffects } from '../../performance/useVisualEffects';
+import { imageAssets } from '../../data/imageAssets';
 import React from 'react';
 import { motion } from 'motion/react';
 import { SectionHeading } from '../ui/SectionHeading';
@@ -13,29 +15,30 @@ import './About.css';
 
 const portraits: Record<'es' | 'en', GalleryImage[]> = {
   es: [
-    { src: '/images/portraits/diego-carnet.webp', alt: 'Retrato de Diego De Pablo', position: 'center 18%' },
-    { src: '/images/portraits/diego-formal.webp', alt: 'Diego De Pablo vestido de forma formal', position: 'center 22%' },
-    { src: '/images/portraits/diego-formal-group.webp', alt: 'Diego De Pablo acompañado en un acto formal', position: 'center center' },
+    { ...imageAssets['/images/portraits/diego-carnet.webp'], sizes: '(max-width: 768px) 300px, 360px', alt: 'Retrato de Diego De Pablo', position: 'center 18%' },
+    { ...imageAssets['/images/portraits/diego-formal.webp'], sizes: '(max-width: 768px) 300px, 360px', alt: 'Diego De Pablo vestido de forma formal', position: 'center 22%' },
+    { ...imageAssets['/images/portraits/diego-formal-group.webp'], sizes: '(max-width: 768px) 300px, 360px', alt: 'Diego De Pablo acompañado en un acto formal', position: 'center center' },
   ],
   en: [
-    { src: '/images/portraits/diego-carnet.webp', alt: 'Portrait of Diego De Pablo', position: 'center 18%' },
-    { src: '/images/portraits/diego-formal.webp', alt: 'Diego De Pablo in formal attire', position: 'center 22%' },
-    { src: '/images/portraits/diego-formal-group.webp', alt: 'Diego De Pablo with others at a formal event', position: 'center center' },
+    { ...imageAssets['/images/portraits/diego-carnet.webp'], sizes: '(max-width: 768px) 300px, 360px', alt: 'Portrait of Diego De Pablo', position: 'center 18%' },
+    { ...imageAssets['/images/portraits/diego-formal.webp'], sizes: '(max-width: 768px) 300px, 360px', alt: 'Diego De Pablo in formal attire', position: 'center 22%' },
+    { ...imageAssets['/images/portraits/diego-formal-group.webp'], sizes: '(max-width: 768px) 300px, 360px', alt: 'Diego De Pablo with others at a formal event', position: 'center center' },
   ],
 };
 
 export const About: React.FC = () => {
   const { lang } = useLanguage();
+  const animateEntrance = !useVisualEffects().reducedMotion;
   return (
     <motion.section
       id="about"
-      initial={{ opacity: 0, y: 50 }}
+      initial={animateEntrance ? { opacity: 0, y: 50 } : false}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-100px" }}
       transition={{ duration: 0.5 }}
       className="about-section"
     >
-      <AntsCursor color="var(--color-accent-1)" numberOfAnts={35} speed={1.1} sizeMultiplier={0.5} opacity={0.3} zIndex="-1" />
+      <AntsCursor color="var(--color-accent-1)" numberOfAnts={20} speed={1.1} sizeMultiplier={0.5} opacity={0.3} zIndex="-1" />
       <SectionHeading title={lang === 'en' ? "About Me" : "Sobre mí"} />
 
       <div className="about-content">

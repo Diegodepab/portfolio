@@ -1,3 +1,4 @@
+import { imageAssets } from '../../data/imageAssets';
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { useLocation } from 'react-router-dom';
@@ -14,7 +15,7 @@ interface AvatarGuideProps {
 }
 
 export const AvatarGuide: React.FC<AvatarGuideProps> = ({ onOpenChat }) => {
-  const { startTour, isActive, currentStep, nextStep, prevStep, endTour, isLastStep, popoverWrapper } = useTour();
+  const { startTour, isStarting, startError, isActive, currentStep, nextStep, prevStep, endTour, isLastStep, popoverWrapper } = useTour();
   const { lang } = useLanguage();
   const location = useLocation();
   const [isScrolled, setIsScrolled] = useState(false);
@@ -86,6 +87,7 @@ export const AvatarGuide: React.FC<AvatarGuideProps> = ({ onOpenChat }) => {
 
   return (
     <>
+      {startError && <p role="status">{lang === 'en' ? 'The tour could not start. Please try again.' : 'No se pudo iniciar el recorrido. Inténtalo de nuevo.'}</p>}
       <AnimatePresence>
         {shouldShowTrigger && (
           <motion.button
@@ -93,6 +95,8 @@ export const AvatarGuide: React.FC<AvatarGuideProps> = ({ onOpenChat }) => {
             key="start-btn"
             className="avatar-guide-trigger"
             onClick={startTour}
+            disabled={isStarting}
+            aria-busy={isStarting}
             initial={{ scale: 0, opacity: 0, y: 50 }}
             animate={{
               scale: 1,
@@ -111,7 +115,8 @@ export const AvatarGuide: React.FC<AvatarGuideProps> = ({ onOpenChat }) => {
             aria-label={lang === 'en' ? 'Start guided tour' : 'Iniciar tour guiado'}
           >
             <img 
-              src="/images/avatar-pixel.webp" 
+              src={imageAssets['/images/avatar-pixel.webp'].src}
+              srcSet={imageAssets['/images/avatar-pixel.webp'].srcSet} sizes="70px" 
               alt="" 
               className="avatar-guide-trigger-img"
               width={52}
@@ -146,7 +151,8 @@ export const AvatarGuide: React.FC<AvatarGuideProps> = ({ onOpenChat }) => {
                 >
                 <div className="avatar-dialog-portrait-wrapper">
                   <img 
-                    src="/images/avatar-pixel.webp" 
+                    src={imageAssets['/images/avatar-pixel.webp'].src}
+              srcSet={imageAssets['/images/avatar-pixel.webp'].srcSet} sizes="70px" 
                     alt="Avatar Guide" 
                     className={`avatar-dialog-portrait ${isTyping ? 'is-talking' : ''}`}
                     width={64}
@@ -179,9 +185,9 @@ export const AvatarGuide: React.FC<AvatarGuideProps> = ({ onOpenChat }) => {
                       <span>{secondaryAction.label}</span>
                     </button>
                     <MetalFx
+                      theme="dark"
                       variant="button"
                       preset="silver"
-                      theme="dark"
                       strength={0.42}
                       normalizeHostStyles={false}
                       reflectionTargets={reflectionTargets}

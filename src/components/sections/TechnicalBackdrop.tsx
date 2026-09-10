@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useAmbientPointer } from '../ui/ambient/useAmbientPointer';
 import './TechnicalBackdrop.css';
 
 const nodes = [
@@ -33,66 +33,8 @@ const edges = [
 ];
 
 export const TechnicalBackdrop = () => {
-  const backdropRef = useRef<HTMLDivElement>(null);
-  const frameRef = useRef<number | null>(null);
-  const activeNodeRef = useRef<SVGCircleElement | null>(null);
-
-  useEffect(() => {
-    const backdrop = backdropRef.current;
-    if (!backdrop) return;
-
-    const canInteract = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
-    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (!canInteract || reduceMotion) return;
-
-    const updatePointer = (event: PointerEvent) => {
-      if (frameRef.current !== null) cancelAnimationFrame(frameRef.current);
-
-      frameRef.current = requestAnimationFrame(() => {
-        const rect = backdrop.getBoundingClientRect();
-        if (event.clientY < rect.top || event.clientY > rect.bottom) return;
-
-        const normalizedX = Math.min(1, Math.max(0, (event.clientX - rect.left) / rect.width));
-        const normalizedY = Math.min(1, Math.max(0, (event.clientY - rect.top) / rect.height));
-        backdrop.style.setProperty('--pointer-x', `${(normalizedX - 0.5) * 18}px`);
-        backdrop.style.setProperty('--pointer-y', `${(normalizedY - 0.5) * 12}px`);
-
-        const svgX = normalizedX * 1120;
-        const svgY = normalizedY * 650;
-        let nearestIndex = 0;
-        let nearestDistance = Number.POSITIVE_INFINITY;
-
-        nodes.forEach((node, index) => {
-          const distance = Math.hypot(node.x - svgX, node.y - svgY);
-          if (distance < nearestDistance) {
-            nearestDistance = distance;
-            nearestIndex = index;
-          }
-        });
-
-        activeNodeRef.current?.classList.remove('is-active');
-        const nextNode = backdrop.querySelector<SVGCircleElement>(`[data-node="${nearestIndex}"]`);
-        nextNode?.classList.add('is-active');
-        activeNodeRef.current = nextNode;
-      });
-    };
-
-    const resetPointer = () => {
-      backdrop.style.setProperty('--pointer-x', '0px');
-      backdrop.style.setProperty('--pointer-y', '0px');
-      activeNodeRef.current?.classList.remove('is-active');
-      activeNodeRef.current = null;
-    };
-
-    window.addEventListener('pointermove', updatePointer, { passive: true });
-    document.documentElement.addEventListener('pointerleave', resetPointer);
-
-    return () => {
-      window.removeEventListener('pointermove', updatePointer);
-      document.documentElement.removeEventListener('pointerleave', resetPointer);
-      if (frameRef.current !== null) cancelAnimationFrame(frameRef.current);
-    };
-  }, []);
+  const backdropRef = useAmbientPointer({ points: nodes, viewBoxWidth: 1120, viewBoxHeight: 650,
+    activationRadius: Number.POSITIVE_INFINITY, shiftX: 9, shiftY: 6 });
 
   return (
     <div ref={backdropRef} className="technical-backdrop" aria-hidden="true">
@@ -123,7 +65,7 @@ export const TechnicalBackdrop = () => {
           {nodes.map((node, index) => (
             <circle
               key={`${node.x}-${node.y}`}
-              data-node={index}
+              data-ambient-node={index}
               cx={node.x}
               cy={node.y}
               r={node.size}

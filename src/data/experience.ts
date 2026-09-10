@@ -1,3 +1,4 @@
+import { imageAssets } from './imageAssets';
 import type { JobExperience } from '../types/portfolio';
 
 export const experiences: JobExperience[] = [
@@ -33,19 +34,22 @@ export const experiences: JobExperience[] = [
     projectIds: ['metadataxtract', 'metadatasearch', 'alignx', 'titan-workflow', 'edaan-data-space'],
     photos: [
       {
-        src: '/images/khaos/logo.png',
+        ...imageAssets['/images/khaos/logo.png'],
+        sizes: '(max-width: 768px) 90vw, 608px',
         kind: 'logo',
         alt: { es: 'Logo de Khaos Research', en: 'Khaos Research logo' },
         caption: { es: 'Khaos Research · Universidad de Málaga', en: 'Khaos Research · University of Malaga' },
       },
       {
-        src: '/images/khaos/equipo-interior.webp',
+        ...imageAssets['/images/khaos/equipo-interior.webp'],
+        sizes: '(max-width: 768px) 90vw, 608px',
         kind: 'photo',
         alt: { es: 'Equipo de Khaos Research reunido en sus instalaciones', en: 'Khaos Research team gathered at their facilities' },
         caption: { es: 'Equipo de Khaos Research', en: 'Khaos Research team' }
       },
       {
-        src: '/images/khaos/equipo-exterior.webp',
+        ...imageAssets['/images/khaos/equipo-exterior.webp'],
+        sizes: '(max-width: 768px) 90vw, 608px',
         kind: 'photo',
         alt: { es: 'Equipo de Khaos Research en la Universidad de Málaga', en: 'Khaos Research team at the University of Malaga' },
         caption: { es: 'Equipo de Khaos Research', en: 'Khaos Research team' }
@@ -84,7 +88,8 @@ export const experiences: JobExperience[] = [
     projectIds: ['msurgery-platform', 'smotts', 'digital-twins'],
     photos: [
       {
-        src: '/images/msurgery/favicon.png',
+        ...imageAssets['/images/msurgery/favicon.png'],
+        sizes: '(max-width: 768px) 90vw, 608px',
         kind: 'logo',
         alt: { en: 'mSurgery Logo', es: 'Logo de mSurgery' },
         caption: { es: 'Plataforma mSurgery', en: 'mSurgery Platform' },
@@ -92,7 +97,8 @@ export const experiences: JobExperience[] = [
         brandSubtext: 'Live Immersive Surgical Experience'
       },
       {
-        src: '/images/msurgery/foto.webp',
+        ...imageAssets['/images/msurgery/foto.webp'],
+        sizes: '(max-width: 768px) 90vw, 608px',
         kind: 'photo',
         alt: { es: 'Equipo médico operando', en: 'Medical team operating' },
         caption: { es: 'Experiencia inmersiva en quirófano', en: 'Immersive surgical experience' }

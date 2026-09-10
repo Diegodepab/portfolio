@@ -1,12 +1,10 @@
+import { imageAssets } from '../../data/imageAssets';
 import { useLanguage } from '../../context/LanguageContext';
 import { CrossfadeGallery, type GalleryImage } from '../ui/CrossfadeGallery';
 
 const landscapeMedia = (name: string) => ({
-  src: `/images/landscapes/${name}.webp`,
-  srcSet: `/images/landscapes/${name}-mob.webp 400w, /images/landscapes/${name}.webp 700w`,
-  sizes: '(max-width: 600px) 300px, 450px',
-  width: 700,
-  height: 933,
+  ...imageAssets[`/images/landscapes/${name}.webp`],
+  sizes: '(max-width: 480px) 70vw, (max-width: 768px) 372px, (max-width: 1120px) 30vw, 390px',
 });
 
 const landscapes: Record<'es' | 'en', GalleryImage[]> = {
@@ -40,18 +38,20 @@ export const HeroCollage = () => {
 
       <div className="hero-frame hero-frame--portrait">
         <img
-          src="/images/portraits/diego-formal.webp"
+          src={imageAssets['/images/portraits/diego-formal.webp'].src}
+          srcSet={imageAssets['/images/portraits/diego-formal.webp'].srcSet}
+          sizes="(max-width: 480px) 44vw, (max-width: 768px) 234px, 248px"
           alt={lang === 'en' ? 'Formal portrait of Diego De Pablo' : 'Retrato formal de Diego De Pablo'}
           loading="eager"
-          fetchPriority="high"
-          width={450}
+          decoding="async"
+          width={446}
           height={594}
         />
       </div>
 
       <div className="hero-frame hero-frame--secondary-landscape">
         <CrossfadeGallery
-          images={landscapes[lang]}
+          images={landscapes[lang].map(image => ({ ...image, sizes: '(max-width: 480px) 52vw, (max-width: 768px) 258px, 271px' }))}
           interval={12_000}
           initialDelay={6_000}
           initialIndex={2}

@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import { useEffectVisibility } from '../../performance/useVisualEffects';
+import React, { useEffect, useRef, useState } from 'react';
 import {
   FiBox, FiActivity, FiSearch, FiTool, FiCpu,
   FiGitMerge, FiGlobe, FiUsers, FiLayers, FiZap,
@@ -51,6 +52,8 @@ const SWAP_INTERVAL_MS = 5_000;
 
 export const ProjectOrrery: React.FC = () => {
   const { lang } = useLanguage();
+  const rootRef = useRef<HTMLDivElement>(null);
+  const { active } = useEffectVisibility(rootRef);
   const projects = lang === 'en' ? PROJECTS_EN : PROJECTS_ES;
 
   // `offset` advances every SWAP_INTERVAL_MS; we pick TOTAL_SLOTS consecutive
@@ -59,16 +62,18 @@ export const ProjectOrrery: React.FC = () => {
   const [swapping, setSwapping] = useState(false);
 
   useEffect(() => {
+    if (!active) { setSwapping(false); return; }
+    let swapTimer: ReturnType<typeof setTimeout>;
     const id = setInterval(() => {
       setSwapping(true);
       // After a short fade-out, advance the offset and fade back in
-      setTimeout(() => {
+      swapTimer = setTimeout(() => {
         setOffset(prev => prev + NODE_COUNT);
         setSwapping(false);
       }, 400); // matches CSS transition duration
     }, SWAP_INTERVAL_MS);
-    return () => clearInterval(id);
-  }, []);
+    return () => { clearInterval(id); clearTimeout(swapTimer); };
+  }, [active]);
 
   // Build the 5 visible slots
   const slots: OrreryProject[] = [];
@@ -77,7 +82,7 @@ export const ProjectOrrery: React.FC = () => {
   }
 
   return (
-    <div className="orrery" aria-hidden="true">
+    <div ref={rootRef} data-animation-active={active} className="orrery" aria-label={lang === 'en' ? 'Project shortcuts' : 'Accesos a proyectos'}>
       {/* Central glow */}
       <div className="orrery-glow" />
 

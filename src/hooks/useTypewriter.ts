@@ -1,6 +1,9 @@
-import { useState, useEffect } from 'react';
+import { useVisualEffects } from '../performance/useVisualEffects';
+import { useState, useEffect, useRef } from 'react';
 
 export const useTypewriter = (text: string | undefined, speed: number = 30) => {
+  const { reducedMotion, pageVisible } = useVisualEffects();
+  const timer = useRef<ReturnType<typeof setInterval> | undefined>(undefined);
   const [displayedText, setDisplayedText] = useState('');
   const [isTyping, setIsTyping] = useState(false);
 
@@ -11,10 +14,11 @@ export const useTypewriter = (text: string | undefined, speed: number = 30) => {
       return;
     }
     
+    if (reducedMotion || !pageVisible) { setDisplayedText(text); setIsTyping(false); return; }
     setIsTyping(true);
     let i = 0;
     
-    const intervalId = setInterval(() => {
+    const intervalId = timer.current = setInterval(() => {
       setDisplayedText(text.slice(0, i + 1));
       i++;
       if (i >= text.length) {
@@ -24,9 +28,10 @@ export const useTypewriter = (text: string | undefined, speed: number = 30) => {
     }, speed);
 
     return () => clearInterval(intervalId);
-  }, [text, speed]);
+  }, [text, speed, reducedMotion, pageVisible]);
 
   const forceComplete = () => {
+    clearInterval(timer.current);
     if (text) {
       setDisplayedText(text);
       setIsTyping(false);

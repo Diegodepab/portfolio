@@ -1,6 +1,7 @@
+import { useVisualEffects } from '../../performance/useVisualEffects';
 import React, { useEffect, useRef, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { motion, useScroll, useMotionValueEvent, useReducedMotion } from 'motion/react';
+import { motion } from 'motion/react';
 import { navLinks } from '../../data/config';
 import { useLanguage } from '../../context/LanguageContext';
 import { PokemonButton } from './SideElements';
@@ -15,22 +16,20 @@ export interface NavProps {
 export const Nav: React.FC<NavProps> = ({ pokemon, onPokemonChange }) => {
   const [hidden, setHidden] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
-  const { scrollY } = useScroll();
   const lastY = useRef(0);
   const { lang, setLanguage } = useLanguage();
-  const shouldReduceMotion = useReducedMotion();
+  const shouldReduceMotion = useVisualEffects().reducedMotion;
   const location = useLocation();
 
-  useMotionValueEvent(scrollY, "change", (latest) => {
-    if (menuOpen) {
-      setHidden(false);
-    } else if (latest > lastY.current && latest > 100) {
-      setHidden(true);
-    } else {
-      setHidden(false);
-    }
-    lastY.current = latest;
-  });
+  useEffect(() => {
+    const update = () => {
+      const latest = window.scrollY;
+      setHidden(!menuOpen && latest > lastY.current && latest > 100);
+      lastY.current = latest;
+    };
+    window.addEventListener('scroll', update, { passive: true });
+    return () => window.removeEventListener('scroll', update);
+  }, [menuOpen]);
 
   useEffect(() => {
     setMenuOpen(false);

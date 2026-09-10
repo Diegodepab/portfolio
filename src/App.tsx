@@ -9,6 +9,7 @@ import { Experience } from './components/sections/Experience';
 import { Projects } from './components/sections/Projects';
 import { Contact } from './components/sections/Contact';
 import { ChatWidget } from './components/chat/ChatWidget';
+import { TourProvider } from './hooks/useTour';
 import { siteConfig } from './data/config';
 import { ensureAccessibleAccent, pokePalettes } from './utils/palettes';
 import type { Palette } from './utils/palettes';
@@ -120,6 +121,7 @@ function MainApp() {
   return (
     <HelmetProvider>
       <BrowserRouter>
+        <TourProvider>
         <SiteMetadata sprite={currentPalette.sprite} />
         <ScrollHandler />
         <Layout
@@ -143,6 +145,7 @@ function MainApp() {
           </Suspense>
           <ChatWidget forceOpen={chatForceOpen} onOpen={handleChatOpened} />
         </Layout>
+        </TourProvider>
       </BrowserRouter>
     </HelmetProvider>
   );

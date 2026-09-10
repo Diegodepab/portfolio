@@ -1,7 +1,7 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { createContext, createElement, useCallback, useContext, useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { driver, type DriveStep, type Driver } from 'driver.js';
-import 'driver.js/dist/driver.css';
+import type { DriveStep, Driver } from 'driver.js';
+import { useVisualEffects } from '../performance/useVisualEffects';
 import { useLanguage } from '../context/LanguageContext';
 import { experiences } from '../data/experience';
 
@@ -30,7 +30,17 @@ const calculateExperienceMonths = () => experiences.reduce((total, experience) =
   return total + Math.max(0, difference);
 }, 0);
 
-export const useTour = () => {
+const useTourController = () => {
+  const { reducedMotion } = useVisualEffects();
+  const pendingStart = useRef(0);
+  const timers = useRef(new Set<ReturnType<typeof setTimeout>>());
+  const [isStarting, setIsStarting] = useState(false);
+  const [startError, setStartError] = useState(false);
+  const later = useCallback((callback: () => void, delay: number) => {
+    const id = setTimeout(() => { timers.current.delete(id); callback(); }, delay);
+    timers.current.add(id);
+  }, []);
+  const clearTimers = useCallback(() => { timers.current.forEach(clearTimeout); timers.current.clear(); }, []);
   const { lang } = useLanguage();
   const [isActive, setIsActive] = useState(false);
   const [currentStep, setCurrentStep] = useState<DriveStep | null>(null);
@@ -68,10 +78,10 @@ export const useTour = () => {
         if (trigger?.getAttribute('aria-expanded') === 'false') trigger.click();
         
         // Refresh highlight box and scroll after the accordion animation completes (350ms)
-        setTimeout(() => {
+        later(() => {
           driverObj.current?.refresh();
           // Force scroll so the expanded content is actually visible
-          document.querySelector('.edu-card')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          document.querySelector('.edu-card')?.scrollIntoView({ behavior: reducedMotion ? 'instant' : 'smooth', block: 'center' });
         }, 400);
       },
       onDeselected: () => {
@@ -94,8 +104,8 @@ export const useTour = () => {
         if (firstTab?.getAttribute('aria-selected') === 'false') firstTab.click();
         
         // Force scroll to #jobs so the header "02. Dónde he trabajado" is visible at the top
-        setTimeout(() => {
-          document.getElementById('jobs')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        later(() => {
+          document.getElementById('jobs')?.scrollIntoView({ behavior: reducedMotion ? 'instant' : 'smooth', block: 'start' });
         }, 100);
       },
       popover: {
@@ -112,7 +122,7 @@ export const useTour = () => {
       onHighlightStarted: () => {
         const trigger = document.querySelector<HTMLButtonElement>('#project-dock-item-metadataxtract button');
         if (trigger?.getAttribute('aria-expanded') === 'false') trigger.click();
-        window.requestAnimationFrame(() => driverObj.current?.refresh());
+        later(() => driverObj.current?.refresh(), 16);
       },
       onDeselected: () => {
         const trigger = document.querySelector<HTMLButtonElement>('#project-dock-item-metadataxtract button');
@@ -175,8 +185,8 @@ export const useTour = () => {
       element: '#contact',
       onHighlightStarted: () => {
         // Small delay to let the page settle before scrolling to contact
-        setTimeout(() => {
-          document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        later(() => {
+          document.getElementById('contact')?.scrollIntoView({ behavior: reducedMotion ? 'instant' : 'smooth', block: 'center' });
         }, 200);
       },
       popover: {
@@ -188,46 +198,59 @@ export const useTour = () => {
         align: 'center',
       },
     },
-  ], [experienceYears, lang]);
+  ], [experienceYears, lang, later, reducedMotion]);
+
+  useEffect(() => () => {
+    pendingStart.current++;
+    clearTimers();
+    driverObj.current?.destroy();
+    driverObj.current = null;
+  }, [clearTimers]);
 
   useEffect(() => {
-    const instance = driver({
-      steps,
-      showProgress: false,
-      animate: true,
-      smoothScroll: true,
-      overlayColor: 'transparent',
-      allowClose: true,
-      allowKeyboardControl: true,
-      skipMissingElement: true,
-      waitForElement: 3_000,
-      showButtons: ['next', 'previous', 'close'],
-      popoverClass: 'custom-driver-popover',
-      onPopoverRender: (popover, { state }) => {
-        setPopoverWrapper(popover.wrapper);
-        const activeIndex = state.activeIndex;
-        if (activeIndex !== undefined) {
-          setCurrentStep(steps[activeIndex] ?? null);
-          setIsLastStep(activeIndex === steps.length - 1);
-        }
-      },
-      onDestroyed: () => {
-        setIsActive(false);
-        setCurrentStep(null);
-        setPopoverWrapper(null);
-      },
-    });
+    const instance = driverObj.current;
+    if (instance) {
+      instance.setSteps(steps);
+      instance.setConfig({ ...instance.getConfig(), animate: !reducedMotion, smoothScroll: !reducedMotion });
+    }
+  }, [steps, reducedMotion]);
 
-    driverObj.current = instance;
-    return () => {
-      instance.destroy();
-      if (driverObj.current === instance) driverObj.current = null;
-    };
-  }, [steps]);
-
-  const startTour = () => {
-    setIsActive(true);
-    driverObj.current?.drive();
+  const startTour = async () => {
+    if (isStarting || driverObj.current?.isActive()) return;
+    const request = ++pendingStart.current;
+    setIsStarting(true);
+    setStartError(false);
+    try {
+      const { driver } = await import('./tourDriver');
+      if (request !== pendingStart.current) return;
+      const instance = driver({
+        steps, showProgress: false, animate: !reducedMotion, smoothScroll: !reducedMotion,
+        overlayColor: 'transparent', allowClose: true, allowKeyboardControl: true,
+        skipMissingElement: true, waitForElement: 3_000,
+        showButtons: ['next', 'previous', 'close'], popoverClass: 'custom-driver-popover',
+        onPopoverRender: (popover, { state }) => {
+          setPopoverWrapper(popover.wrapper);
+          if (state.activeIndex !== undefined) {
+            setCurrentStep(steps[state.activeIndex] ?? null);
+            setIsLastStep(state.activeIndex === steps.length - 1);
+          }
+        },
+        onDestroyed: () => {
+          clearTimers();
+          setIsActive(false);
+          setCurrentStep(null);
+          setPopoverWrapper(null);
+          driverObj.current = null;
+        },
+      });
+      driverObj.current = instance;
+      setIsActive(true);
+      instance.drive();
+    } catch {
+      if (request === pendingStart.current) setStartError(true);
+    } finally {
+      if (request === pendingStart.current) setIsStarting(false);
+    }
   };
 
   const nextStep = () => {
@@ -248,8 +271,22 @@ export const useTour = () => {
   };
 
   const endTour = () => {
+    pendingStart.current++;
+    clearTimers();
+    setIsStarting(false);
     driverObj.current?.destroy();
   };
 
-  return { startTour, isActive, currentStep, nextStep, prevStep, endTour, isLastStep, popoverWrapper };
+  return { startTour, isStarting, startError, isActive, currentStep, nextStep, prevStep, endTour, isLastStep, popoverWrapper };
 };
+
+const TourContext = createContext<ReturnType<typeof useTourController> | null>(null);
+export function TourProvider({ children }: { children: ReactNode }) {
+  const value = useTourController();
+  return createElement(TourContext.Provider, { value }, children);
+}
+export function useTour() {
+  const tour = useContext(TourContext);
+  if (!tour) throw new Error('useTour must be used inside TourProvider');
+  return tour;
+}

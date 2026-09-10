@@ -1,7 +1,8 @@
+import { useVisualEffects } from '../../performance/useVisualEffects';
 import React from 'react';
 import { socialLinks, siteConfig } from '../../data/config';
 import { Icon } from '../icons/Icon';
-import { motion, useReducedMotion } from 'motion/react';
+import { motion } from 'motion/react';
 import type { Palette } from '../../utils/palettes';
 import './SideElements.css';
 
@@ -15,7 +16,7 @@ interface PokemonButtonProps extends SideElementsProps {
 }
 
 export const PokemonButton: React.FC<PokemonButtonProps> = ({ pokemon, onPokemonChange, compact = false }) => {
-  const shouldReduceMotion = useReducedMotion();
+  const shouldReduceMotion = useVisualEffects().reducedMotion;
 
   return (
     <div className={`pokemon-trigger-wrap${compact ? ' pokemon-trigger-wrap--compact' : ''}`}>
@@ -49,7 +50,7 @@ export const PokemonButton: React.FC<PokemonButtonProps> = ({ pokemon, onPokemon
 };
 
 export const SideElements: React.FC<SideElementsProps> = ({ pokemon, onPokemonChange }) => {
-  const shouldReduceMotion = useReducedMotion();
+  const shouldReduceMotion = useVisualEffects().reducedMotion;
 
   return (
     <>
@@ -122,10 +123,6 @@ export const SideElements: React.FC<SideElementsProps> = ({ pokemon, onPokemonCh
       </div>
 
 
-
-      <div className="pokemon-mobile-trigger">
-        <PokemonButton pokemon={pokemon} onPokemonChange={onPokemonChange} compact />
-      </div>
 
       <span id="pokemon-palette-status" className="visually-hidden" aria-live="polite">
         Paleta de {pokemon.name} activada

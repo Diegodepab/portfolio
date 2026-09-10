@@ -19,7 +19,7 @@
 
 .image-transition-stage__layer--incoming {
   z-index: 1;
-  will-change: opacity, transform, clip-path;
+  will-change: opacity, transform;
 }
 
 .image-transition-stage__layer--incoming[data-effect='fade'] {
@@ -68,3 +68,5 @@
   }
 }
 
+
+.image-transition-stage__pixel-container { position: absolute; inset: 0; z-index: 3; }

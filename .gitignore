@@ -25,3 +25,8 @@ dist-ssr
 .env
 .env.*
 !.env.example
+
+# Browser traces and reproducible local performance reports
+artifacts/
+playwright-report/
+test-results/

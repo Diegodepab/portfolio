@@ -253,6 +253,11 @@
     opacity var(--duration-fast);
 }
 
+.metal-fx-root .contact-submit {
+  border: 0;
+  background: transparent;
+}
+
 .contact-submit:hover:not(:disabled) {
   background: color-mix(in srgb, var(--color-accent-1) 20%, #030504);
   box-shadow: 0 0 26px color-mix(in srgb, var(--color-accent-1) 16%, transparent);

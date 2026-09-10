@@ -75,7 +75,7 @@ export const ChatInput: React.FC<ChatInputProps> = ({ onSend, disabled, state, l
           </span>
         )}
       </div>
-      <MetalFx variant="button" preset="silver" strength={0.8} normalizeHostStyles={false} className="poke-metal-tint">
+      <MetalFx theme="dark" variant="button" preset="silver" strength={0.8} normalizeHostStyles={false} className="poke-metal-tint">
         <button
           className="chat-send-btn"
           onClick={handleSend}

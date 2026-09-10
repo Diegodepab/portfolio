@@ -44,9 +44,4 @@ export const socialLinks: SocialLink[] = [
     url: 'https://www.linkedin.com/in/diego-de-pablo/',
     icon: 'Linkedin',
   },
-  {
-    name: 'Instagram',
-    url: 'https://www.instagram.com/diegodepab/',
-    icon: 'Instagram',
-  },
 ];

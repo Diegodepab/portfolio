@@ -1,3 +1,4 @@
+import { useEffectVisibility } from '../../../performance/useVisualEffects';
 // The ThinkingOrb component. One shared clock (performance.now) keeps
 // every mounted orb in phase; each instance runs its own rAF loop but
 // pauses automatically while offscreen (IntersectionObserver) or when
@@ -35,6 +36,7 @@ export function ThinkingOrb({
   const ref = useRef<HTMLCanvasElement | null>(null);
   const dark = useResolvedDark(theme, ref);
   const reduced = useReducedMotion();
+  const { active } = useEffectVisibility(ref);
 
   useEffect(() => {
     const canvas = ref.current;
@@ -56,54 +58,19 @@ export function ThinkingOrb({
     };
 
     // reduced motion → one static, deterministic frame
-    if (reduced) {
+    if (reduced || paused || !active) {
       frame(0.6);
       return;
     }
 
     let raf = 0;
-    let running = false;
     const loop = () => {
       frame((performance.now() / 1000) * effSpeed);
-      if (running) raf = requestAnimationFrame(loop);
-    };
-    const start = () => {
-      if (running || paused) return;
-      running = true;
       raf = requestAnimationFrame(loop);
     };
-    const stop = () => {
-      running = false;
-      cancelAnimationFrame(raf);
-    };
-
-    // draw at least one frame even when paused/offscreen
-    frame((performance.now() / 1000) * effSpeed);
-
-    // pause offscreen + on hidden tabs — free when not visible
-    let visible = true;
-    const io =
-      typeof IntersectionObserver !== 'undefined'
-        ? new IntersectionObserver(([entry]) => {
-            visible = entry.isIntersecting;
-            if (visible && document.visibilityState !== 'hidden') start();
-            else stop();
-          })
-        : null;
-    io?.observe(canvas);
-    const onVis = () => {
-      if (document.visibilityState === 'hidden') stop();
-      else if (visible) start();
-    };
-    document.addEventListener('visibilitychange', onVis);
-    if (!io) start();
-
-    return () => {
-      stop();
-      io?.disconnect();
-      document.removeEventListener('visibilitychange', onVis);
-    };
-  }, [state, size, dark, speed, paused, reduced]);
+    raf = requestAnimationFrame(loop);
+    return () => cancelAnimationFrame(raf);
+  }, [state, size, dark, speed, paused, reduced, active]);
 
   return (
     <canvas
