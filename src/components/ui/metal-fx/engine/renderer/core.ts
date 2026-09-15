@@ -1,3 +1,4 @@
+import { reduceEffects } from '../../../../../performance/effectsStore';
 /**
  * Shared WebGL renderer — one offscreen GL canvas drives all MetalFx instances.
  *
@@ -6,8 +7,8 @@
  *   2. Each instance owns a visible 2D canvas that receives a cropped/scaled
  *      copy of the GL output with an inner "hole punch" mask (ring effect).
  *   3. Glow sampling reads from a shared pixel buffer (gl.readPixels) that is
- *      refreshed at most every 200ms to avoid GPU pipeline flushes on every frame.
- *   4. The animation loop is capped at ~30fps — the blur + slow plasma motion
+ *      refreshed at most every 1500ms to avoid GPU pipeline flushes on every frame.
+ *   4. The animation loop is capped at ~15fps — the blur + slow plasma motion
  *      makes higher rates imperceptible.
  */
 import { CANONICAL_GL_SIZE, GL_DPR_CAP } from '../perfConfig';
@@ -78,13 +79,6 @@ export interface SharedRenderer {
 
 export let SHARED: SharedRenderer | null = null;
 
-// Called by ensureSharedRenderer on first init and by the contextrestored
-// listener to rebuild GL state after the browser reclaims the context.
-let _onContextRestored: (() => void) | null = null;
-export function setContextRestoredCallback(cb: (() => void) | null): void {
-  _onContextRestored = cb;
-}
-
 const UNIFORM_NAMES = [
   'u_resolution', 'u_time',
   'u_color1', 'u_color2', 'u_color3', 'u_color4', 'u_color5', 'u_color6', 'u_color7',
@@ -103,6 +97,8 @@ function buildGLPipeline(gl: WebGLRenderingContext): {
   const vert = compileShader(gl, gl.VERTEX_SHADER, VERT_SHADER_SRC);
   const frag = compileShader(gl, gl.FRAGMENT_SHADER, FRAG_SHADER_SRC);
   const program = linkProgram(gl, vert, frag);
+  gl.deleteShader(vert);
+  gl.deleteShader(frag);
   // biome-ignore lint/correctness/useHookAtTopLevel: WebGL method, not a React hook
   gl.useProgram(program);
 
@@ -131,6 +127,7 @@ export function isWebGLSupported(): boolean {
     const canvas = document.createElement('canvas');
     const gl = canvas.getContext('webgl') ?? canvas.getContext('experimental-webgl');
     _webGLSupported = Boolean(gl);
+    (gl as WebGLRenderingContext | null)?.getExtension('WEBGL_lose_context')?.loseContext();
   } catch {
     _webGLSupported = false;
   }
@@ -139,7 +136,7 @@ export function isWebGLSupported(): boolean {
 
 export function ensureSharedRenderer(): SharedRenderer | null {
   if (SHARED) return SHARED;
-  if (!isWebGLSupported()) return null;
+  if (typeof document === 'undefined') return null;
 
   const dpr = Math.min(GL_DPR_CAP, typeof window !== 'undefined' ? window.devicePixelRatio || 1 : 1);
   const size = Math.round(CANONICAL_GL_SIZE * dpr);
@@ -183,36 +180,28 @@ export function ensureSharedRenderer(): SharedRenderer | null {
     // from mutating the replacement shared renderer.
     const onContextLost = (e: Event) => {
       e.preventDefault();
-      if (SHARED === renderer) renderer.contextLost = true;
-    };
-    const onContextRestored = () => {
-      if (SHARED !== renderer) return;
-      try {
-        const rebuilt = buildGLPipeline(renderer.gl);
-        renderer.program = rebuilt.program;
-        renderer.buffer = rebuilt.buffer;
-        renderer.uniforms = rebuilt.uniforms;
-        renderer.presetDirty = true;
-        renderer.contextLost = false;
-        _onContextRestored?.();
-      } catch {
+      if (SHARED === renderer) {
         renderer.contextLost = true;
+        reduceEffects('graphics-failure');
+        teardownSharedRenderer();
       }
     };
     glCanvas.addEventListener('webglcontextlost', onContextLost as EventListener, false);
-    glCanvas.addEventListener('webglcontextrestored', onContextRestored as EventListener, false);
 
     SHARED = renderer;
     return renderer;
-  } catch (err) {
-    console.warn('[metal-fx] WebGL initialization failed, falling back to CSS styling:', err);
+  } catch {
+    gl?.getExtension('WEBGL_lose_context')?.loseContext();
+    reduceEffects('graphics-failure');
     return null;
   }
 }
 
 export function teardownSharedRenderer(): void {
   if (!SHARED) return;
-  const { gl, program, buffer, frameBitmap } = SHARED;
+  const { gl, program, buffer, frameBitmap, rafId } = SHARED;
+  SHARED = null;
+  if (rafId) cancelAnimationFrame(rafId);
   try {
     frameBitmap?.close();
     gl.deleteBuffer(buffer);

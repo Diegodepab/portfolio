@@ -16,7 +16,9 @@ describe('palette accessibility', () => {
   it('makes every selectable palette accent readable', () => {
     for (const palette of pokePalettes) {
       for (const color of Object.values(palette.colors).filter((value) => value.startsWith('#'))) {
-        expect(contrastRatio(ensureAccessibleAccent(color))).toBeGreaterThanOrEqual(4.5);
+        for (const background of ['#0a0f1c', '#191f2e', '#192033']) {
+          expect(contrastRatio(ensureAccessibleAccent(color), background)).toBeGreaterThanOrEqual(4.5);
+        }
       }
     }
   });

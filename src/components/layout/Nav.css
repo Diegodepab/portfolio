@@ -48,9 +48,11 @@
 
 .nav-menu-toggle {
   display: none;
-  width: 40px;
-  height: 40px;
-  padding: 9px;
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+  min-height: 44px;
+  padding: 11px 9px;
   flex-direction: column;
   justify-content: center;
   gap: 5px;
@@ -147,12 +149,14 @@
 .language-option {
   display: flex;
   align-items: center;
+  justify-content: center;
+  min-height: 38px;
   gap: 5px;
-  padding: 5px 8px;
+  padding: 6px 10px;
   border: 0;
   border-radius: calc(var(--border-radius) - 2px);
   background: transparent;
-  color: var(--color-text-muted);
+  color: color-mix(in srgb, var(--color-text-primary) 80%, transparent);
   cursor: pointer;
   font-family: var(--font-mono);
   font-size: 0.6875rem;
@@ -165,7 +169,7 @@
 
 .language-option.is-active {
   background-color: var(--color-bg-surface);
-  color: var(--color-accent-3);
+  color: var(--color-text-heading);
   cursor: default;
 }
 

@@ -1,7 +1,8 @@
+import { projectVisuals } from '../../data/projectVisuals';
+import './ProjectsPage.css';
 import React, { useMemo, useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { AnimatePresence, motion } from 'motion/react';
-import { Helmet } from 'react-helmet-async';
 import { FiSearch, FiSliders, FiX } from 'react-icons/fi';
 import { Icon } from '../icons/Icon';
 import { ProjectVisual } from '../projects/ProjectVisual';
@@ -60,8 +61,7 @@ export const ProjectsPage: React.FC = () => {
   ];
 
   return (
-    <motion.main className="projects-page" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.35 }}>
-      <Helmet title={lang === 'en' ? 'Project Explorer | Diego De Pablo' : 'Explorador de proyectos | Diego De Pablo'} />
+    <motion.main className="projects-page" initial={false} animate={{ opacity: 1 }} transition={{ duration: 0.35 }}>
       <ProjectRouteBackdrop variant="ants" />
 
       <header className="projects-page-hero">
@@ -117,22 +117,9 @@ export const ProjectsPage: React.FC = () => {
             {filteredItems.map(item => {
               const href = item.type === 'post' ? `/blog/${item.blogSlug}` : `/projects/${item.id}`;
               const isInternal = true;
-              const visualKinds: Record<string, 'kubernetes' | 'health' | 'extract' | 'ai' | 'titan' | 'alignx' | 'surgery' | 'smotts' | 'twins' | 'edaan' | 'circlescope'> = {
-                'kubernetes-platform': 'kubernetes',
-                'tfg-patient-monitoring': 'health',
-                'metadataxtract': 'extract',
-                'metadatasearch': 'ai',
-                'titan-workflow': 'titan',
-                'alignx': 'alignx',
-                'msurgery-platform': 'surgery',
-                'smotts': 'smotts',
-                'digital-twins': 'twins',
-                'edaan-data-space': 'edaan',
-                'instagram-epic-tool': 'circlescope',
-              };
               return (
-                <motion.article key={item.id} id={`project-${item.id}`} layout initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, scale: 0.96 }} className={`catalog-card${selectedProject === item.id ? ' is-selected' : ''}`}>
-                  <ProjectVisual kind={visualKinds[item.id] ?? 'generic'} label={item.title} />
+                <motion.article key={item.id} id={`project-${item.id}`} layout initial={false} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, scale: 0.96 }} className={`catalog-card${selectedProject === item.id ? ' is-selected' : ''}`}>
+                  <ProjectVisual kind={projectVisuals[item.id] ?? 'generic'} label={item.title} />
                   <div className="catalog-card-body">
                     <div className="catalog-card-meta"><span>{item.category ? CATEGORY_LABELS[item.category][lang] : lang === 'en' ? 'Writing' : 'Artículo'}</span><small>{item.company ?? (item.tag === 'professional' ? 'Professional' : 'Independent')}</small></div>
                     <h2>{href ? (isInternal ? <Link to={href}>{item.title}</Link> : <a href={href} target="_blank" rel="noopener noreferrer">{item.title}</a>) : item.title}</h2>

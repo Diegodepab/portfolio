@@ -1,0 +1,24 @@
+html[data-page-visible='false'] * {
+  animation-play-state: paused !important;
+}
+
+html[data-effects='reduced'] .project-visual :is(.ai-result-card, .alignx-signal, .alignx-consensus, .alignx-consensus-count, .titan-node, .titan-agent-text, .titan-chat-msg, .titan-edge) {
+  opacity: 1;
+}
+html[data-effects='reduced'] .project-visual :is(.health-line, .health-line-shadow, .titan-edge) {
+  stroke-dashoffset: 0;
+}
+html[data-effects='reduced'] .project-visual :is(.ai-search-text, .alignx-consensus-fill) {
+  width: 100%;
+  transform: none;
+}
+html[data-effects='reduced'] .project-visual .titan-agent-thinking { display: none; }
+
+html[data-effects='reduced'] .chat-widget-trigger::before { animation: none; }
+html[data-effects='reduced'] .orrery-ring { transform: translate(-50%, -50%) rotateX(68deg); }
+html[data-effects='reduced'] .orrery-node { transform: translate(-50%, -50%) rotateX(-68deg); }
+html[data-effects='reduced'] .project-visual .extract-progress i { transform: scaleX(1); }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto !important; }
+}

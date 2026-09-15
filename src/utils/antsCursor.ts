@@ -1,5 +1,7 @@
+import { scheduleVisualMeasurement, cancelVisualMeasurement } from '../performance/frameTasks';
 export interface AntsCursorOptions {
   element?: HTMLElement | null;
+  initialSize?: { width: number; height: number };
   numberOfAnts?: number;
   followRange?: number;
   color?: string;
@@ -24,10 +26,14 @@ export function antsCursor(options?: AntsCursorOptions) {
   let isRunning = false;
   let eventsBound = false;
   let destroyed = false;
+  let bounds: DOMRect | null = null;
+  const geometryKey = {};
+  const pointerKey = {};
+  const invalidateBounds = () => { bounds = null; };
 
   const numberOfAnts = options?.numberOfAnts ?? 15;
   const followRange = options?.followRange ?? 60;
-  const antColor = options?.color ?? "#4a2c0a";
+  let antColor = options?.color ?? "#4a2c0a";
   const antSpeed = options?.speed ?? 1.2;
   const antOpacity = options?.opacity !== undefined ? options.opacity : 0.6;
   const antSizeMultiplier = options?.sizeMultiplier ?? 0.6;
@@ -60,9 +66,11 @@ export function antsCursor(options?: AntsCursorOptions) {
 
     if (hasWrapperEl) {
       canvas.style.position = "absolute";
+      const initialWidth = options?.initialSize?.width ?? element.clientWidth;
+      const initialHeight = options?.initialSize?.height ?? element.clientHeight;
+      canvas.width = initialWidth;
+      canvas.height = initialHeight;
       element.appendChild(canvas);
-      canvas.width = element.clientWidth;
-      canvas.height = element.clientHeight;
     } else {
       canvas.style.position = "fixed";
       document.body.appendChild(canvas);
@@ -89,6 +97,7 @@ export function antsCursor(options?: AntsCursorOptions) {
     window.addEventListener("touchmove", onTouchMove as EventListener, { passive: true });
     window.addEventListener("touchstart", onTouchMove as EventListener, { passive: true });
     window.addEventListener("resize", onWindowResize);
+    window.addEventListener("scroll", invalidateBounds, { passive: true, capture: true });
     document.addEventListener("visibilitychange", onVisibilityChange);
   }
 
@@ -99,6 +108,9 @@ export function antsCursor(options?: AntsCursorOptions) {
     window.removeEventListener("touchmove", onTouchMove as EventListener);
     window.removeEventListener("touchstart", onTouchMove as EventListener);
     window.removeEventListener("resize", onWindowResize);
+    window.removeEventListener("scroll", invalidateBounds, true);
+    cancelVisualMeasurement(geometryKey);
+    cancelVisualMeasurement(pointerKey);
     document.removeEventListener("visibilitychange", onVisibilityChange);
   }
 
@@ -108,42 +120,32 @@ export function antsCursor(options?: AntsCursorOptions) {
   }
 
   function onWindowResize() {
-    if (!canvas) return;
-    width = window.innerWidth;
-    height = window.innerHeight;
-
-    if (hasWrapperEl) {
-      canvas.width = element.clientWidth;
-      canvas.height = element.clientHeight;
-    } else {
-      canvas.width = width;
-      canvas.height = height;
-    }
+    invalidateBounds();
+    scheduleVisualMeasurement(geometryKey, () => {
+      if (!canvas) return;
+      const nextWidth = hasWrapperEl ? element.clientWidth : window.innerWidth;
+      const nextHeight = hasWrapperEl ? element.clientHeight : window.innerHeight;
+      return () => {
+        if (!canvas) return;
+        width = nextWidth; height = nextHeight;
+        if (canvas.width !== width) canvas.width = width;
+        if (canvas.height !== height) canvas.height = height;
+      };
+    });
   }
 
+  function move(clientX: number, clientY: number) {
+    scheduleVisualMeasurement(pointerKey, () => {
+      if (hasWrapperEl) bounds ??= element.getBoundingClientRect();
+      const x = clientX - (bounds?.left ?? 0);
+      const y = clientY - (bounds?.top ?? 0);
+      return () => { cursor.x = x; cursor.y = y; };
+    });
+  }
   function onTouchMove(e: TouchEvent) {
-    if (e.touches.length > 0) {
-      if (hasWrapperEl) {
-        const boundingRect = element.getBoundingClientRect();
-        cursor.x = e.touches[0].clientX - boundingRect.left;
-        cursor.y = e.touches[0].clientY - boundingRect.top;
-      } else {
-        cursor.x = e.touches[0].clientX;
-        cursor.y = e.touches[0].clientY;
-      }
-    }
+    if (e.touches.length) move(e.touches[0].clientX, e.touches[0].clientY);
   }
-
-  function onMouseMove(e: MouseEvent) {
-    if (hasWrapperEl) {
-      const boundingRect = element.getBoundingClientRect();
-      cursor.x = e.clientX - boundingRect.left;
-      cursor.y = e.clientY - boundingRect.top;
-    } else {
-      cursor.x = e.clientX;
-      cursor.y = e.clientY;
-    }
-  }
+  function onMouseMove(e: MouseEvent) { move(e.clientX, e.clientY); }
 
   function updateAnts() {
     if (!context || !canvas) return;
@@ -175,7 +177,8 @@ export function antsCursor(options?: AntsCursorOptions) {
     }
 
     let addedNew = true;
-    while (addedNew) {
+    let maxPasses = 5;
+    while (addedNew && --maxPasses > 0) {
       addedNew = false;
       ants.forEach((ant) => {
         if (ant.following) return;
@@ -224,7 +227,7 @@ export function antsCursor(options?: AntsCursorOptions) {
   function startLoop() {
     if (isRunning) return;
     isRunning = true;
-    loop();
+    animationFrame = requestAnimationFrame(loop);
   }
 
   function stopLoop() {
@@ -292,8 +295,11 @@ export function antsCursor(options?: AntsCursorOptions) {
       if (dist > 8) {
         const targetAngle = Math.atan2(dy, dx);
         let angleDiff = targetAngle - this.angle;
-        while (angleDiff > Math.PI) angleDiff -= Math.PI * 2;
-        while (angleDiff < -Math.PI) angleDiff += Math.PI * 2;
+        if (Number.isFinite(angleDiff)) {
+          angleDiff = Math.atan2(Math.sin(angleDiff), Math.cos(angleDiff));
+        } else {
+          angleDiff = 0;
+        }
         this.angle += angleDiff * 0.3;
 
         const speed = Math.min(antSpeed * 1.8, dist * 0.15);
@@ -385,9 +391,14 @@ export function antsCursor(options?: AntsCursorOptions) {
     }
   }
 
+  function updateColor(newColor: string) {
+    if (newColor) antColor = newColor;
+  }
+
   init();
 
   return {
-    destroy
+    destroy,
+    updateColor
   };
 }

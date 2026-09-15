@@ -1,6 +1,7 @@
+import { reduceEffects } from '../../../../../performance/effectsStore';
 /** Animation loop, per-frame compositing, and instance lifecycle. */
 import { hexToRgb } from '../color';
-import { FRAME_INTERVAL_MS, GLOW_SKIP_FRAMES } from '../perfConfig';
+import { FRAME_INTERVAL_MS, GLOW_SKIP_FRAMES, GL_DPR_CAP } from '../perfConfig';
 import { PRESETS, type PresetName, type PresetTheme } from '../presets';
 import {
   SHARED,
@@ -9,29 +10,15 @@ import {
   CIRCLE_SHADER_SCALE,
   PILL_SHADER_SCALE,
   ensureSharedRenderer,
-  setContextRestoredCallback,
   teardownSharedRenderer,
   type MetalFxInstance,
 } from './core';
-import { ensureGlowPixels } from './sampling';
 
-// Restart the animation loop when the browser restores the GL context.
-setContextRestoredCallback(() => {
-  if (SHARED && SHARED.instances.size > 0 && SHARED.pausedAtMs === null) {
-    startSharedLoop();
-  }
-});
-
-if (typeof document !== 'undefined') {
-  document.addEventListener('visibilitychange', () => {
-    if (!SHARED || SHARED.pausedAtMs !== null || SHARED.contextLost) return;
-    if (document.hidden) {
-      stopSharedLoop();
-    } else if (SHARED.instances.size > 0) {
-      startSharedLoop();
-    }
-  });
-}
+const onVisibilityChange = () => {
+  if (!SHARED || SHARED.pausedAtMs !== null || SHARED.contextLost) return;
+  if (document.hidden) stopSharedLoop();
+  else if (SHARED.instances.size > 0) startSharedLoop();
+};
 
 // ─── Instance lifecycle ───────────────────────────────────────────────────
 
@@ -54,7 +41,10 @@ export function createInstance(opts: CreateInstanceOptions): MetalFxInstance | n
   const renderer = ensureSharedRenderer();
   if (!renderer) return null;
   const ctx = opts.hostCanvas.getContext('2d', { alpha: true });
-  if (!ctx) return null;
+  if (!ctx) {
+    if (!renderer.instances.size) teardownSharedRenderer();
+    return null;
+  }
 
   const scale = opts.scale ?? 1;
   const inst: MetalFxInstance = {
@@ -68,23 +58,24 @@ export function createInstance(opts: CreateInstanceOptions): MetalFxInstance | n
     visible: true,
     paused: opts.paused ?? false,
     everCopied: false,
-    dpr: typeof window !== 'undefined' ? window.devicePixelRatio || 1 : 1,
+    dpr: Math.min(GL_DPR_CAP, typeof window !== 'undefined' ? window.devicePixelRatio || 1 : 1),
     scale,
     onAfterFrame: opts.onAfterFrame,
     onFirstCopy: opts.onFirstCopy,
   };
   resizeInstanceCanvas(inst);
+  if (!renderer.instances.size) document.addEventListener('visibilitychange', onVisibilityChange);
   renderer.instances.add(inst);
   if (renderer.rafId === 0 && renderer.pausedAtMs === null) startSharedLoop();
   return inst;
 }
 
 export function destroyInstance(inst: MetalFxInstance): void {
-  if (!SHARED) return;
+  if (!SHARED) { document.removeEventListener('visibilitychange', onVisibilityChange); return; }
   SHARED.instances.delete(inst);
   const qi = SHARED.glowQueue.indexOf(inst);
   if (qi !== -1) SHARED.glowQueue.splice(qi, 1);
-  if (SHARED.instances.size === 0) { stopSharedLoop(); teardownSharedRenderer(); }
+  if (SHARED.instances.size === 0) { document.removeEventListener('visibilitychange', onVisibilityChange); stopSharedLoop(); teardownSharedRenderer(); }
 }
 
 export function registerGlowInstance(inst: MetalFxInstance): void {
@@ -169,7 +160,7 @@ export function setGlowCallback(cb: GlowCallback | null): void {
 // ─── Internal rendering ───────────────────────────────────────────────────
 
 function resizeInstanceCanvas(inst: MetalFxInstance): void {
-  inst.dpr = typeof window !== 'undefined' ? window.devicePixelRatio || 1 : 1;
+  inst.dpr = Math.min(GL_DPR_CAP, typeof window !== 'undefined' ? window.devicePixelRatio || 1 : 1);
   const w = Math.max(1, Math.round(inst.cssWidth * inst.dpr));
   const h = Math.max(1, Math.round(inst.cssHeight * inst.dpr));
   if (inst.canvas.width !== w) inst.canvas.width = w;
@@ -275,10 +266,10 @@ function tick(now: number): void {
   if (now - lastFrameMs < FRAME_INTERVAL_MS) return;
   lastFrameMs = now;
 
+  try {
   renderSharedFrame(now);
 
   if (SHARED.useOffscreen) {
-    if (SHARED.glowQueue.length > 0) ensureGlowPixels();
     SHARED.frameBitmap?.close();
     SHARED.frameBitmap = (SHARED.glCanvas as OffscreenCanvas).transferToImageBitmap();
   }
@@ -298,6 +289,10 @@ function tick(now: number): void {
     // (otherwise the catch-light would keep travelling on a frozen ring).
     if (inst.visible && !inst.paused) _glowCallback(inst, now);
     SHARED.glowIdx++;
+  }
+  } catch {
+    reduceEffects('graphics-failure');
+    teardownSharedRenderer();
   }
 }
 

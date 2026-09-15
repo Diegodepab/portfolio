@@ -1,10 +1,12 @@
-import { useEffect, useRef, useState, type FC } from 'react';
+import { useRef, useState, type FC } from 'react';
+import { useEffectVisibility } from '../../performance/useVisualEffects';
 import { useMediaRotation } from '../../hooks/useMediaRotation';
 import {
   ImageTransitionStage,
 } from './image-transitions/ImageTransitionStage';
 import type { ImageTransitionEffect } from './image-transitions/effects';
 import './CrossfadeGallery.css';
+import { useLanguage } from '../../context/LanguageContext';
 
 export interface GalleryImage {
   src: string;
@@ -39,27 +41,17 @@ export const CrossfadeGallery: FC<CrossfadeGalleryProps> = ({
   initialDelay = interval,
   effects,
 }) => {
+  const { lang } = useLanguage();
+  const [paused, setPaused] = useState(false);
   const galleryRef = useRef<HTMLDivElement>(null);
-  const [isVisible, setIsVisible] = useState(true);
-
-  useEffect(() => {
-    const gallery = galleryRef.current;
-    if (!gallery || typeof IntersectionObserver === 'undefined') return;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => setIsVisible(entry?.isIntersecting ?? true),
-      { rootMargin: '120px' },
-    );
-    observer.observe(gallery);
-    return () => observer.disconnect();
-  }, []);
+  const { active } = useEffectVisibility(galleryRef);
 
   const { activeIndex, setActiveIndex } = useMediaRotation(
     images.length,
     interval,
     initialIndex,
     initialDelay,
-    !isVisible,
+    !active || paused,
   );
 
   return (
@@ -68,12 +60,12 @@ export const CrossfadeGallery: FC<CrossfadeGalleryProps> = ({
         <ImageTransitionStage
           items={images}
           activeIndex={activeIndex}
-          getSource={(image) => image.src}
+          getSource={(image) => image}
           effects={effects}
-          renderItem={(image, index) => (
+          renderItem={(image, index, selected) => (
             <img
-              src={image.src}
-              srcSet={image.srcSet}
+              src={selected ?? image.src}
+              srcSet={selected ? undefined : image.srcSet}
               sizes={image.sizes}
               width={image.width ?? 700}
               height={image.height ?? 933}
@@ -81,7 +73,7 @@ export const CrossfadeGallery: FC<CrossfadeGalleryProps> = ({
               className="crossfade-gallery__image"
               style={{ objectPosition: image.position }}
               loading={eagerFirst && index === initialIndex ? 'eager' : 'lazy'}
-              fetchPriority={eagerFirst && index === initialIndex ? 'high' : 'auto'}
+              decoding="async"
             />
           )}
         />
@@ -89,6 +81,7 @@ export const CrossfadeGallery: FC<CrossfadeGalleryProps> = ({
 
       {showControls && (
         <div className="crossfade-gallery__controls" role="group" aria-label={label}>
+          <button type="button" className="crossfade-gallery__pause" aria-pressed={paused} aria-label={lang === 'es' ? 'Pausar galería automática' : 'Pause automatic gallery'} onClick={() => setPaused(!paused)}>{paused ? '▶' : 'Ⅱ'}</button>
           {images.map((image, index) => (
             <button
               key={image.src}
@@ -96,7 +89,7 @@ export const CrossfadeGallery: FC<CrossfadeGalleryProps> = ({
               className={`crossfade-gallery__dot${activeIndex === index ? ' is-active' : ''}`}
               aria-label={`${label}: ${index + 1} / ${images.length}`}
               aria-pressed={activeIndex === index}
-              onClick={() => setActiveIndex(index)}
+              onClick={() => { setPaused(true); setActiveIndex(index); }}
             />
           ))}
         </div>

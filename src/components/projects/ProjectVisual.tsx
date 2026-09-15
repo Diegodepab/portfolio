@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useRef } from 'react';
+import { useEffectVisibility } from '../../performance/useVisualEffects';
 import { FiShield, FiTool, FiCpu, FiCheckCircle, FiSearch, FiDatabase, FiLayers } from 'react-icons/fi';
 import { Icon } from '../icons/Icon';
 import { useLanguage } from '../../context/LanguageContext';
@@ -13,9 +14,11 @@ interface ProjectVisualProps {
 
 export const ProjectVisual: React.FC<ProjectVisualProps> = ({ kind = 'generic', label }) => {
   const { lang } = useLanguage();
+  const rootRef = useRef<HTMLDivElement>(null);
+  const { active } = useEffectVisibility(rootRef);
 
   return (
-  <div className={`project-visual project-visual--${kind}`} aria-label={label} role="img">
+  <div ref={rootRef} data-animation-active={active} className={`project-visual project-visual--${kind}`} aria-label={label} role="img">
     <div className="project-visual-grid" />
     <div className="project-visual-window">
       <div className="project-visual-toolbar">
@@ -37,11 +40,39 @@ export const ProjectVisual: React.FC<ProjectVisualProps> = ({ kind = 'generic', 
       </div>
       {kind === 'kubernetes' ? (
         <div className="project-visual-cluster">
-          <div className="cluster-node cluster-node--primary"><FiCheckCircle size={22} /><b>GitOps</b><small>Argo CD</small></div>
-          <div className="cluster-line cluster-line--one" />
-          <div className="cluster-node cluster-node--secondary"><FiLayers size={22} /><b>Helm</b><small>Release</small></div>
-          <div className="cluster-line cluster-line--two" />
-          <div className="cluster-node cluster-node--tertiary"><FiShield size={22} /><b>Envoy</b><small>Gateway API</small></div>
+          <div className="cluster-node cluster-node--primary">
+            <span className="cluster-pulse-ring" />
+            <FiCheckCircle size={20} />
+            <b>GitOps</b>
+            <small>Argo CD</small>
+            <span className="cluster-badge">Synced</span>
+          </div>
+          <div className="cluster-line cluster-line--one">
+            <span className="cluster-packet p1" />
+            <span className="cluster-packet p2" />
+          </div>
+          <div className="cluster-node cluster-node--secondary">
+            <span className="cluster-pulse-ring" />
+            <FiLayers size={20} />
+            <b>Helm</b>
+            <small>Release</small>
+            <span className="cluster-badge">Deploy</span>
+          </div>
+          <div className="cluster-line cluster-line--two">
+            <span className="cluster-packet p1" />
+            <span className="cluster-packet p2" />
+          </div>
+          <div className="cluster-node cluster-node--tertiary">
+            <span className="cluster-pulse-ring" />
+            <FiShield size={20} />
+            <b>Envoy</b>
+            <small>Gateway</small>
+            <span className="cluster-badge">Routing</span>
+          </div>
+          <div className="cluster-status">
+            <span className="cluster-status-indicator"><i /> <span>Cluster Synced</span></span>
+            <small>0 drift · 100% health</small>
+          </div>
         </div>
       ) : kind === 'health' ? (
         <div className="project-visual-health">
@@ -200,12 +231,129 @@ export const ProjectVisual: React.FC<ProjectVisualProps> = ({ kind = 'generic', 
         </div>
       ) : kind === 'surgery' ? (
         <div className="project-visual-surgery">
+          {/* Medical Monitor Fluoroscopic Grid */}
+          <div className="surgery-ecg-grid" />
+          <div className="surgery-beam-sweep" />
+
+          {/* HUD Brackets */}
+          <div className="surgery-hud-corner tl" />
+          <div className="surgery-hud-corner tr" />
+          <div className="surgery-hud-corner bl" />
+          <div className="surgery-hud-corner br" />
+
+          {/* Top Status & Telemetry Bar */}
+          <div className="surgery-top-bar">
+            <div className="surgery-live-badge">
+              <span className="surgery-live-dot" />
+              <span className="surgery-live-title">OR-1 · STERILE FIELD</span>
+            </div>
+            <div className="surgery-vitals">
+              <div className="surgery-vital vital-hr">
+                <span className="vital-label">ECG · HR</span>
+                <span className="vital-num">
+                  <span className="vital-heart">♥</span> 75 <small>BPM</small>
+                </span>
+              </div>
+              <div className="surgery-vital vital-spo2">
+                <span className="vital-label">SpO₂</span>
+                <span className="vital-num">99<small>%</small></span>
+              </div>
+              <div className="surgery-vital vital-art">
+                <span className="vital-label">ART</span>
+                <span className="vital-num">120/80</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Dual ECG & Plethysmograph Waveform Display */}
+          <div className="surgery-wave-display">
+            {/* ECG Lead II Trace */}
+            <div className="surgery-wave-channel">
+              <div className="surgery-channel-tag">
+                <span className="lead-name">LEAD II</span>
+                <span className="lead-meta">1.0 mV · FILTER · 25 mm/s</span>
+              </div>
+              <div className="surgery-ecg-viewport">
+                <div className="surgery-ecg-scroller">
+                  {[0, 1].map((copy) => (
+                    <svg
+                      key={copy}
+                      className="surgery-ecg-svg"
+                      viewBox="0 0 400 90"
+                      preserveAspectRatio="none"
+                      aria-hidden="true"
+                    >
+                      <path
+                        className="surgery-ecg-glow"
+                        d="M 0 50 L 24 50 C 28 50 32 40 37 40 C 42 40 46 50 50 50 L 65 50 L 71 56 L 80 10 L 89 74 L 96 50 L 110 50 C 116 50 122 28 130 28 C 138 28 144 50 150 50 L 200 50 L 224 50 C 228 50 232 40 237 40 C 242 40 246 50 250 50 L 265 50 L 271 56 L 280 10 L 289 74 L 296 50 L 310 50 C 316 50 322 28 330 28 C 338 28 344 50 350 50 L 400 50"
+                      />
+                      <path
+                        className="surgery-ecg-core"
+                        d="M 0 50 L 24 50 C 28 50 32 40 37 40 C 42 40 46 50 50 50 L 65 50 L 71 56 L 80 10 L 89 74 L 96 50 L 110 50 C 116 50 122 28 130 28 C 138 28 144 50 150 50 L 200 50 L 224 50 C 228 50 232 40 237 40 C 242 40 246 50 250 50 L 265 50 L 271 56 L 280 10 L 289 74 L 296 50 L 310 50 C 316 50 322 28 330 28 C 338 28 344 50 350 50 L 400 50"
+                      />
+                    </svg>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* Plethysmograph (SpO2 pulse oximetry) Trace */}
+            <div className="surgery-wave-channel surgery-wave-channel--pleth">
+              <div className="surgery-channel-tag">
+                <span className="lead-name lead-name--pleth">PLETH</span>
+                <span className="lead-meta">PULSE SYNC</span>
+              </div>
+              <div className="surgery-pleth-viewport">
+                <div className="surgery-pleth-scroller">
+                  {[0, 1].map((copy) => (
+                    <svg
+                      key={copy}
+                      className="surgery-pleth-svg"
+                      viewBox="0 0 400 50"
+                      preserveAspectRatio="none"
+                      aria-hidden="true"
+                    >
+                      <path
+                        className="surgery-pleth-glow"
+                        d="M 0 36 L 25 36 C 34 36 44 8 54 8 C 62 8 68 24 74 24 C 78 24 81 19 85 19 C 90 19 94 28 98 30 C 108 34 120 36 135 36 L 200 36 L 225 36 C 234 36 244 8 254 8 C 262 8 268 24 274 24 C 278 24 281 19 285 19 C 290 19 294 28 298 30 C 308 34 320 36 335 36 L 400 36"
+                      />
+                      <path
+                        className="surgery-pleth-core"
+                        d="M 0 36 L 25 36 C 34 36 44 8 54 8 C 62 8 68 24 74 24 C 78 24 81 19 85 19 C 90 19 94 28 98 30 C 108 34 120 36 135 36 L 200 36 L 225 36 C 234 36 244 8 254 8 C 262 8 268 24 274 24 C 278 24 281 19 285 19 C 290 19 294 28 298 30 C 308 34 320 36 335 36 L 400 36"
+                      />
+                    </svg>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Central Holographic Brand Badge */}
           <div className="surgery-brand">
-            <img src="/images/msurgery/favicon.png" alt="mSurgery Icon" className="surgery-logo-img" />
+            <div className="surgery-brand-logo-wrap">
+              <span className="surgery-brand-ring" />
+              <img src="/images/msurgery/favicon.png" alt="mSurgery Icon" className="surgery-logo-img" />
+            </div>
             <div className="surgery-logo-text">
               <span className="surgery-logo-m">m</span><span className="surgery-logo-rest">Surgery</span>
             </div>
-            <div className="surgery-subtitle">Live immersive surgical experience</div>
+            <div className="surgery-subtitle">Surgical Telepresence · 4K Live</div>
+          </div>
+
+          {/* Bottom Telemetry & Connected Specialists */}
+          <div className="surgery-bottom-bar">
+            <div className="surgery-stream-meta">
+              <span className="surgery-protocol">WebRTC</span>
+              <span className="surgery-latency">18ms · 0% loss</span>
+            </div>
+            <div className="surgery-viewers">
+              <div className="surgery-viewer-dots">
+                <div className="surgery-viewer" />
+                <div className="surgery-viewer" />
+                <div className="surgery-viewer" />
+              </div>
+              <small>142 IN OR</small>
+            </div>
           </div>
         </div>
       ) : kind === 'smotts' ? (

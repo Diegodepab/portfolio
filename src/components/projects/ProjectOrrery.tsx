@@ -1,4 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+import { useEffectVisibility } from '../../performance/useVisualEffects';
+import React, { useEffect, useRef, useState } from 'react';
 import {
   FiBox, FiActivity, FiSearch, FiTool, FiCpu,
   FiGitMerge, FiGlobe, FiUsers, FiLayers, FiZap,
@@ -51,24 +53,29 @@ const SWAP_INTERVAL_MS = 5_000;
 
 export const ProjectOrrery: React.FC = () => {
   const { lang } = useLanguage();
+  const rootRef = useRef<HTMLDivElement>(null);
+  const { active } = useEffectVisibility(rootRef);
   const projects = lang === 'en' ? PROJECTS_EN : PROJECTS_ES;
 
   // `offset` advances every SWAP_INTERVAL_MS; we pick TOTAL_SLOTS consecutive
   // projects starting at `offset % projects.length`.
+  const [interacting, setInteracting] = useState(false);
   const [offset, setOffset] = useState(0);
   const [swapping, setSwapping] = useState(false);
 
   useEffect(() => {
+    if (!active || interacting) { setSwapping(false); return; }
+    let swapTimer: ReturnType<typeof setTimeout>;
     const id = setInterval(() => {
       setSwapping(true);
       // After a short fade-out, advance the offset and fade back in
-      setTimeout(() => {
+      swapTimer = setTimeout(() => {
         setOffset(prev => prev + NODE_COUNT);
         setSwapping(false);
       }, 400); // matches CSS transition duration
     }, SWAP_INTERVAL_MS);
-    return () => clearInterval(id);
-  }, []);
+    return () => { clearInterval(id); clearTimeout(swapTimer); };
+  }, [active, interacting]);
 
   // Build the 5 visible slots
   const slots: OrreryProject[] = [];
@@ -77,7 +84,7 @@ export const ProjectOrrery: React.FC = () => {
   }
 
   return (
-    <div className="orrery" aria-hidden="true">
+    <div ref={rootRef} data-animation-active={active && !interacting} className="orrery" onPointerEnter={() => setInteracting(true)} onPointerLeave={event => { if (!event.currentTarget.contains(document.activeElement)) setInteracting(false); }} onFocus={() => setInteracting(true)} onBlur={event => { if (!event.currentTarget.contains(event.relatedTarget)) setInteracting(false); }} aria-label={lang === 'en' ? 'Project shortcuts' : 'Accesos a proyectos'}>
       {/* Central glow */}
       <div className="orrery-glow" />
 
@@ -85,16 +92,16 @@ export const ProjectOrrery: React.FC = () => {
       <div className="orrery-ring">
         <span className="orrery-ring-path" />
         {slots.map((p, i) => (
-          <a
+          <Link
             key={`node-${i}`}
-            href={`/projects/${p.id}`}
+            to={`/projects/${p.id}`}
             className={`orrery-node orrery-node--pos-${i + 1}${swapping ? ' is-swapping' : ''}`}
             data-tone={(i % 3) + 1}
             title={p.label}
           >
             <span className="orrery-node-icon">{p.icon}</span>
             <span className="orrery-node-label">{p.label}</span>
-          </a>
+          </Link>
         ))}
       </div>
 

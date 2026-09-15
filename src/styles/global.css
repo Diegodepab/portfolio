@@ -1,6 +1,11 @@
 @import './reset.css';
 @import './tokens.css';
 
+html,
+body {
+  overflow-x: clip;
+}
+
 body {
   background-color: var(--color-bg-primary);
   color: var(--color-text-primary);

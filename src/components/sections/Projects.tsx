@@ -19,7 +19,7 @@ export const Projects: React.FC = () => {
   return (
     <motion.section
       id="projects"
-      initial={{ opacity: 0, y: 40 }}
+      initial={false}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-100px' }}
       transition={{ duration: 0.5 }}
@@ -31,8 +31,8 @@ export const Projects: React.FC = () => {
           <SectionHeading title={lang === 'en' ? 'Selected Work' : 'Trabajos Destacados'} />
           <p className="projects-intro">
             {lang === 'en'
-              ? 'Interfaces, infrastructure and products shaped by one adaptive three-color system.'
-              : 'Interfaces, infraestructura y productos conectados por un sistema adaptable de tres colores.'}
+              ? 'From infrastructure to connected devices: two projects, from the first idea to deployment.'
+              : 'De la infraestructura a los dispositivos conectados: dos proyectos, desde la idea hasta el despliegue.'}
           </p>
         </div>
       </div>
@@ -51,7 +51,7 @@ export const Projects: React.FC = () => {
               id={`featured-project-${item.id}`}
               key={item.id}
               className="featured-project"
-              initial={{ opacity: 0, y: 28 }}
+              initial={false}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.45, delay: index * 0.08 }}
@@ -70,7 +70,7 @@ export const Projects: React.FC = () => {
                 <h3>{href ? <Link to={href}>{item.title}</Link> : item.title}</h3>
                 <p>{item.description}</p>
                 <div className="featured-project-tech">
-                  {item.technologies.map((tech, techIndex) => <span key={tech} data-tone={(techIndex % 3) + 1}>{tech}</span>)}
+                  {item.technologies.slice(0, 4).map((tech, techIndex) => <span key={tech} data-tone={(techIndex % 3) + 1}>{tech}</span>)}
                 </div>
                 <div className="featured-project-actions">
                   {href && <Link to={href}>{lang === 'en' ? 'Explore case study' : 'Explorar caso de estudio'} <Icon name="external" size={16} /></Link>}

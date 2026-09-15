@@ -11,6 +11,7 @@ export interface Palette {
 }
 
 const PAGE_BACKGROUND = '#0a0f1c';
+const TEXT_BACKGROUNDS = [PAGE_BACKGROUND, '#191f2e', '#192033'];
 
 const relativeLuminance = (hex: string): number => {
   const channels = hex.match(/[\da-f]{2}/gi);
@@ -30,14 +31,15 @@ export const contrastRatio = (foreground: string, background = PAGE_BACKGROUND):
 
 /** Lighten palette accents only as much as needed for WCAG AA body text. */
 export const ensureAccessibleAccent = (color: string, minimumRatio = 4.5): string => {
-  if (!/^#[\da-f]{6}$/i.test(color) || contrastRatio(color) >= minimumRatio) return color;
+  const readable = (value: string) => TEXT_BACKGROUNDS.every(background => contrastRatio(value, background) >= minimumRatio);
+  if (!/^#[\da-f]{6}$/i.test(color) || readable(color)) return color;
 
   const channels = color.match(/[\da-f]{2}/gi)!.map((channel) => Number.parseInt(channel, 16));
   for (let whiteMix = 0.02; whiteMix <= 1; whiteMix += 0.02) {
     const candidate = `#${channels
       .map((channel) => Math.round(channel + (255 - channel) * whiteMix).toString(16).padStart(2, '0'))
       .join('')}`;
-    if (contrastRatio(candidate) >= minimumRatio) return candidate;
+    if (readable(candidate)) return candidate;
   }
   return '#ffffff';
 };

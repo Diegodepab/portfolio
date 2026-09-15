@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useRef } from 'react';
+import { useEffectVisibility, useVisualEffects } from '../../performance/useVisualEffects';
 import './Marquee.css';
 
 export interface MarqueeProps extends React.HTMLAttributes<HTMLDivElement> {
@@ -38,6 +39,9 @@ export const Marquee: React.FC<MarqueeProps> = ({
   style,
   ...rest
 }) => {
+  const ref = useRef<HTMLDivElement>(null);
+  const { active } = useEffectVisibility(ref);
+  const { reducedMotion } = useVisualEffects();
   const isVertical = direction === 'up' || direction === 'down';
   const isReverse = direction === 'right' || direction === 'down';
 
@@ -52,6 +56,9 @@ export const Marquee: React.FC<MarqueeProps> = ({
 
   return (
     <div
+      ref={ref}
+      data-animation-active={active}
+      data-static={reducedMotion}
       className={`marquee-container ${isVertical ? 'marquee-col' : 'marquee-row'} ${expandOnHover ? 'marquee-expand-hover' : ''} ${className}`}
       style={{
         '--marquee-duration': duration,
@@ -61,7 +68,7 @@ export const Marquee: React.FC<MarqueeProps> = ({
       } as unknown as React.CSSProperties}
       {...rest}
     >
-      {Array.from({ length: numberOfCopies }).map((_, i) => (
+      {Array.from({ length: reducedMotion ? 1 : numberOfCopies }).map((_, i) => (
         <div
           key={i}
           className={`marquee-inner ${isVertical ? 'marquee-inner-col' : 'marquee-inner-row'} ${

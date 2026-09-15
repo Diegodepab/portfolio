@@ -55,7 +55,7 @@ export function useResolvedDark(theme: OrbTheme, hostRef: RefObject<Element | nu
       mo.observe(document.documentElement, {
         attributes: true,
         attributeFilter: ['class', 'data-theme'],
-        subtree: true
+        subtree: false
       });
     }
 

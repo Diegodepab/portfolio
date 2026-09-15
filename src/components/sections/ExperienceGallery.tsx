@@ -37,19 +37,22 @@ export const ExperienceGallery = ({ photos }: ExperienceGalleryProps) => {
         <ImageTransitionStage
           items={photos}
           activeIndex={activeIndex}
-          getSource={(photo) => photo.src}
+          getSource={(photo) => photo}
           getEffects={getExperienceEffects}
           onSettledIndexChange={setDisplayedIndex}
-          renderItem={(photo) => (
+          renderItem={(photo, _index, selected) => (
             <div className={`experience-gallery__media${photo.kind === 'logo' ? ' experience-gallery__media--logo' : ''}`}>
               {photo.kind === 'logo' && photo.brandText ? (
                 <div className="experience-gallery__brand">
                   <img
-                    src={photo.src}
+                    src={selected ?? photo.src}
+                    srcSet={selected ? undefined : photo.srcSet}
+                    sizes={photo.kind === 'logo' ? '240px' : photo.sizes}
+                    decoding="async"
                     alt={photo.alt[lang]}
                     loading="lazy"
-                    width={photo.kind === 'logo' ? 120 : 640}
-                    height={photo.kind === 'logo' ? 52 : 360}
+                    width={photo.width ?? 640}
+                    height={photo.height ?? 360}
                   />
                   <div className="experience-gallery__brand-text">
                     <span>{photo.brandText}</span>
@@ -58,11 +61,14 @@ export const ExperienceGallery = ({ photos }: ExperienceGalleryProps) => {
                 </div>
               ) : (
                 <img
-                  src={photo.src}
+                  src={selected ?? photo.src}
+                    srcSet={selected ? undefined : photo.srcSet}
+                    sizes={photo.kind === 'logo' ? '240px' : photo.sizes}
+                    decoding="async"
                   alt={photo.alt[lang]}
                   loading="lazy"
-                  width={photo.kind === 'logo' ? 120 : 640}
-                  height={photo.kind === 'logo' ? 52 : 360}
+                  width={photo.width ?? 640}
+                  height={photo.height ?? 360}
                 />
               )}
             </div>
@@ -83,7 +89,8 @@ export const ExperienceGallery = ({ photos }: ExperienceGalleryProps) => {
               aria-label={`${lang === 'en' ? 'Show photo' : 'Mostrar foto'} ${index + 1}`}
               aria-pressed={activeIndex === index}
             >
-              <img src={photo.src} alt="" loading="lazy" width={50} height={31} />
+              <img src={photo.thumbnail?.src ?? photo.src} srcSet={photo.thumbnail?.srcSet}
+                sizes="50px" alt="" loading="lazy" decoding="async" width={50} height={31} />
             </button>
           ))}
         </div>

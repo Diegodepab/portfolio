@@ -42,6 +42,7 @@ export const SuggestedQuestions: React.FC<SuggestedQuestionsProps> = ({ lang, on
     <div className="chat-suggestions" role="group" aria-label={lang === 'en' ? 'Suggested questions' : 'Preguntas sugeridas'}>
       {visibleSuggestions.map((suggestion) => (
         <MetalFx
+                      theme="dark"
           key={suggestion.id}
           variant="button"
           preset="silver"

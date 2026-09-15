@@ -2,12 +2,17 @@ import React from 'react';
 import { socialLinks } from '../../data/config';
 import { Icon } from '../icons/Icon';
 import './Footer.css';
+import { useLanguage } from '../../context/LanguageContext';
+import { useVisualEffects } from '../../performance/useVisualEffects';
+import { setUserReducedEffects } from '../../performance/effectsStore';
 
 interface FooterProps {
   themeName: string;
 }
 
 export const Footer: React.FC<FooterProps> = ({ themeName }) => {
+  const { lang } = useLanguage();
+  const { userReduced } = useVisualEffects();
   return (
     <footer className="site-footer">
       <div className="social-links-mobile">
@@ -27,6 +32,9 @@ export const Footer: React.FC<FooterProps> = ({ themeName }) => {
       <div className="site-footer__theme">
         Theme: {themeName}
       </div>
+      <button className="effects-toggle" type="button" aria-pressed={userReduced} onClick={() => setUserReducedEffects(!userReduced)}>
+        {lang === 'es' ? 'Reducir efectos' : 'Reduce effects'}
+      </button>
     </footer>
   );
 };

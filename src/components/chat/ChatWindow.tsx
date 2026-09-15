@@ -1,3 +1,5 @@
+import { imageAssets } from '../../data/imageAssets';
+import './ChatWindow.css';
 import React, { useEffect, useRef } from 'react';
 import { FiRotateCcw, FiX } from 'react-icons/fi';
 import { useLanguage } from '../../context/LanguageContext';
@@ -12,15 +14,20 @@ interface ChatWindowProps {
 
 export const ChatWindow: React.FC<ChatWindowProps> = ({ onClose }) => {
   const { lang } = useLanguage();
-  const { messages, state, sendMessage, clearConversation } = useChat();
+  const { messages, state, sendMessage, clearConversation, stopPending } = useChat();
   const messagesContainerRef = useRef<HTMLDivElement>(null);
   const windowRef = useRef<HTMLDivElement>(null);
+
+  const handleClose = () => {
+    stopPending();
+    onClose();
+  };
 
   // Auto-scroll on new messages
   useEffect(() => {
     if (messagesContainerRef.current) {
       const container = messagesContainerRef.current;
-      container.scrollTo({ top: container.scrollHeight, behavior: 'smooth' });
+      container.scrollTo({ top: container.scrollHeight, behavior: 'instant' });
     }
   }, [messages]);
 
@@ -28,12 +35,12 @@ export const ChatWindow: React.FC<ChatWindowProps> = ({ onClose }) => {
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
-        onClose();
+        handleClose();
       }
     };
     document.addEventListener('keydown', handleKeyDown);
     return () => document.removeEventListener('keydown', handleKeyDown);
-  }, [onClose]);
+  }, [onClose, stopPending]);
 
   // Focus the window on mount
   useEffect(() => {
@@ -55,7 +62,8 @@ export const ChatWindow: React.FC<ChatWindowProps> = ({ onClose }) => {
       {/* Header */}
       <div className="chat-header">
         <img
-          src="/images/avatar-pixel.webp"
+          src={imageAssets['/images/avatar-pixel.webp'].src}
+              srcSet={imageAssets['/images/avatar-pixel.webp'].srcSet} sizes="40px"
           alt="dIAgo"
           className="chat-header-avatar"
           width={40}
@@ -81,7 +89,7 @@ export const ChatWindow: React.FC<ChatWindowProps> = ({ onClose }) => {
             </button>
           )}
           <button
-            onClick={onClose}
+            onClick={handleClose}
             aria-label={lang === 'en' ? 'Close chat' : 'Cerrar chat'}
             title={lang === 'en' ? 'Close' : 'Cerrar'}
           >
@@ -99,7 +107,7 @@ export const ChatWindow: React.FC<ChatWindowProps> = ({ onClose }) => {
       >
         {!hasMessages && (
           <div className="chat-welcome">
-            <strong>{lang === 'en' ? 'Hello 👋' : 'Hola 👋'}</strong>
+            <strong>{lang === 'en' ? 'Hello' : 'Hola'}</strong>
             {lang === 'en'
               ? 'I am Diego\'s portfolio assistant. You can ask me about his projects, experience, technologies, or education.'
               : 'Soy el asistente del portfolio de Diego. Puedes preguntarme sobre sus proyectos, experiencia, tecnologías o formación.'}

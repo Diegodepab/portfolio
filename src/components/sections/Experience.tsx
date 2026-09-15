@@ -83,7 +83,7 @@ export const Experience: React.FC = () => {
           <motion.i className="experience-tab-marker" animate={{ y: activeTabId * 52 }} transition={{ duration: .25 }} />
         </div>
 
-        <AnimatePresence mode="wait">
+        <AnimatePresence mode="wait" initial={false}>
           <motion.div key={job.id} id={`job-panel-${activeTabId}`} role="tabpanel" aria-labelledby={`job-tab-${activeTabId}`} className={`experience-card experience-card--${job.id}${projects.length > 0 ? ' experience-card--with-projects' : ''}`} initial={{ opacity: 0, x: 18 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -12 }} transition={{ duration: .22 }}>
             <header className="experience-header">
               <p className="experience-eyebrow">{String(activeTabId + 1).padStart(2, '0')} / {String(experiences.length).padStart(2, '0')} · {start} — {end}</p>

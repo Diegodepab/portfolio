@@ -108,13 +108,9 @@ export function injectGlow(container: HTMLElement, opts: GlowOptions): GlowHandl
   extraInner.style.transformOrigin = '0 0';
   haloInner.style.willChange = 'transform';
   extraInner.style.willChange = 'transform';
-  haloInner.style.transition = 'transform 100ms linear';
-  extraInner.style.transition = 'transform 100ms linear';
 
   haloGroup.style.willChange = 'opacity';
   extraGroup.style.willChange = 'opacity';
-  haloGroup.style.transition = 'opacity 100ms linear';
-  extraGroup.style.transition = 'opacity 100ms linear';
 
   fadeCircle.style.willChange = 'transform';
 

@@ -1,3 +1,4 @@
+import { imageAssets } from '../../data/imageAssets';
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { useLocation } from 'react-router-dom';
@@ -14,9 +15,18 @@ interface AvatarGuideProps {
 }
 
 export const AvatarGuide: React.FC<AvatarGuideProps> = ({ onOpenChat }) => {
-  const { startTour, isActive, currentStep, nextStep, prevStep, endTour, isLastStep, popoverWrapper } = useTour();
+  const { startTour, isStarting, startError, isActive, currentStep, nextStep, prevStep, endTour, isLastStep, popoverWrapper } = useTour();
   const { lang } = useLanguage();
   const location = useLocation();
+  useEffect(() => {
+    if (!popoverWrapper) return;
+    // Driver measures before React mounts its portal. Refresh after layout,
+    // including text growth and responsive changes.
+    const observer = new ResizeObserver(() => window.dispatchEvent(new Event('resize')));
+    const content = popoverWrapper.querySelector('.avatar-dialog-container');
+    if (content) observer.observe(content);
+    return () => observer.disconnect();
+  }, [popoverWrapper, isActive]);
   const [isScrolled, setIsScrolled] = useState(false);
   const secondaryActionRef = useRef<HTMLButtonElement>(null);
   const reflectionTargets = useMemo(() => [secondaryActionRef], []);
@@ -24,11 +34,13 @@ export const AvatarGuide: React.FC<AvatarGuideProps> = ({ onOpenChat }) => {
   // Track scroll position to hide trigger
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 100);
+      const hasSectionHash = Boolean(location.hash) && location.hash !== '#hero' && location.hash !== '#top';
+      setIsScrolled(window.scrollY > 100 || hasSectionHash);
     };
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [location.hash]);
 
   const shouldShowTrigger = !isActive && location.pathname === '/' && !isScrolled;
 
@@ -86,6 +98,7 @@ export const AvatarGuide: React.FC<AvatarGuideProps> = ({ onOpenChat }) => {
 
   return (
     <>
+      {startError && <p role="status">{lang === 'en' ? 'The tour could not start. Please try again.' : 'No se pudo iniciar el recorrido. Inténtalo de nuevo.'}</p>}
       <AnimatePresence>
         {shouldShowTrigger && (
           <motion.button
@@ -93,6 +106,8 @@ export const AvatarGuide: React.FC<AvatarGuideProps> = ({ onOpenChat }) => {
             key="start-btn"
             className="avatar-guide-trigger"
             onClick={startTour}
+            disabled={isStarting}
+            aria-busy={isStarting}
             initial={{ scale: 0, opacity: 0, y: 50 }}
             animate={{
               scale: 1,
@@ -108,10 +123,11 @@ export const AvatarGuide: React.FC<AvatarGuideProps> = ({ onOpenChat }) => {
             }}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            aria-label={lang === 'en' ? 'Start guided tour' : 'Iniciar tour guiado'}
+            aria-label={lang === 'en' ? 'Can I guide you? Start guided tour' : '¿Te puedo guiar? Iniciar tour guiado'}
           >
             <img 
-              src="/images/avatar-pixel.webp" 
+              src={imageAssets['/images/avatar-pixel.webp'].src}
+              srcSet={imageAssets['/images/avatar-pixel.webp'].srcSet} sizes="70px" 
               alt="" 
               className="avatar-guide-trigger-img"
               width={52}
@@ -146,7 +162,8 @@ export const AvatarGuide: React.FC<AvatarGuideProps> = ({ onOpenChat }) => {
                 >
                 <div className="avatar-dialog-portrait-wrapper">
                   <img 
-                    src="/images/avatar-pixel.webp" 
+                    src={imageAssets['/images/avatar-pixel.webp'].src}
+              srcSet={imageAssets['/images/avatar-pixel.webp'].srcSet} sizes="70px" 
                     alt="Avatar Guide" 
                     className={`avatar-dialog-portrait ${isTyping ? 'is-talking' : ''}`}
                     width={64}
@@ -179,9 +196,9 @@ export const AvatarGuide: React.FC<AvatarGuideProps> = ({ onOpenChat }) => {
                       <span>{secondaryAction.label}</span>
                     </button>
                     <MetalFx
+                      theme="dark"
                       variant="button"
                       preset="silver"
-                      theme="dark"
                       strength={0.42}
                       normalizeHostStyles={false}
                       reflectionTargets={reflectionTargets}

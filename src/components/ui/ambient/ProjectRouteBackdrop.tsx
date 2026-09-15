@@ -1,3 +1,4 @@
+import './ProjectRouteBackdrop.css';
 import { useState } from 'react';
 import { TechnicalBackdrop } from '../../sections/TechnicalBackdrop';
 import { AntsCursor } from '../AntsCursor';

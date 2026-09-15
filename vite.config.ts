@@ -78,6 +78,7 @@ export default defineConfig(({ mode }) => {
     ],
     build: {
       sourcemap: true,
+      manifest: true,
       chunkSizeWarningLimit: 1000,
       rolldownOptions: {
         output: {
@@ -87,6 +88,11 @@ export default defineConfig(({ mode }) => {
                 name: 'react-vendor',
                 test: /node_modules[\\/](react|react-dom|react-router|react-router-dom|scheduler)[\\/]/,
                 priority: 50,
+              },
+              {
+                name: 'tour-vendor',
+                test: /node_modules[\\/](driver\.js)[\\/]/,
+                priority: 40,
               },
               {
                 name: 'three-vendor',

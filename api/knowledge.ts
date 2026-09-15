@@ -27,8 +27,8 @@ export const knowledgeBase: KnowledgeChunk[] = [
   // ─── PROFILE ──────────────────────────────────────────────────────
   {
     category: 'profile',
-    keywords: ['who', 'diego', 'about', 'quién', 'sobre', 'introduction', 'bio', 'perfil', 'profile', 'background', 'presentación'],
-    content: `Diego De Pablo is a Software Engineer (Bioinformatics Engineer with a Master's in Computer Engineering) based in Málaga, Spain. He is a full-stack engineer specialized in use-case deployment and infrastructure. He is very curious and a technology lover. He works at Khaos Research (University of Málaga) building end-to-end applications for data spaces. His email is diegodepablo.programa@gmail.com.`,
+    keywords: ['who', 'diego', 'about', 'quién', 'sobre', 'introduction', 'bio', 'perfil', 'profile', 'background', 'presentación', 'hola', 'hello', 'hi', 'buenas', 'saludos', 'que tal', 'hey'],
+    content: `Diego De Pablo is a Software Engineer (Bioinformatics Engineer with a Master's in Computer Engineering) based in Málaga, Spain. He is a full-stack engineer specialized in use-case deployment, infrastructure, data spaces and LLMs. He works at Khaos Research (University of Málaga) building data spaces and AI agents. Key achievements: Top 5 of his university cohort with Honours (Matrícula de Honor), lead architect on SEDIA Data Space deliverables (MetaDataXtract, MetaDataSearch, TITAN Workflow Agent), structural Svelte 5 migration at mSurgery, and 10.0 Honours TFG IoT patient monitoring bracelet. His email is diegodepablo.programa@gmail.com and LinkedIn is https://www.linkedin.com/in/diego-de-pablo/.`,
     references: [
       { type: 'section', id: 'about', label: { en: 'About Me', es: 'Sobre mí' }, route: '/#about' },
     ],
@@ -190,7 +190,6 @@ export const knowledgeBase: KnowledgeChunk[] = [
 - Email: diegodepablo.programa@gmail.com
 - GitHub: https://github.com/Diegodepab
 - LinkedIn: https://www.linkedin.com/in/diego-de-pablo/
-- Instagram: https://www.instagram.com/diegodepab/
 - Location: Málaga, Spain`,
     references: [
       { type: 'contact', id: 'contact', label: { en: 'Contact', es: 'Contacto' }, route: '/#contact' },

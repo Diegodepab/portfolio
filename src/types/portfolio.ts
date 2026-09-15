@@ -69,6 +69,11 @@ export interface JobExperience {
   projectIds: string[];
   photos?: Array<{
     src: string;
+    srcSet?: string;
+    sizes?: string;
+    width?: number;
+    height?: number;
+    thumbnail?: { src: string; srcSet?: string };
     kind: 'photo' | 'logo';
     alt: I18nString;
     caption?: I18nString;
