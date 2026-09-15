@@ -53,3 +53,11 @@
     transition: none;
   }
 }
+
+.crossfade-gallery__pause { color: var(--color-text-primary); background: transparent; border: 0; min-width: 28px; min-height: 28px; cursor: pointer; }
+.crossfade-gallery__controls { align-items: center; bottom: -36px; }
+.crossfade-gallery__dot { position: relative; width: 28px; height: 28px; border: 0; }
+.crossfade-gallery__dot::before { content: ''; position: absolute; inset: 10px; border: 1px solid var(--color-accent-2); border-radius: 50%; }
+.crossfade-gallery__dot:hover, .crossfade-gallery__dot:focus-visible, .crossfade-gallery__dot.is-active { background: transparent; transform: none; }
+.crossfade-gallery__dot.is-active::before { background: var(--color-accent-2); }
+.crossfade-gallery__pause:focus-visible { outline: 2px solid var(--color-accent-3); }

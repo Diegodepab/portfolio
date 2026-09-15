@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import { useEffectVisibility, useVisualEffects } from '../../performance/useVisualEffects';
+import { useEffectVisibility } from '../../performance/useVisualEffects';
 import { scheduleVisualMeasurement, cancelVisualMeasurement } from '../../performance/frameTasks';
 import { antsCursor } from '../../utils/antsCursor';
 
@@ -21,9 +21,7 @@ export const AntsCursor: React.FC<AntsCursorProps> = ({
   sizeMultiplier = 0.7
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
-  const { visible } = useEffectVisibility(containerRef);
-  const { reducedMotion } = useVisualEffects();
-  const active = visible && !reducedMotion;
+  const { active } = useEffectVisibility(containerRef);
 
   useEffect(() => {
     if (!active) return;

@@ -1,4 +1,4 @@
-import { useRef, type FC } from 'react';
+import { useRef, useState, type FC } from 'react';
 import { useEffectVisibility } from '../../performance/useVisualEffects';
 import { useMediaRotation } from '../../hooks/useMediaRotation';
 import {
@@ -6,6 +6,7 @@ import {
 } from './image-transitions/ImageTransitionStage';
 import type { ImageTransitionEffect } from './image-transitions/effects';
 import './CrossfadeGallery.css';
+import { useLanguage } from '../../context/LanguageContext';
 
 export interface GalleryImage {
   src: string;
@@ -40,6 +41,8 @@ export const CrossfadeGallery: FC<CrossfadeGalleryProps> = ({
   initialDelay = interval,
   effects,
 }) => {
+  const { lang } = useLanguage();
+  const [paused, setPaused] = useState(false);
   const galleryRef = useRef<HTMLDivElement>(null);
   const { active } = useEffectVisibility(galleryRef);
 
@@ -48,7 +51,7 @@ export const CrossfadeGallery: FC<CrossfadeGalleryProps> = ({
     interval,
     initialIndex,
     initialDelay,
-    !active,
+    !active || paused,
   );
 
   return (
@@ -78,6 +81,7 @@ export const CrossfadeGallery: FC<CrossfadeGalleryProps> = ({
 
       {showControls && (
         <div className="crossfade-gallery__controls" role="group" aria-label={label}>
+          <button type="button" className="crossfade-gallery__pause" aria-pressed={paused} aria-label={lang === 'es' ? 'Pausar galería automática' : 'Pause automatic gallery'} onClick={() => setPaused(!paused)}>{paused ? '▶' : 'Ⅱ'}</button>
           {images.map((image, index) => (
             <button
               key={image.src}
@@ -85,7 +89,7 @@ export const CrossfadeGallery: FC<CrossfadeGalleryProps> = ({
               className={`crossfade-gallery__dot${activeIndex === index ? ' is-active' : ''}`}
               aria-label={`${label}: ${index + 1} / ${images.length}`}
               aria-pressed={activeIndex === index}
-              onClick={() => setActiveIndex(index)}
+              onClick={() => { setPaused(true); setActiveIndex(index); }}
             />
           ))}
         </div>

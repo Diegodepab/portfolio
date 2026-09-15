@@ -6,7 +6,7 @@
 .avatar-guide-trigger-text::after { content: ''; position: absolute; top: -3px; left: 50%; transform: translateX(-50%); border-width: 0 4px 4px 4px; border-style: solid; border-color: transparent transparent color-mix(in srgb, var(--color-bg-secondary) 95%, var(--color-accent-2)) transparent; }
 
 /* RPG Dialog Styles */
-.avatar-dialog-wrapper { width: 100%; min-width: 320px; max-width: 480px; pointer-events: none; }
+.avatar-dialog-wrapper { width: min(480px, calc(100vw - 40px)); min-width: 0; pointer-events: none; }
 .avatar-dialog-container { display: flex; align-items: flex-end; gap: 20px; pointer-events: auto; }
 
 /* Custom driver.js Popover container */
@@ -51,7 +51,7 @@
 
 .avatar-dialog-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; border-bottom: 1px solid color-mix(in srgb, var(--color-accent-3) 20%, transparent); padding-bottom: 6px; }
 .avatar-dialog-header h3 { margin: 0; color: var(--color-accent-3); font-family: var(--font-mono); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; }
-.avatar-dialog-close { background: transparent; border: none; color: var(--color-text-muted); font-size: 1.2rem; cursor: pointer; padding: 0; line-height: 1; transition: color 0.2s; }
+.avatar-dialog-close { background: transparent; border: none; color: var(--color-text-primary); font-size: 1.2rem; cursor: pointer; padding: 8px; min-width: 36px; min-height: 36px; line-height: 1; transition: color 0.2s; }
 .avatar-dialog-close:hover { color: var(--color-accent-3); }
 
 .avatar-dialog-body { flex: 1; cursor: pointer; position: relative; }
@@ -90,7 +90,8 @@
   .avatar-guide-trigger { right: 16px; bottom: 82px; }
   .avatar-guide-trigger-img { width: 52px; height: 52px; }
   .avatar-guide-trigger-text { display: none; }
-  .avatar-dialog-wrapper { bottom: 15px; padding: 0 15px; }
+  .custom-driver-popover { position: fixed !important; inset: auto 12px max(12px, env(safe-area-inset-bottom)) !important; width: auto !important; padding: 0 !important; transform: none !important; }
+  .avatar-dialog-wrapper { width: 100%; max-height: calc(100dvh - 100px); overflow-y: auto; overscroll-behavior: contain; }
   .avatar-dialog-container { flex-direction: column; align-items: flex-end; gap: 12px; }
   .avatar-dialog-portrait-wrapper { width: 70px; height: 70px; border-width: 2px; }
   .avatar-dialog-content { width: 100%; }

@@ -13,6 +13,13 @@ describe('visual effects admission', () => {
   });
 });
 describe('sustained frame pressure', () => {
+  it('reduces effects when a previously smooth 60 Hz page sustains 30 FPS', () => {
+    const budget = new FrameBudget();
+    for (let now = 0; now < 1000; now += 1000 / 60) expect(budget.sample(now)).toBe(false);
+    let reduced = false;
+    for (let now = 1000; now < 7500; now += 1000 / 30) reduced ||= budget.sample(now);
+    expect(reduced).toBe(true);
+  });
   it('does not downgrade smooth browsers at 30, 60 or 120 Hz', () => {
     for (const interval of [1000 / 30, 1000 / 60, 1000 / 120]) {
       const budget = new FrameBudget();

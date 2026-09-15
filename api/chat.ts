@@ -1,6 +1,7 @@
 import Groq from 'groq-sdk';
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 import { retrieveRelevantChunks } from './knowledge.js';
+import { RateLimiter } from './rateLimit.js';
 
 type Language = 'en' | 'es';
 type ChatRole = 'user' | 'assistant';
@@ -25,7 +26,7 @@ const RATE_LIMIT_MAX = 10;
 
 // Best-effort protection for warm instances. Production-wide rate limits
 // should also be configured in Vercel Firewall because instances do not share memory.
-const rateLimits = new Map<string, { count: number; windowStart: number }>();
+const rateLimits = new RateLimiter(RATE_LIMIT_WINDOW_MS, RATE_LIMIT_MAX);
 
 export const config = { maxDuration: 30 };
 
@@ -40,16 +41,7 @@ function getClientIp(req: VercelRequest): string {
 }
 
 function isRateLimited(ip: string): boolean {
-  const now = Date.now();
-  const current = rateLimits.get(ip);
-
-  if (!current || now - current.windowStart >= RATE_LIMIT_WINDOW_MS) {
-    rateLimits.set(ip, { count: 1, windowStart: now });
-    return false;
-  }
-
-  current.count += 1;
-  return current.count > RATE_LIMIT_MAX;
+  return rateLimits.limited(ip);
 }
 
 export function parseMessages(body: ChatBody): IncomingMessage[] | null {
@@ -130,7 +122,7 @@ function getGroqClient(): Groq | null {
   // should use GROQ_API_KEY.
   const apiKey = process.env.GROQ_API_KEY || process.env.API_CHAT;
   if (!apiKey) return null;
-  return new Groq({ apiKey, timeout: 20_000, maxRetries: 1 });
+  return new Groq({ apiKey, timeout: 20_000, maxRetries: 0 });
 }
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
@@ -146,6 +138,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   const lang = getLanguage(body.lang);
 
   if (isRateLimited(getClientIp(req))) {
+    res.setHeader('Retry-After', String(RATE_LIMIT_WINDOW_MS / 1000));
     return res.status(429).json({
       error: lang === 'es'
         ? 'Demasiadas peticiones. Espera un minuto e inténtalo de nuevo.'
@@ -180,6 +173,10 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     ...messages.slice(-10),
   ];
 
+  const controller = new AbortController();
+  const disconnect = () => controller.abort();
+  const deadline = setTimeout(disconnect, 25_000);
+  res.once('close', disconnect);
   try {
     // Preserve the simple { mensaje } contract while the React client uses the
     // richer streaming conversation contract.
@@ -189,7 +186,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         messages: completionMessages,
         temperature: 0.7,
         max_completion_tokens: 600,
-      });
+      }, { signal: controller.signal });
       const content = completion.choices[0]?.message?.content || 'Sin respuesta';
       return res.status(200).json({ respuesta: content, content, references });
     }
@@ -200,7 +197,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       temperature: 0.7,
       max_completion_tokens: 600,
       stream: true,
-    });
+    }, { signal: controller.signal });
 
     res.setHeader('Content-Type', 'text/event-stream; charset=utf-8');
     res.setHeader('Connection', 'keep-alive');
@@ -217,11 +214,15 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     res.write('data: [DONE]\n\n');
     return res.end();
   } catch (error) {
+    if (res.destroyed || res.writableEnded) return;
     console.error('Groq chat request failed', error instanceof Error ? error.message : 'Unknown error');
     if (res.headersSent) {
       res.write(`data: ${JSON.stringify({ error: lang === 'es' ? 'Error interno' : 'Internal error' })}\n\n`);
       return res.end();
     }
     return res.status(500).json({ error: lang === 'es' ? 'Error interno' : 'Internal error' });
+  } finally {
+    clearTimeout(deadline);
+    res.off('close', disconnect);
   }
 }

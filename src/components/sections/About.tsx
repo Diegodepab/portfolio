@@ -1,4 +1,3 @@
-import { useVisualEffects } from '../../performance/useVisualEffects';
 import { imageAssets } from '../../data/imageAssets';
 import React from 'react';
 import { motion } from 'motion/react';
@@ -28,11 +27,10 @@ const portraits: Record<'es' | 'en', GalleryImage[]> = {
 
 export const About: React.FC = () => {
   const { lang } = useLanguage();
-  const animateEntrance = !useVisualEffects().reducedMotion;
   return (
     <motion.section
       id="about"
-      initial={animateEntrance ? { opacity: 0, y: 50 } : false}
+      initial={false}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-100px" }}
       transition={{ duration: 0.5 }}

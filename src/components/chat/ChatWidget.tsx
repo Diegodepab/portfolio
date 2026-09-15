@@ -1,10 +1,11 @@
 import { imageAssets } from '../../data/imageAssets';
-import React, { lazy, Suspense, useState, useEffect } from 'react';
+import React, { lazy, Suspense, useState, useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import { useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'motion/react';
 import { useLanguage } from '../../context/LanguageContext';
 import './ChatWidget.css';
+import { ErrorBoundary } from '../ui/ErrorBoundary';
 
 const ChatWindow = lazy(() =>
   import('./ChatWindow').then(m => ({ default: m.ChatWindow }))
@@ -24,16 +25,27 @@ export const ChatWidget: React.FC<ChatWidgetProps> = ({ hidden = false, forceOpe
   const location = useLocation();
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const returnFocus = useRef(false);
+  useEffect(() => {
+    if (isOpen || !returnFocus.current) return;
+    const frame = requestAnimationFrame(() => {
+      const trigger = document.querySelector<HTMLButtonElement>('.chat-widget-trigger, .avatar-guide-trigger');
+      trigger?.focus({ preventScroll: true });
+      returnFocus.current = false;
+    });
+    return () => cancelAnimationFrame(frame);
+  }, [isOpen]);
 
   // Track scroll position to hide trigger if AvatarGuide is visible
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 100);
+      const hasSectionHash = Boolean(location.hash) && location.hash !== '#hero' && location.hash !== '#top';
+      setIsScrolled(window.scrollY > 100 || hasSectionHash);
     };
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     handleScroll(); // init
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [location.hash]);
 
   // Handle forceOpen from external (AvatarGuide "Chat" button)
   useEffect(() => {
@@ -49,6 +61,7 @@ export const ChatWidget: React.FC<ChatWidgetProps> = ({ hidden = false, forceOpe
   };
 
   const handleClose = () => {
+    returnFocus.current = true;
     setIsOpen(false);
   };
 
@@ -89,7 +102,7 @@ export const ChatWidget: React.FC<ChatWidgetProps> = ({ hidden = false, forceOpe
         )}
       </AnimatePresence>
 
-      {createPortal(
+      {typeof document !== 'undefined' && createPortal(
         <AnimatePresence>
           {isOpen && (
             <motion.div
@@ -99,9 +112,9 @@ export const ChatWidget: React.FC<ChatWidgetProps> = ({ hidden = false, forceOpe
               exit={{ opacity: 0, y: 20, scale: 0.95 }}
               transition={{ type: 'spring', damping: 25, stiffness: 350 }}
             >
-              <Suspense fallback={null}>
+              <ErrorBoundary><Suspense fallback={null}>
                 <ChatWindow onClose={handleClose} />
-              </Suspense>
+              </Suspense></ErrorBoundary>
             </motion.div>
           )}
         </AnimatePresence>,

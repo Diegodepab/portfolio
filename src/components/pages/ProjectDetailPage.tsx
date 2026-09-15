@@ -1,8 +1,10 @@
+import { VideoPreview } from '../ui/VideoPreview';
+import { imageAssets } from '../../data/imageAssets';
+import { projectVisuals } from '../../data/projectVisuals';
 import './ProjectDetailPage.css';
 import React from 'react';
 import { Link, Navigate, useParams } from 'react-router-dom';
 import { motion } from 'motion/react';
-import { Helmet } from 'react-helmet-async';
 import { FiAlertCircle, FiArrowLeft, FiArrowUpRight, FiGithub } from 'react-icons/fi';
 import { featuredProjects } from '../../data/projects';
 import { useLanguage } from '../../context/LanguageContext';
@@ -22,13 +24,8 @@ export const ProjectDetailPage: React.FC = () => {
     : 'Este caso profesional está en proceso de documentación. Su estructura está preparada para explicar reto, contribución, proceso, material y resultados.');
 
   return (
-    <motion.main className="project-detail-page" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: .35 }}>
-      <Helmet title={`${project.name[lang]} | Diego De Pablo`}>
-        <meta name="description" content={description} />
-        <meta property="og:title" content={`${project.name[lang]} | Diego De Pablo`} />
-        <meta property="og:description" content={description} />
-      </Helmet>
-      <ProjectRouteBackdrop key={project.id} variant="random" />
+    <motion.main className="project-detail-page" initial={false} animate={{ opacity: 1 }} transition={{ duration: .35 }}>
+      <ProjectRouteBackdrop key={project.id} variant="technical" />
       <Link className="project-detail-back" to={project.company ? `/projects?company=${encodeURIComponent(project.company)}` : '/projects'}><FiArrowLeft /> {lang === 'en' ? 'Back to project map' : 'Volver al mapa de proyectos'}</Link>
       <header className="project-detail-hero">
         <div className="project-detail-copy">
@@ -43,20 +40,7 @@ export const ProjectDetailPage: React.FC = () => {
           {project.repositoryNotice && <p className="project-repository-notice"><FiAlertCircle /> {project.repositoryNotice[lang]}</p>}
         </div>
         {(() => {
-          const visualKinds: Record<string, 'kubernetes' | 'health' | 'extract' | 'ai' | 'titan' | 'alignx' | 'surgery' | 'smotts' | 'twins' | 'edaan' | 'circlescope'> = {
-            'kubernetes-platform': 'kubernetes',
-            'tfg-patient-monitoring': 'health',
-            'metadataxtract': 'extract',
-            'metadatasearch': 'ai',
-            'titan-workflow': 'titan',
-            'alignx': 'alignx',
-            'msurgery-platform': 'surgery',
-            'smotts': 'smotts',
-            'digital-twins': 'twins',
-            'edaan-data-space': 'edaan',
-            'instagram-epic-tool': 'circlescope',
-          };
-          const kind = visualKinds[project.id];
+          const kind = projectVisuals[project.id];
           if (kind) return <ProjectVisual kind={kind} label={project.name[lang]} />;
           if (project.image) return <div className="project-detail-brand"><img src={project.image} alt={project.name[lang]} /></div>;
           return <ProjectVisual kind="generic" label={project.name[lang]} />;
@@ -75,23 +59,15 @@ export const ProjectDetailPage: React.FC = () => {
             if (item.type === 'image') {
               return (
                 <figure className="project-case-study__media" key={item.src}>
-                  <img src={item.src} alt={item.alt?.[lang] ?? project.name[lang]} />
+                  <img src={imageAssets[item.src]?.src ?? item.src} srcSet={imageAssets[item.src]?.srcSet} sizes="(max-width: 768px) 90vw, 1100px" width={imageAssets[item.src]?.width ?? 1200} height={imageAssets[item.src]?.height ?? 675} loading="lazy" decoding="async" alt={item.alt?.[lang] ?? project.name[lang]} />
                   <figcaption>{item.title?.[lang]}</figcaption>
                 </figure>
               );
             }
             if (item.type === 'youtube') {
-              const videoId = item.src.split('v=')[1]?.split('&')[0] || item.src.split('/').pop();
               return (
                 <figure className="project-case-study__media" key={item.src}>
-                  <div className="project-case-study__video">
-                    <iframe 
-                      src={`https://www.youtube.com/embed/${videoId}`} 
-                      title={item.title?.[lang] ?? project.name[lang]}
-                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                      allowFullScreen 
-                    />
-                  </div>
+                  <VideoPreview src={item.src} title={item.title?.[lang] ?? project.name[lang]} />
                   <figcaption>{item.title?.[lang]}</figcaption>
                 </figure>
               );

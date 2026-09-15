@@ -329,3 +329,6 @@
     transition: none;
   }
 }
+.contact-email { overflow-wrap: anywhere; color: var(--color-text-heading); font-size: .95rem; margin-block: 1.2rem; }
+.contact-email:focus-visible { outline: 2px solid var(--color-accent-1); outline-offset: 4px; }
+@media (max-width: 768px) { .contact-section { padding-bottom: 5rem; } .contact-form-footer { padding-right: 1rem; } }

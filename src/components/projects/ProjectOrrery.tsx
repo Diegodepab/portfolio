@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { useEffectVisibility } from '../../performance/useVisualEffects';
 import React, { useEffect, useRef, useState } from 'react';
 import {
@@ -58,11 +59,12 @@ export const ProjectOrrery: React.FC = () => {
 
   // `offset` advances every SWAP_INTERVAL_MS; we pick TOTAL_SLOTS consecutive
   // projects starting at `offset % projects.length`.
+  const [interacting, setInteracting] = useState(false);
   const [offset, setOffset] = useState(0);
   const [swapping, setSwapping] = useState(false);
 
   useEffect(() => {
-    if (!active) { setSwapping(false); return; }
+    if (!active || interacting) { setSwapping(false); return; }
     let swapTimer: ReturnType<typeof setTimeout>;
     const id = setInterval(() => {
       setSwapping(true);
@@ -73,7 +75,7 @@ export const ProjectOrrery: React.FC = () => {
       }, 400); // matches CSS transition duration
     }, SWAP_INTERVAL_MS);
     return () => { clearInterval(id); clearTimeout(swapTimer); };
-  }, [active]);
+  }, [active, interacting]);
 
   // Build the 5 visible slots
   const slots: OrreryProject[] = [];
@@ -82,7 +84,7 @@ export const ProjectOrrery: React.FC = () => {
   }
 
   return (
-    <div ref={rootRef} data-animation-active={active} className="orrery" aria-label={lang === 'en' ? 'Project shortcuts' : 'Accesos a proyectos'}>
+    <div ref={rootRef} data-animation-active={active && !interacting} className="orrery" onPointerEnter={() => setInteracting(true)} onPointerLeave={event => { if (!event.currentTarget.contains(document.activeElement)) setInteracting(false); }} onFocus={() => setInteracting(true)} onBlur={event => { if (!event.currentTarget.contains(event.relatedTarget)) setInteracting(false); }} aria-label={lang === 'en' ? 'Project shortcuts' : 'Accesos a proyectos'}>
       {/* Central glow */}
       <div className="orrery-glow" />
 
@@ -90,16 +92,16 @@ export const ProjectOrrery: React.FC = () => {
       <div className="orrery-ring">
         <span className="orrery-ring-path" />
         {slots.map((p, i) => (
-          <a
+          <Link
             key={`node-${i}`}
-            href={`/projects/${p.id}`}
+            to={`/projects/${p.id}`}
             className={`orrery-node orrery-node--pos-${i + 1}${swapping ? ' is-swapping' : ''}`}
             data-tone={(i % 3) + 1}
             title={p.label}
           >
             <span className="orrery-node-icon">{p.icon}</span>
             <span className="orrery-node-label">{p.label}</span>
-          </a>
+          </Link>
         ))}
       </div>
 

@@ -24,7 +24,7 @@ export function observeEffectVisibility(element: Element, listener: (visible: bo
 }
 
 export function useEffectVisibility(ref: RefObject<Element | null>) {
-  const [intersects, setIntersects] = useState(true);
+  const [intersects, setIntersects] = useState(false);
   const { quality, pageVisible } = useVisualEffects();
   useEffect(() => {
     const element = ref.current;

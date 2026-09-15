@@ -5,7 +5,7 @@ import { useVisualEffects } from './useVisualEffects';
 import './visualEffects.css';
 
 export function VisualEffectsProvider({ children }: { children: ReactNode }) {
-  const { reducedMotion } = useVisualEffects();
+  const { reducedMotion, userReduced } = useVisualEffects();
   useEffect(startEffectsPolicy, []);
-  return <MotionConfig reducedMotion={reducedMotion ? 'always' : 'user'}>{children}</MotionConfig>;
+  return <MotionConfig reducedMotion={reducedMotion || userReduced ? 'always' : 'user'}>{children}</MotionConfig>;
 }

@@ -1,4 +1,3 @@
-import { useVisualEffects } from '../../performance/useVisualEffects';
 import React, { useEffect, useRef, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { motion } from 'motion/react';
@@ -18,7 +17,6 @@ export const Nav: React.FC<NavProps> = ({ pokemon, onPokemonChange }) => {
   const [menuOpen, setMenuOpen] = useState(false);
   const lastY = useRef(0);
   const { lang, setLanguage } = useLanguage();
-  const shouldReduceMotion = useVisualEffects().reducedMotion;
   const location = useLocation();
 
   useEffect(() => {
@@ -76,7 +74,7 @@ export const Nav: React.FC<NavProps> = ({ pokemon, onPokemonChange }) => {
           {navLinks.map((link, i) => (
             <motion.li 
               key={link.name.en}
-              initial={shouldReduceMotion ? false : { opacity: 0, y: -20 }}
+              initial={false}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: i * 0.1 }}
             >
@@ -88,7 +86,7 @@ export const Nav: React.FC<NavProps> = ({ pokemon, onPokemonChange }) => {
           ))}
         </ul>
         <motion.div
-          initial={shouldReduceMotion ? false : { opacity: 0, y: -20 }}
+          initial={false}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: navLinks.length * 0.1 }}
           className="language-picker"
@@ -118,7 +116,7 @@ export const Nav: React.FC<NavProps> = ({ pokemon, onPokemonChange }) => {
           })}
         </motion.div>
         <motion.div
-          initial={shouldReduceMotion ? false : { opacity: 0, y: -20 }}
+          initial={false}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: (navLinks.length + 1) * 0.1 }}
           className="resume-button-container"
@@ -134,7 +132,7 @@ export const Nav: React.FC<NavProps> = ({ pokemon, onPokemonChange }) => {
         </motion.div>
         {pokemon && onPokemonChange && (
           <motion.div
-            initial={shouldReduceMotion ? false : { opacity: 0, y: -20 }}
+            initial={false}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: (navLinks.length + 2) * 0.1 }}
             className="nav-pokemon-trigger"

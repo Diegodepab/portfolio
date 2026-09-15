@@ -22,7 +22,9 @@ const getInitialLanguage = (): LanguageCode => {
 };
 
 export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-  const [lang, setLang] = useState<LanguageCode>(getInitialLanguage);
+  const [lang, setLang] = useState<LanguageCode>('en');
+
+  useEffect(() => { setLang(getInitialLanguage()); }, []);
 
   const setLanguage = (language: LanguageCode) => {
     setLang(language);

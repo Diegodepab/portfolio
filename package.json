@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "vite",
     "dev:vercel": "npx vercel dev",
-    "build": "tsc -b && vite build",
+    "build": "tsc -b && vite build && vite build --ssr src/entry-server.tsx --outDir dist-ssr && node scripts/prerender.mjs",
     "lint": "oxlint",
     "test": "vitest run",
     "check": "npm run lint && npm run test && npm run build",

@@ -156,7 +156,7 @@
   border: 0;
   border-radius: calc(var(--border-radius) - 2px);
   background: transparent;
-  color: var(--color-text-muted);
+  color: color-mix(in srgb, var(--color-text-primary) 80%, transparent);
   cursor: pointer;
   font-family: var(--font-mono);
   font-size: 0.6875rem;
@@ -169,7 +169,7 @@
 
 .language-option.is-active {
   background-color: var(--color-bg-surface);
-  color: var(--color-accent-3);
+  color: var(--color-text-heading);
   cursor: default;
 }
 

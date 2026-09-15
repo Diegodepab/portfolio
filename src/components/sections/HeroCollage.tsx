@@ -24,6 +24,7 @@ const landscapes: Record<'es' | 'en', GalleryImage[]> = {
 
 export const HeroCollage = () => {
   const { lang } = useLanguage();
+  const portrait = imageAssets['/images/portraits/diego-formal.webp'];
 
   return (
     <div className="hero-collage" aria-label={lang === 'en' ? 'Personal photo collage' : 'Collage de fotografías personales'}>
@@ -38,11 +39,12 @@ export const HeroCollage = () => {
 
       <div className="hero-frame hero-frame--portrait">
         <img
-          src={imageAssets['/images/portraits/diego-formal.webp'].src}
-          srcSet={imageAssets['/images/portraits/diego-formal.webp'].srcSet}
+          src={portrait.src}
+          srcSet={portrait.srcSet}
           sizes="(max-width: 480px) 44vw, (max-width: 768px) 234px, 248px"
           alt={lang === 'en' ? 'Formal portrait of Diego De Pablo' : 'Retrato formal de Diego De Pablo'}
           loading="eager"
+          fetchPriority="high"
           decoding="async"
           width={446}
           height={594}
@@ -51,7 +53,10 @@ export const HeroCollage = () => {
 
       <div className="hero-frame hero-frame--secondary-landscape">
         <CrossfadeGallery
-          images={landscapes[lang].map(image => ({ ...image, sizes: '(max-width: 480px) 52vw, (max-width: 768px) 258px, 271px' }))}
+          images={landscapes[lang].map((image) => ({
+            ...image,
+            sizes: '(max-width: 480px) 52vw, (max-width: 768px) 258px, 271px',
+          }))}
           interval={12_000}
           initialDelay={6_000}
           initialIndex={2}

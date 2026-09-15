@@ -1,4 +1,4 @@
-import { useCallback, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useLanguage } from '../context/LanguageContext';
 import { streamChat } from '../services/chatService';
@@ -247,6 +247,18 @@ export const useChat = () => {
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [state, setState] = useState<ChatState>('idle');
   const abortRef = useRef<AbortController | null>(null);
+  const timers = useRef(new Set<ReturnType<typeof setTimeout>>());
+  const later = useCallback((callback: () => void, delay: number) => {
+    const timer = setTimeout(() => { timers.current.delete(timer); callback(); }, delay);
+    timers.current.add(timer);
+  }, []);
+  const stopPending = useCallback(() => {
+    abortRef.current?.abort();
+    abortRef.current = null;
+    timers.current.forEach(clearTimeout);
+    timers.current.clear();
+  }, []);
+  useEffect(() => stopPending, [stopPending]);
   const aiCallCount = useRef(0);
   const errorCount = useRef(0);
 
@@ -286,10 +298,10 @@ export const useChat = () => {
 
       // Navigate if the response has a route
       if (heuristic.route) {
-        setTimeout(() => {
+        later(() => {
           navigate(heuristic.route!);
           if (heuristic.route!.includes('#')) {
-            setTimeout(() => {
+            later(() => {
               const hash = heuristic.route!.split('#')[1];
               document.getElementById(hash)?.scrollIntoView({ behavior: 'smooth' });
               if (hash === 'about') {
@@ -301,9 +313,9 @@ export const useChat = () => {
       }
 
       // Simulate natural typing delay
-      setTimeout(() => {
+      later(() => {
         setState('streaming');
-        setTimeout(() => {
+        later(() => {
           const assistantMessage: ChatMessage = {
             id: createId(),
             role: 'assistant',
@@ -349,6 +361,7 @@ export const useChat = () => {
       { messages: contextMessages, lang },
       // onChunk
       (token: string) => {
+        if (controller.signal.aborted) return;
         if (!hasReceivedChunk) {
           hasReceivedChunk = true;
           setState('streaming');
@@ -364,6 +377,7 @@ export const useChat = () => {
       },
       // onDone
       (references?: ChatReference[]) => {
+        if (controller.signal.aborted) return;
         if (references && references.length > 0) {
           setMessages(prev =>
             prev.map(m =>
@@ -376,6 +390,7 @@ export const useChat = () => {
       },
       // onError
       (_errorMessage: string) => {
+        if (controller.signal.aborted) return;
         // Use fun easter egg messages instead of generic errors
         const easterEgg = getErrorEasterEgg(errorCount.current, lang);
         errorCount.current += 1;
@@ -394,22 +409,20 @@ export const useChat = () => {
       },
       controller.signal,
     );
-  }, [lang, messages, navigate, state]);
+  }, [lang, messages, navigate, state, later]);
 
   const clearConversation = useCallback(() => {
-    abortRef.current?.abort();
-    abortRef.current = null;
+    stopPending();
     setMessages([]);
     setState('idle');
     aiCallCount.current = 0;
     errorCount.current = 0;
-  }, []);
+  }, [stopPending]);
 
   const cancelStream = useCallback(() => {
-    abortRef.current?.abort();
-    abortRef.current = null;
+    stopPending();
     setState('idle');
-  }, []);
+  }, [stopPending]);
 
   return {
     messages,
@@ -417,5 +430,6 @@ export const useChat = () => {
     sendMessage,
     clearConversation,
     cancelStream,
+    stopPending,
   };
 };

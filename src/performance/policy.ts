@@ -1,5 +1,5 @@
 export type EffectsQuality = 'full' | 'reduced';
-export type EffectsReason = 'preparing' | 'ready' | 'preference' | 'limited-device' | 'graphics-unavailable' | 'graphics-failure' | 'slow-frames';
+export type EffectsReason = 'preparing' | 'ready' | 'preference' | 'user' | 'limited-device' | 'graphics-unavailable' | 'graphics-failure' | 'slow-frames';
 
 export interface PerformanceHints {
   deviceMemory?: number;
@@ -20,10 +20,12 @@ export class FrameBudget {
   private count = 0;
   private slow = 0;
   private badWindows = 0;
+  private fastestInterval = 1000 / 30;
 
   reset() {
     this.last = null;
     this.start = this.count = this.slow = this.badWindows = 0;
+    this.fastestInterval = 1000 / 30;
   }
 
   sample(now: number): boolean {
@@ -32,7 +34,11 @@ export class FrameBudget {
       return false;
     }
     this.count++;
-    if (now - this.last > 50) this.slow++;
+    const interval = now - this.last;
+    // Learn the available cadence; distinguish a 30 Hz screen from a 60 Hz
+    // screen dropping to 30 FPS. Ignore implausibly short synthetic intervals.
+    if (interval >= 6) this.fastestInterval = Math.min(this.fastestInterval, interval);
+    if (interval > Math.max(24, this.fastestInterval * 1.6)) this.slow++;
     this.last = now;
     if (now - this.start < 2_000) return false;
     this.badWindows = this.slow / this.count > 0.2 ? this.badWindows + 1 : 0;

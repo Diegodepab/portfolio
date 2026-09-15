@@ -9,7 +9,11 @@ http.createServer(async (req, res) => {
   try {
     let name = decodeURIComponent(new URL(req.url, 'http://localhost').pathname);
     if (name.includes('..')) { res.writeHead(400).end(); return; }
-    if (!path.extname(name)) name = '/index.html';
+    if (!path.extname(name)) {
+      const candidate = path.join(name, 'index.html');
+      try { await readFile(path.join(root, candidate)); name = candidate; }
+      catch { name = '/index.html'; }
+    }
     let content = await readFile(path.join(root, name));
     const type = types[path.extname(name)] || 'application/octet-stream';
     const headers = { 'Content-Type': type, 'Cache-Control': name === '/index.html' ? 'no-cache' : 'public, max-age=3600' };

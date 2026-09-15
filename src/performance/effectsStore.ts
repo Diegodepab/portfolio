@@ -5,8 +5,9 @@ interface EffectsSnapshot {
   reason: EffectsReason;
   reducedMotion: boolean;
   pageVisible: boolean;
+  userReduced: boolean;
 }
-const initial: EffectsSnapshot = { quality: 'full', reason: 'ready', reducedMotion: false, pageVisible: true };
+const initial: EffectsSnapshot = { quality: 'reduced', reason: 'preparing', reducedMotion: false, pageVisible: true, userReduced: false };
 let snapshot = initial;
 let locked = false;
 let activated = false;
@@ -65,6 +66,16 @@ export function reduceEffects(reason: EffectsReason = 'graphics-failure') {
   publish({ quality: 'reduced', reason });
 }
 
+export function setUserReducedEffects(reduced: boolean) {
+  try { localStorage.setItem('portfolio-reduced-effects', String(reduced)); } catch { /* Optional persistence. */ }
+  publish({ userReduced: reduced });
+  if (reduced) publish({ quality: 'reduced', reason: 'user' });
+  else if (!locked) {
+    activated = false;
+    window.dispatchEvent(new Event('portfolio-effects-change'));
+  }
+}
+
 function supportsGraphics(): boolean {
   let gl: WebGLRenderingContext | null = null;
   try {
@@ -85,7 +96,9 @@ export function startEffectsPolicy() {
 
   const checkCapability = () => {
     if (disposed || locked || activated) return;
-    if (motion.matches) {
+    if (snapshot.userReduced) {
+      publish({ quality: 'reduced', reason: 'user' });
+    } else if (motion.matches) {
       reduceEffects('preference');
     } else if (hasLimitedResources(navigator as Navigator & PerformanceHints)) {
       reduceEffects('limited-device');
@@ -109,12 +122,17 @@ export function startEffectsPolicy() {
   };
 
   motion.addEventListener('change', update);
+  window.addEventListener('portfolio-effects-change', update);
   connection?.addEventListener('change', update);
   document.addEventListener('visibilitychange', update);
-  update();
+  try { publish({ userReduced: localStorage.getItem('portfolio-reduced-effects') === 'true' }); } catch { /* Optional persistence. */ }
+  // Content and controls render before optional graphics initialize.
+  const admissionTimer = window.setTimeout(update, 250);
 
   return () => {
     disposed = true;
+    window.clearTimeout(admissionTimer);
+    window.removeEventListener('portfolio-effects-change', update);
     motion.removeEventListener('change', update);
     connection?.removeEventListener('change', update);
     document.removeEventListener('visibilitychange', update);

@@ -222,7 +222,6 @@ const ProjectBubble = memo(({
         aria-expanded={active}
         aria-controls={previewId}
         aria-haspopup="dialog"
-        aria-label={lang === 'en' ? `Preview ${project.name[lang]}` : `Previsualizar ${project.name[lang]}`}
         onClick={() => onToggle(project.id)}
       >
         <ProjectMark project={project} />

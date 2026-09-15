@@ -1,5 +1,4 @@
-import { useVisualEffects } from '../../performance/useVisualEffects';
-import { useState, type FormEvent } from 'react';
+import { useEffect, useRef, useState, type FormEvent } from 'react';
 import { motion } from 'motion/react';
 import { FiAlertCircle, FiArrowUpRight, FiCheckCircle, FiSend } from 'react-icons/fi';
 import { useLanguage } from '../../context/LanguageContext';
@@ -23,17 +22,21 @@ const formEndpoint = import.meta.env.DEV
 
 export const Contact = () => {
   const { lang } = useLanguage();
-  const animateEntrance = !useVisualEffects().reducedMotion;
   const [status, setStatus] = useState<SubmissionStatus>('idle');
+  const pending = useRef<AbortController | null>(null);
+  useEffect(() => () => pending.current?.abort(), []);
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if (status === 'submitting') return;
+    if (pending.current) return;
 
     const form = event.currentTarget;
     const fields = new FormData(form);
 
     setStatus('submitting');
+    const controller = new AbortController();
+    pending.current = controller;
+    const timeout = window.setTimeout(() => controller.abort('timeout'), 15_000);
 
     try {
       const response = await fetch(formEndpoint, {
@@ -43,18 +46,22 @@ export const Contact = () => {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(Object.fromEntries(fields.entries())),
+        signal: controller.signal,
       });
       const result = await response.json().catch(() => null) as FormSubmitResponse | null;
-      const rejected = result?.success === false || result?.success === 'false';
+      const accepted = result?.success === true || result?.success === 'true';
 
-      if (!response.ok || rejected) {
+      if (!response.ok || !accepted) {
         throw new Error(result?.message ?? 'Unable to submit the contact form');
       }
 
       form.reset();
       setStatus('success');
     } catch {
-      setStatus('error');
+      if (!controller.signal.aborted || controller.signal.reason === 'timeout') setStatus('error');
+    } finally {
+      window.clearTimeout(timeout);
+      pending.current = null;
     }
   };
 
@@ -66,7 +73,7 @@ export const Contact = () => {
     <motion.section
       id="contact"
       className="contact-section"
-      initial={animateEntrance ? { opacity: 0, y: 40 } : false}
+      initial={false}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-100px' }}
       transition={{ duration: 0.5 }}
@@ -77,6 +84,7 @@ export const Contact = () => {
       <div className="contact-panel">
         <div className="contact-intro">
           <h3>{lang === 'en' ? 'Let\'s talk.' : 'Hablemos'}</h3>
+          <a className="contact-email" href={`mailto:${siteConfig.email}`}>{siteConfig.email}</a>
 
           <nav className="contact-socials" aria-label={lang === 'en' ? 'Social profiles' : 'Perfiles sociales'}>
             <p>{lang === 'en' ? 'You can also find me on' : 'También puedes encontrarme en'}</p>
@@ -109,7 +117,7 @@ export const Contact = () => {
           <input
             type="hidden"
             name="_url"
-            value={`${window.location.origin}${window.location.pathname}#contact`}
+            value={`${siteConfig.url}/#contact`}
           />
           <label className="contact-honey" aria-hidden="true">
             Website
