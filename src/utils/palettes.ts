@@ -399,4 +399,194 @@ export const pokePalettes: Palette[] = [
     sprite: '/pokemon/komala.png',
     colors: { primary: '#9bc7db', secondary: '#608597', tertiary: '#c5dfea', surfaceTint: 'color-mix(in srgb, #9bc7db 12%, #111827)' },
   },
+  {
+    name: 'Zorua',
+    sprite: '/pokemon/zorua.png',
+    colors: { primary: '#f87171', secondary: '#38bdf8', tertiary: '#fb923c', surfaceTint: 'color-mix(in srgb, #f87171 12%, #111827)' },
+  },
+  {
+    name: 'Venusaur',
+    sprite: '/pokemon/venusaur.png',
+    favorite: true,
+    colors: { primary: '#2dd4bf', secondary: '#34d399', tertiary: '#f472b6', surfaceTint: 'color-mix(in srgb, #2dd4bf 12%, #111827)' },
+  },
+  {
+    name: 'Blastoise',
+    sprite: '/pokemon/blastoise.png',
+    favorite: true,
+    colors: { primary: '#38bdf8', secondary: '#60a5fa', tertiary: '#fbbf24', surfaceTint: 'color-mix(in srgb, #38bdf8 12%, #111827)' },
+  },
+  {
+    name: 'Raichu',
+    sprite: '/pokemon/raichu.png',
+    colors: { primary: '#fb923c', secondary: '#facc15', tertiary: '#fbbf24', surfaceTint: 'color-mix(in srgb, #fb923c 12%, #111827)' },
+  },
+  {
+    name: 'Alakazam',
+    sprite: '/pokemon/alakazam.png',
+    colors: { primary: '#facc15', secondary: '#eab308', tertiary: '#fde047', surfaceTint: 'color-mix(in srgb, #facc15 12%, #111827)' },
+  },
+  {
+    name: 'Machamp',
+    sprite: '/pokemon/machamp.png',
+    colors: { primary: '#94a3b8', secondary: '#fbbf24', tertiary: '#f87171', surfaceTint: 'color-mix(in srgb, #94a3b8 12%, #111827)' },
+  },
+  {
+    name: 'Lapras',
+    sprite: '/pokemon/lapras.png',
+    colors: { primary: '#38bdf8', secondary: '#67e8f9', tertiary: '#fde047', surfaceTint: 'color-mix(in srgb, #38bdf8 12%, #111827)' },
+  },
+  {
+    name: 'Articuno',
+    sprite: '/pokemon/articuno.png',
+    colors: { primary: '#67e8f9', secondary: '#38bdf8', tertiary: '#bae6fd', surfaceTint: 'color-mix(in srgb, #67e8f9 12%, #111827)' },
+  },
+  {
+    name: 'Zapdos',
+    sprite: '/pokemon/zapdos.png',
+    colors: { primary: '#facc15', secondary: '#fbbf24', tertiary: '#f59e0b', surfaceTint: 'color-mix(in srgb, #facc15 12%, #111827)' },
+  },
+  {
+    name: 'Moltres',
+    sprite: '/pokemon/moltres.png',
+    colors: { primary: '#fb923c', secondary: '#fde047', tertiary: '#f87171', surfaceTint: 'color-mix(in srgb, #fb923c 12%, #111827)' },
+  },
+  {
+    name: 'Mew',
+    sprite: '/pokemon/mew.png',
+    favorite: true,
+    colors: { primary: '#f472b6', secondary: '#c084fc', tertiary: '#38bdf8', surfaceTint: 'color-mix(in srgb, #f472b6 12%, #111827)' },
+  },
+  {
+    name: 'Chikorita',
+    sprite: '/pokemon/chikorita.png',
+    colors: { primary: '#a3e635', secondary: '#4ade80', tertiary: '#fb7185', surfaceTint: 'color-mix(in srgb, #a3e635 12%, #111827)' },
+  },
+  {
+    name: 'Cyndaquil',
+    sprite: '/pokemon/cyndaquil.png',
+    favorite: true,
+    colors: { primary: '#2dd4bf', secondary: '#fb923c', tertiary: '#fde047', surfaceTint: 'color-mix(in srgb, #fb923c 12%, #111827)' },
+  },
+  {
+    name: 'Totodile',
+    sprite: '/pokemon/totodile.png',
+    favorite: true,
+    colors: { primary: '#22d3ee', secondary: '#f87171', tertiary: '#fde047', surfaceTint: 'color-mix(in srgb, #22d3ee 12%, #111827)' },
+  },
+  {
+    name: 'Ampharos',
+    sprite: '/pokemon/ampharos.png',
+    colors: { primary: '#facc15', secondary: '#f87171', tertiary: '#fbbf24', surfaceTint: 'color-mix(in srgb, #facc15 12%, #111827)' },
+  },
+  {
+    name: 'Espeon',
+    sprite: '/pokemon/espeon.png',
+    favorite: true,
+    colors: { primary: '#c084fc', secondary: '#f87171', tertiary: '#a855f7', surfaceTint: 'color-mix(in srgb, #c084fc 12%, #111827)' },
+  },
+  {
+    name: 'Scizor',
+    sprite: '/pokemon/scizor.png',
+    colors: { primary: '#fb7185', secondary: '#94a3b8', tertiary: '#fbbf24', surfaceTint: 'color-mix(in srgb, #fb7185 12%, #111827)' },
+  },
+  {
+    name: 'Tyranitar',
+    sprite: '/pokemon/tyranitar.png',
+    colors: { primary: '#4ade80', secondary: '#94a3b8', tertiary: '#38bdf8', surfaceTint: 'color-mix(in srgb, #4ade80 12%, #111827)' },
+  },
+  {
+    name: 'Lugia',
+    sprite: '/pokemon/lugia.png',
+    favorite: true,
+    colors: { primary: '#e2e8f0', secondary: '#60a5fa', tertiary: '#a5b4fc', surfaceTint: 'color-mix(in srgb, #a5b4fc 12%, #111827)' },
+  },
+  {
+    name: 'Ho-Oh',
+    sprite: '/pokemon/ho-oh.png',
+    colors: { primary: '#fbbf24', secondary: '#f87171', tertiary: '#34d399', surfaceTint: 'color-mix(in srgb, #fbbf24 12%, #111827)' },
+  },
+  {
+    name: 'Treecko',
+    sprite: '/pokemon/treecko.png',
+    colors: { primary: '#4ade80', secondary: '#fb7185', tertiary: '#facc15', surfaceTint: 'color-mix(in srgb, #4ade80 12%, #111827)' },
+  },
+  {
+    name: 'Torchic',
+    sprite: '/pokemon/torchic.png',
+    favorite: true,
+    colors: { primary: '#fb923c', secondary: '#fde047', tertiary: '#f87171', surfaceTint: 'color-mix(in srgb, #fb923c 12%, #111827)' },
+  },
+  {
+    name: 'Flygon',
+    sprite: '/pokemon/flygon.png',
+    colors: { primary: '#4ade80', secondary: '#f87171', tertiary: '#a3e635', surfaceTint: 'color-mix(in srgb, #4ade80 12%, #111827)' },
+  },
+  {
+    name: 'Milotic',
+    sprite: '/pokemon/milotic.png',
+    colors: { primary: '#fde047', secondary: '#fb7185', tertiary: '#22d3ee', surfaceTint: 'color-mix(in srgb, #fb7185 12%, #111827)' },
+  },
+  {
+    name: 'Absol',
+    sprite: '/pokemon/absol.png',
+    colors: { primary: '#f1f5f9', secondary: '#2dd4bf', tertiary: '#60a5fa', surfaceTint: 'color-mix(in srgb, #2dd4bf 12%, #111827)' },
+  },
+  {
+    name: 'Kyogre',
+    sprite: '/pokemon/kyogre.png',
+    favorite: true,
+    colors: { primary: '#60a5fa', secondary: '#f87171', tertiary: '#e2e8f0', surfaceTint: 'color-mix(in srgb, #60a5fa 12%, #111827)' },
+  },
+  {
+    name: 'Groudon',
+    sprite: '/pokemon/groudon.png',
+    favorite: true,
+    colors: { primary: '#f87171', secondary: '#94a3b8', tertiary: '#fbbf24', surfaceTint: 'color-mix(in srgb, #f87171 12%, #111827)' },
+  },
+  {
+    name: 'Rayquaza',
+    sprite: '/pokemon/rayquaza.png',
+    favorite: true,
+    colors: { primary: '#34d399', secondary: '#fbbf24', tertiary: '#f87171', surfaceTint: 'color-mix(in srgb, #34d399 12%, #111827)' },
+  },
+  {
+    name: 'Leafeon',
+    sprite: '/pokemon/leafeon.png',
+    colors: { primary: '#a3e635', secondary: '#fde047', tertiary: '#4ade80', surfaceTint: 'color-mix(in srgb, #a3e635 12%, #111827)' },
+  },
+  {
+    name: 'Glaceon',
+    sprite: '/pokemon/glaceon.png',
+    colors: { primary: '#38bdf8', secondary: '#67e8f9', tertiary: '#60a5fa', surfaceTint: 'color-mix(in srgb, #38bdf8 12%, #111827)' },
+  },
+  {
+    name: 'Darkrai',
+    sprite: '/pokemon/darkrai.png',
+    colors: { primary: '#94a3b8', secondary: '#f87171', tertiary: '#f1f5f9', surfaceTint: 'color-mix(in srgb, #f87171 12%, #111827)' },
+  },
+  {
+    name: 'Mimikyu',
+    sprite: '/pokemon/mimikyu.png',
+    favorite: true,
+    colors: { primary: '#facc15', secondary: '#c084fc', tertiary: '#94a3b8', surfaceTint: 'color-mix(in srgb, #facc15 12%, #111827)' },
+  },
 ];
+
+export const getTodayDateString = (date = new Date()): string => {
+  const y = date.getFullYear();
+  const m = String(date.getMonth() + 1).padStart(2, '0');
+  const d = String(date.getDate()).padStart(2, '0');
+  return `${y}-${m}-${d}`;
+};
+
+export const getDailyPalette = (date = new Date()): Palette => {
+  const dateStr = getTodayDateString(date);
+  let hash = 0;
+  for (let i = 0; i < dateStr.length; i++) {
+    hash = ((hash << 5) - hash + dateStr.charCodeAt(i)) | 0;
+  }
+  const index = Math.abs(hash) % pokePalettes.length;
+  return pokePalettes[index];
+};
+

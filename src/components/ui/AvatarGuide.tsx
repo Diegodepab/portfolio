@@ -128,7 +128,7 @@ export const AvatarGuide: React.FC<AvatarGuideProps> = ({ onOpenChat }) => {
             <img 
               src={imageAssets['/images/avatar-pixel.webp'].src}
               srcSet={imageAssets['/images/avatar-pixel.webp'].srcSet} sizes="70px" 
-              alt="" 
+              alt="dIAgo" 
               className="avatar-guide-trigger-img"
               width={52}
               height={52}
@@ -163,8 +163,8 @@ export const AvatarGuide: React.FC<AvatarGuideProps> = ({ onOpenChat }) => {
                 <div className="avatar-dialog-portrait-wrapper">
                   <img 
                     src={imageAssets['/images/avatar-pixel.webp'].src}
-              srcSet={imageAssets['/images/avatar-pixel.webp'].srcSet} sizes="70px" 
-                    alt="Avatar Guide" 
+                    srcSet={imageAssets['/images/avatar-pixel.webp'].srcSet} sizes="70px" 
+                    alt="dIAgo" 
                     className={`avatar-dialog-portrait ${isTyping ? 'is-talking' : ''}`}
                     width={64}
                     height={64}
