@@ -1,6 +1,6 @@
 import { imageAssets } from '../../data/imageAssets';
 import './ChatWindow.css';
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useCallback } from 'react';
 import { FiRotateCcw, FiX } from 'react-icons/fi';
 import { useLanguage } from '../../context/LanguageContext';
 import { useChat } from '../../hooks/useChat';
@@ -18,10 +18,10 @@ export const ChatWindow: React.FC<ChatWindowProps> = ({ onClose }) => {
   const messagesContainerRef = useRef<HTMLDivElement>(null);
   const windowRef = useRef<HTMLDivElement>(null);
 
-  const handleClose = () => {
+  const handleClose = useCallback(() => {
     stopPending();
     onClose();
-  };
+  }, [onClose, stopPending]);
 
   // Auto-scroll on new messages
   useEffect(() => {
@@ -40,7 +40,7 @@ export const ChatWindow: React.FC<ChatWindowProps> = ({ onClose }) => {
     };
     document.addEventListener('keydown', handleKeyDown);
     return () => document.removeEventListener('keydown', handleKeyDown);
-  }, [onClose, stopPending]);
+  }, [handleClose]);
 
   // Focus the window on mount
   useEffect(() => {
@@ -63,7 +63,7 @@ export const ChatWindow: React.FC<ChatWindowProps> = ({ onClose }) => {
       <div className="chat-header">
         <img
           src={imageAssets['/images/avatar-pixel.webp'].src}
-              srcSet={imageAssets['/images/avatar-pixel.webp'].srcSet} sizes="40px"
+          srcSet={imageAssets['/images/avatar-pixel.webp'].srcSet} sizes="40px"
           alt="dIAgo"
           className="chat-header-avatar"
           width={40}
@@ -75,7 +75,7 @@ export const ChatWindow: React.FC<ChatWindowProps> = ({ onClose }) => {
           <span>
             {state === 'streaming'
               ? (lang === 'en' ? 'Typing...' : 'Escribiendo...')
-              : (lang === 'en' ? 'Diego\'s AI assistant' : 'Asistente IA de Diego')}
+              : (lang === 'en' ? "Diego's AI assistant" : 'Asistente IA de Diego')}
           </span>
         </div>
         <div className="chat-header-actions">
