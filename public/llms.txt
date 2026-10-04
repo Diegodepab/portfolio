@@ -15,11 +15,11 @@ Diego De Pablo is a software engineer based in Málaga, Spain, working at Khaos 
 
 ## Portfolio Navigation
 
-- [Home](https://diegodepablo.dev/): Main portfolio landing page.
-- [Work & Projects](https://diegodepablo.dev/projects): Comprehensive catalog of software engineering and research projects.
-- [Experience](https://diegodepablo.dev/#jobs): Professional history, research groups, and company roles.
-- [About](https://diegodepablo.dev/#about): Technical background, philosophy, and personal interests.
-- [Contact](https://diegodepablo.dev/#contact): Contact channels and inquiry form.
+- [Home](https://diegodepablo.is-a.dev/): Main portfolio landing page.
+- [Work & Projects](https://diegodepablo.is-a.dev/projects): Comprehensive catalog of software engineering and research projects.
+- [Experience](https://diegodepablo.is-a.dev/#jobs): Professional history, research groups, and company roles.
+- [About](https://diegodepablo.is-a.dev/#about): Technical background, philosophy, and personal interests.
+- [Contact](https://diegodepablo.is-a.dev/#contact): Contact channels and inquiry form.
 
 ## Contact & Profiles
 
