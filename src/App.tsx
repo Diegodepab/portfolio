@@ -46,11 +46,21 @@ const pickPalette = (excludedName?: string): Palette => {
   return pool[Math.floor(Math.random() * pool.length)];
 };
 
-const DEFAULT_PALETTE = pokePalettes.find(palette => palette.name === 'Piplup') ?? pokePalettes[0];
+const DEFAULT_PALETTE = pokePalettes[0];
 const getInitialPalette = (): Palette => {
   try {
-    return pokePalettes.find(palette => palette.name === localStorage.getItem('portfolio-palette')) ?? DEFAULT_PALETTE;
-  } catch { return DEFAULT_PALETTE; }
+    // Remove legacy persistent key to prevent getting stuck on a single pokemon
+    localStorage.removeItem('portfolio-palette');
+    localStorage.removeItem('portfolio-palette-date');
+    const saved = sessionStorage.getItem('portfolio-palette');
+    if (saved) {
+      const found = pokePalettes.find((palette) => palette.name === saved);
+      if (found) return found;
+    }
+  } catch {
+    /* Optional persistence */
+  }
+  return pickPalette();
 };
 
 const ScrollHandler = () => {
@@ -145,13 +155,31 @@ function MainApp({ routeOverrides }: { routeOverrides?: RouteOverrides } = {}) {
     root.style.setProperty('--color-accent-2', ensureAccessibleAccent(secondary));
     root.style.setProperty('--color-accent-3', ensureAccessibleAccent(tertiary));
     root.style.setProperty('--color-surface-tint', surfaceTint ?? 'transparent');
-    try { localStorage.setItem('portfolio-palette', currentPalette.name); } catch { /* Optional persistence. */ }
-
   }, [currentPalette]);
 
   const changePokemon = () => {
-    setCurrentPalette((current) => pickPalette(current.name));
+    setCurrentPalette((current) => {
+      const next = pickPalette(current.name);
+      try {
+        sessionStorage.setItem('portfolio-palette', next.name);
+      } catch {
+        /* Optional persistence */
+      }
+      return next;
+    });
   };
+
+  const selectPokemon = useCallback((name: string) => {
+    const found = pokePalettes.find((palette) => palette.name === name);
+    if (found) {
+      setCurrentPalette(found);
+      try {
+        sessionStorage.setItem('portfolio-palette', found.name);
+      } catch {
+        /* Optional persistence */
+      }
+    }
+  }, []);
 
   return (
         <TourProvider>
@@ -161,6 +189,7 @@ function MainApp({ routeOverrides }: { routeOverrides?: RouteOverrides } = {}) {
           themeName={currentPalette.name}
           pokemon={currentPalette}
           onPokemonChange={changePokemon}
+          onPokemonSelect={selectPokemon}
         >
           <ErrorBoundary><Suspense fallback={<div className="route-loading" role="status" aria-live="polite">Loading…</div>}>
             <Routes>

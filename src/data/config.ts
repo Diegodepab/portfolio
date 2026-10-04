@@ -2,7 +2,7 @@ import type { NavLink, SocialLink } from '../types/portfolio';
 
 export const siteConfig = {
   name: 'Diego De Pablo',
-  url: (import.meta.env.VITE_SITE_URL || 'https://diegodepablo.dev').replace(/\/$/, ''),
+  url: (import.meta.env.VITE_SITE_URL || 'https://diegodepablo.is-a.dev').replace(/\/$/, ''),
   title: {
     en: 'Software Engineer',
     es: 'Ingeniero de Software',

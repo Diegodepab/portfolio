@@ -122,7 +122,7 @@ export const Nav: React.FC<NavProps> = ({ pokemon, onPokemonChange }) => {
           className="resume-button-container"
         >
           <a
-            href="/cv_diego_de_pablos.pdf"
+            href={lang === 'en' ? '/cv_en.pdf' : '/cv_es.pdf'}
             target="_blank"
             rel="noopener noreferrer"
             className="resume-button"

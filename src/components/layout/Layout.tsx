@@ -10,9 +10,10 @@ interface LayoutProps {
   themeName: string;
   pokemon: Palette;
   onPokemonChange: () => void;
+  onPokemonSelect?: (name: string) => void;
 }
 
-export const Layout: React.FC<LayoutProps> = ({ children, themeName, pokemon, onPokemonChange }) => {
+export const Layout: React.FC<LayoutProps> = ({ children, themeName, pokemon, onPokemonChange, onPokemonSelect }) => {
   return (
     <div className="site-shell">
       <Nav pokemon={pokemon} onPokemonChange={onPokemonChange} />
@@ -24,7 +25,11 @@ export const Layout: React.FC<LayoutProps> = ({ children, themeName, pokemon, on
         </div>
       </div>
 
-      <Footer themeName={themeName} />
+      <Footer
+        themeName={themeName}
+        onPokemonSelect={onPokemonSelect}
+        onPokemonRandom={onPokemonChange}
+      />
     </div>
   );
 };
