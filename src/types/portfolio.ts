@@ -19,6 +19,36 @@ export type ProjectTag = 'professional' | 'personal';
 /** Nature/category of the project */
 export type ProjectCategory = 'full-stack' | 'backend' | 'infrastructure' | 'data-science' | 'use-case';
 
+export interface ProjectMediaItem {
+  type: 'image' | 'youtube' | 'link';
+  src: string;
+  title?: I18nString;
+  alt?: I18nString;
+  category?: 'hardware' | 'platform' | 'architecture' | 'demo';
+  caption?: I18nString;
+}
+
+export interface ProjectSection {
+  id: string;
+  number: string;
+  title: I18nString;
+  subtitle?: I18nString;
+  content: I18nString;
+  badge?: I18nString;
+  keyPoints?: I18nString[];
+  featuredImage?: {
+    src: string;
+    caption?: I18nString;
+    alt?: I18nString;
+  };
+}
+
+export interface ProjectStat {
+  label: I18nString;
+  value: string;
+  subtext?: I18nString;
+}
+
 /** A project developed within a job or independently */
 export interface Project {
   id: string;
@@ -33,14 +63,13 @@ export interface Project {
   github?: string;
   image?: string;
   imageFit?: 'cover' | 'contain';
-  media?: Array<{
-    type: 'image' | 'youtube' | 'link';
-    src: string;
-    title?: I18nString;
-    alt?: I18nString;
-  }>;
+  media?: ProjectMediaItem[];
   roleHighlight?: I18nString;
   repositoryNotice?: I18nString;
+  awardBadge?: I18nString;
+  stats?: ProjectStat[];
+  architectureType?: 'iot-telemetry' | 'kubernetes-gitops' | 'metadata-pipeline';
+  sections?: ProjectSection[];
   caseStudy?: {
     title?: I18nString;
     challenge: I18nString;

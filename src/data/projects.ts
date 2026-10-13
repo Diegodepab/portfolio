@@ -61,16 +61,251 @@ export const featuredProjects: Project[] = [
       en: 'An end-to-end remote monitoring system combining an IoT wristband prototype with a telemedicine web platform.',
       es: 'Sistema de telemonitorización que combina un prototipo de pulsera IoT con una plataforma web de telemedicina.',
     },
-    technologies: ['IoT', 'ESP32', 'FastAPI', 'SvelteKit', 'PostgreSQL', 'MQTT'],
+    technologies: ['IoT', 'ESP32', 'C++', 'FastAPI', 'SvelteKit', 'PostgreSQL', 'MQTT', 'Docker'],
     tag: 'personal',
     category: 'use-case',
     github: 'https://github.com/Diegodepab/TFG_Pulsera_Seguimiento_Pacientes_Avanzada_Edad',
+    awardBadge: {
+      en: '🏆 10.0 / 10 · Honours Degree Award (BSc Thesis in Bioinformatics, UMA)',
+      es: '🏆 10,0 / 10 · Matrícula de Honor (TFG Bioinformática, Univ. de Málaga)',
+    },
+    stats: [
+      {
+        label: { en: 'Final Grade', es: 'Calificación' },
+        value: '10.0 / 10',
+        subtext: { en: 'Honours Degree (Matrícula de Honor)', es: 'Matrícula de Honor' },
+      },
+      {
+        label: { en: 'Sampling Rate', es: 'Muestreo Óptico' },
+        value: '100 Hz',
+        subtext: { en: 'MAX30102 PPG Red/IR', es: 'Fotopletismografía I2C' },
+      },
+      {
+        label: { en: 'Offline Resilience', es: 'Resiliencia de Red' },
+        value: 'RAM Buffer',
+        subtext: { en: 'Zero loss on Wi-Fi drops', es: 'Buffer circular sin pérdida' },
+      },
+      {
+        label: { en: 'Ecosystem', es: 'Ecosistema' },
+        value: 'End-to-End',
+        subtext: { en: 'C++ · MQTT · FastAPI · SvelteKit', es: 'C++ · MQTT · FastAPI · SvelteKit' },
+      },
+    ],
+    architectureType: 'iot-telemetry',
+    sections: [
+      {
+        id: 'challenge',
+        number: '01',
+        title: {
+          en: 'The Clinical & Engineering Challenge',
+          es: 'El Desafío Clínico y de Ingeniería',
+        },
+        subtitle: {
+          en: 'Passive home telemonitoring with guaranteed reliability',
+          es: 'Telemonitorización domiciliaria no invasiva y de alta fidelidad',
+        },
+        content: {
+          en: 'Demographic aging demands continuous, non-invasive home monitoring that enables clinicians to supervise patient vitals without requiring technical intervention from the elderly. \n\nThe core challenge was designing a complete **end-to-end** system: from custom biomedical sensor circuitry and embedded firmware up to a multi-tenant clinical web platform. The system needed to guarantee data integrity across unstable home Wi-Fi networks, detect falls in real-time, and provide clinicians with actionable historical trends.',
+          es: 'El envejecimiento de la población exige sistemas de monitorización domiciliaria continuos y no invasivos que permitan a los profesionales sanitarios vigilar la salud de personas de edad avanzada sin exigirles interactuar con tecnología compleja.\n\nEl desafío central consistió en diseñar una solución integral **end-to-end**: desde el circuito electrónico y el firmware embebido hasta una plataforma web clínica multi-rol. El sistema debía garantizar la continuidad de las lecturas ante cortes de conexión Wi-Fi doméstica, detectar caídas en tiempo real y presentar historiales comparativos listos para el triaje médico.',
+        },
+        keyPoints: [
+          { en: 'Passive telemetry without elder burden', es: 'Telemetría pasiva sin sobrecarga para el paciente' },
+          { en: 'Multi-sensor fusion: Optical PPG + 6-Axis IMU', es: 'Fusión sensorial: PPG óptico + IMU inercial de 6 ejes' },
+          { en: 'Automatic fallback during wireless dropouts', es: 'Tolerancia a fallos automática ante cortes de red' },
+        ],
+        featuredImage: {
+          src: '/images/projects/tfg/prototipo-hardware.png',
+          caption: {
+            es: 'Banco de pruebas en protoboard con microcontrolador ESP32 LilyGO y sensores I2C encendidos.',
+            en: 'Laboratory breadboard circuit integrating the ESP32 TTGO T-Display and operational I2C sensors.',
+          },
+          alt: {
+            es: 'Prototipo hardware en placa de pruebas',
+            en: 'Hardware test bench on breadboard',
+          },
+        },
+      },
+      {
+        id: 'firmware',
+        number: '02',
+        title: {
+          en: 'Embedded Firmware & Edge Processing',
+          es: 'Firmware Embebido y Procesamiento en el Edge',
+        },
+        subtitle: {
+          en: 'Dual-core ESP32, optical PPG sampling & offline circular buffer',
+          es: 'ESP32 dual-core, muestreo PPG óptico y búfer circular en memoria',
+        },
+        content: {
+          en: 'The wearable device is built on an **ESP32 LilyGO TTGO T-Display** SoC with an integrated 1.14" color TFT screen. The C++ firmware orchestrates two primary biomedical sensors over an I2C bus:\n\n- **MAX30102 Optical PPG:** Emits red and infrared wavelengths at 100 Hz through capillary tissue to extract raw photoplethysmogram waveforms, estimating pulse (BPM) and blood oxygen saturation (SpO₂).\n- **MPU-6050 6-Axis IMU:** Samples triaxial accelerometer and gyroscope vectors. An edge algorithm computes signal vector magnitude (SVM) to detect abrupt impact spikes followed by post-fall immobility.\n- **Resilient Circular Buffer:** If Wi-Fi connectivity drops, readings are preserved in a local RAM ring buffer with synchronized NTP timestamps, avoiding data loss until the broker becomes reachable again.',
+          es: 'El dispositivo físico se sustenta en un SoC **ESP32 LilyGO TTGO T-Display** con pantalla TFT a color de 1.14". El firmware en C++ gestiona dos sensores biomédicos principales a través del bus I2C:\n\n- **MAX30102 (PPG Óptico):** Emite luz roja e infrarroja a 100 Hz a través del lecho capilar para capturar la onda fotopletismográfica, calculando la frecuencia cardíaca (BPM) y la saturación de oxígeno (SpO₂).\n- **MPU-6050 (IMU 6 ejes):** Muestrea acelerometría y giroscopio triaxial. Un algoritmo en el microcontrolador analiza la magnitud del vector de aceleración para identificar picos de impacto seguidos de inmovilidad (patrón de caída).\n- **Búfer Circular de Resiliencia:** Si la señal Wi-Fi se interrumpe, el firmware encola los datos en un búfer circular en RAM con marcas de tiempo NTP, descargándolos en ráfaga en cuanto recupera la conexión.',
+        },
+        keyPoints: [
+          { en: 'C++ firmware with modular sensor drivers', es: 'Firmware en C++ con controladores de sensores modulares' },
+          { en: 'NTP epoch timestamping for analytical consistency', es: 'Marcas temporales NTP sincronizadas por red' },
+          { en: 'Local TFT visual status and battery feedback', es: 'Feedback visual inmediato en pantalla TFT integrada' },
+        ],
+        featuredImage: {
+          src: '/images/projects/tfg/analizando.jpg',
+          caption: {
+            es: 'Adquisición real de fotopletismografía óptica y presentación de métricas en la pantalla integrada de la pulsera.',
+            en: 'Live optical photoplethysmography acquisition and on-screen metrics presentation on the wearable prototype.',
+          },
+          alt: {
+            es: 'Pulsera midiendo constantes vitales en el dedo',
+            en: 'Wristband prototype measuring heart rate on finger',
+          },
+        },
+      },
+      {
+        id: 'iot-messaging',
+        number: '03',
+        title: {
+          en: 'IoT Messaging & Decoupled Broker Pipeline',
+          es: 'Mensajería IoT y Desacoplamiento con MQTT',
+        },
+        subtitle: {
+          en: 'Lightweight publish/subscribe model using Eclipse Mosquitto',
+          es: 'Modelo publicación/suscripción ligero con Eclipse Mosquitto',
+        },
+        content: {
+          en: 'To optimize battery life and minimize network overhead on the wearable, the system implements **MQTT** through an **Eclipse Mosquitto** broker:\n\n- **Structured Topics:** Clear namespace partitioning (`patient/{id}/vitals`, `patient/{id}/alerts/fall`, `patient/{id}/events`).\n- **Compact JSON Payloads:** Efficient data serialization containing biometric metrics, signal quality indicators, and NTP timestamps.\n- **Quality of Service (QoS 1):** Critical events like emergency button triggers and detected falls use confirmed delivery to ensure reception by medical ingest services.',
+          es: 'Para minimizar el consumo energético de la pulsera y reducir la sobrecarga de red, el sistema adopta el protocolo **MQTT** sobre un broker **Eclipse Mosquitto**:\n\n- **Tópicos Jerárquicos:** Espacio de nombres estructurado (`patient/{id}/vitals`, `patient/{id}/alerts/fall`, `patient/{id}/events`).\n- **Cargas JSON Compactas:** Serialización eficiente con métricas biomédicas, calidad de señal y sellos temporales NTP.\n- **Calidad de Servicio (QoS 1):** Las alarmas críticas de caída y pulsaciones de emergencia se envían con confirmación de entrega para garantizar su recepción en el servidor.',
+        },
+        keyPoints: [
+          { en: 'Asynchronous event decoupling', es: 'Desacoplamiento asíncrono de eventos' },
+          { en: 'Minimal byte transmission overhead', es: 'Mínimo ancho de banda y sobrecarga de red' },
+          { en: 'QoS guarantees for patient safety alerts', es: 'Garantía QoS para alertas críticas de salud' },
+        ],
+      },
+      {
+        id: 'web-platform',
+        number: '04',
+        title: {
+          en: 'Telemedicine Web Platform & Clinical UX',
+          es: 'Plataforma Web de Telemedicina y UX Clínica',
+        },
+        subtitle: {
+          en: 'SvelteKit frontend, async FastAPI backend & role-based workflows',
+          es: 'Frontend reactivo en SvelteKit, backend asíncrono en FastAPI y acceso multi-rol',
+        },
+        content: {
+          en: 'The clinical web application was built with a modern containerized microservice architecture using Docker Compose:\n\n- **Asynchronous FastAPI Core:** REST API written in Python with SQLAlchemy and Pydantic validation, storing long-term clinical records in PostgreSQL and temporal sessions in Redis.\n- **SvelteKit Clinical Portal:** Highly responsive frontend providing three role-tailored dashboards:\n  - **Doctor Portal:** Patient cohort overview, pathology tagging, alarm resolution center, and daily study charts with interactive time-series powered by Chart.js.\n  - **Patient Portal:** Accessible self-monitoring view with intuitive health status indicators and secure doctor chat.\n  - **Administrator Portal:** System configuration and access management.',
+          es: 'La plataforma web clínica se diseñó con una arquitectura modular contenerizada mediante Docker Compose y Nginx:\n\n- **Núcleo Asíncrono en FastAPI:** API REST en Python con SQLAlchemy y validación estricta en Pydantic. Almacena historiales en PostgreSQL y gestiona sesiones y estados en Redis.\n- **Portal Clínico en SvelteKit:** Frontend reactivo con tres paneles según el rol del usuario:\n  - **Portal Médico:** Supervisión de pacientes asignados, vinculación de patologías, centro de resolución de alarmas y gráficas interactivas de constantes con Chart.js.\n  - **Portal del Paciente:** Consulta amigable de su evolución diaria y chat directo con su especialista.\n  - **Portal del Administrador:** Gestión de usuarios y catálogos globales del sistema.',
+        },
+        keyPoints: [
+          { en: 'Interactive daily studies and Chart.js graphs', es: 'Estudios diarios con gráficas interactivas en Chart.js' },
+          { en: 'Color-coded risk ranges for abnormal vitals', es: 'Semáforo clínico de constantes fuera de rango' },
+          { en: 'Complete containerized Docker Compose deployment', es: 'Despliegue reproducible con Docker Compose y Nginx' },
+        ],
+        featuredImage: {
+          src: '/images/projects/tfg/estudio-clinico.png',
+          caption: {
+            es: 'Panel médico interactivo con gráficas temporales de constantes, semáforo de riesgo y actividad.',
+            en: 'Interactive doctor dashboard with vital sign progression charts, risk ranges, and activity breakdown.',
+          },
+          alt: {
+            es: 'Panel de estudio clínico diario',
+            en: 'Clinical daily study screen',
+          },
+        },
+      },
+    ],
     media: [
+      {
+        type: 'image',
+        src: '/images/projects/tfg/analizando.jpg',
+        category: 'hardware',
+        title: {
+          en: 'Live Wristband Prototype Measuring Vitals',
+          es: 'Prototipo en pruebas reales midiendo constantes',
+        },
+        caption: {
+          en: 'Real optical pulse acquisition and OLED/TFT display feedback during laboratory evaluation.',
+          es: 'Adquisición óptica real de pulso y saturación con feedback visual en pantalla durante las pruebas.',
+        },
+        alt: {
+          en: 'Wristband prototype measuring heart rate on finger',
+          es: 'Prototipo de pulsera midiendo constantes vitales en el dedo',
+        },
+      },
+      {
+        type: 'image',
+        src: '/images/projects/tfg/prototipo-hardware.png',
+        category: 'hardware',
+        title: {
+          en: 'Breadboard Circuit with ESP32 & Sensors',
+          es: 'Montaje de laboratorio con ESP32 y sensores I2C',
+        },
+        caption: {
+          en: 'Integrated test bench showing LilyGO TTGO T-Display connected to MAX30102 and MPU-6050 modules.',
+          es: 'Banco de pruebas integrado con la pantalla TTGO T-Display conectada a los módulos MAX30102 y MPU-6050.',
+        },
+        alt: {
+          en: 'Hardware test bench with ESP32 TTGO T-Display and sensors',
+          es: 'Banco de pruebas de hardware con ESP32 y sensores',
+        },
+      },
+      {
+        type: 'image',
+        src: '/images/projects/tfg/esquema-electronico.jpg',
+        category: 'hardware',
+        title: {
+          en: 'Electronic Wiring & Pinout Schematic',
+          es: 'Esquema de conexionado electrónico y pines',
+        },
+        caption: {
+          en: 'Hardware wiring diagram connecting TTGO GPIOs to I2C lines (SDA/SCL), power rails (3.3V), and physical push buttons.',
+          es: 'Esquema de conexiones eléctricas entre los GPIOs del microcontrolador, buses I2C, alimentación a 3.3V y botones.',
+        },
+        alt: {
+          en: 'Electronic circuit schematic diagram',
+          es: 'Esquema del circuito electrónico',
+        },
+      },
+      {
+        type: 'image',
+        src: '/images/projects/tfg/estudio-clinico.png',
+        category: 'platform',
+        title: {
+          en: 'Daily Clinical Study & Vital Signs Charts',
+          es: 'Estudio clínico diario y gráficas de constantes',
+        },
+        caption: {
+          en: 'Medical dashboard view displaying daily steps, average BPM, SpO₂ levels, activity breakdown, and time-series progression.',
+          es: 'Vista médica con desglose de pasos, BPM medios, saturación SpO₂, picos de actividad y evolución temporal.',
+        },
+        alt: {
+          en: 'Clinical daily study screen with vital signs charts',
+          es: 'Pantalla de estudio clínico diario con gráficas de constantes',
+        },
+      },
+      {
+        type: 'youtube',
+        src: 'https://www.youtube.com/watch?v=y1xrh9f9NOg',
+        category: 'demo',
+        title: {
+          en: 'Physical Wristband Hardware Demonstration',
+          es: 'Demostración de la pulsera física en funcionamiento',
+        },
+        caption: {
+          en: 'Video walkthrough demonstrating sensor reading, step counting, and on-screen TFT interface on the physical prototype.',
+          es: 'Recorrido en vídeo mostrando la adquisición de sensores, el conteo de pasos y la interfaz en la pantalla de la pulsera.',
+        },
+      },
       {
         type: 'youtube',
         src: 'https://www.youtube.com/watch?v=w0fhrWlky6o',
-        title: { en: 'Web Platform Demo', es: 'Demo de la Plataforma Web' },
-      }
+        category: 'demo',
+        title: {
+          en: 'Telemedicine Web Platform Demonstration',
+          es: 'Demostración de la plataforma web de telemedicina',
+        },
+        caption: {
+          en: 'Video walkthrough of the web application: authentication, patient monitoring, charts, alarms, and doctor-patient chat.',
+          es: 'Recorrido en vídeo por la plataforma web: autenticación, seguimiento de constantes, gráficas, alarmas y mensajería.',
+        },
+      },
     ],
     caseStudy: {
       challenge: {

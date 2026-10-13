@@ -270,5 +270,85 @@ export const imageAssets: Record<string, ResponsiveImageAsset> = {
       "src": "/images/optimized/portraits-diego-formal-thumb-50.webp",
       "srcSet": "/images/optimized/portraits-diego-formal-thumb-50.webp 50w, /images/optimized/portraits-diego-formal-thumb-100.webp 100w"
     }
+  },
+  "/images/projects/tfg/alarmas-medicas.png": {
+    "src": "/images/optimized/projects-tfg-alarmas-medicas-640.webp",
+    "srcSet": "/images/optimized/projects-tfg-alarmas-medicas-320.webp 320w, /images/optimized/projects-tfg-alarmas-medicas-640.webp 640w, /images/optimized/projects-tfg-alarmas-medicas-960.webp 960w",
+    "width": 1741,
+    "height": 696,
+    "thumbnail": {
+      "src": "/images/optimized/projects-tfg-alarmas-medicas-thumb-50.webp",
+      "srcSet": "/images/optimized/projects-tfg-alarmas-medicas-thumb-50.webp 50w, /images/optimized/projects-tfg-alarmas-medicas-thumb-100.webp 100w"
+    }
+  },
+  "/images/projects/tfg/analizando.jpg": {
+    "src": "/images/optimized/projects-tfg-analizando-640.webp",
+    "srcSet": "/images/optimized/projects-tfg-analizando-320.webp 320w, /images/optimized/projects-tfg-analizando-640.webp 640w, /images/optimized/projects-tfg-analizando-960.webp 960w",
+    "width": 2269,
+    "height": 3132,
+    "thumbnail": {
+      "src": "/images/optimized/projects-tfg-analizando-thumb-50.webp",
+      "srcSet": "/images/optimized/projects-tfg-analizando-thumb-50.webp 50w, /images/optimized/projects-tfg-analizando-thumb-100.webp 100w"
+    }
+  },
+  "/images/projects/tfg/diagrama-arquitectura.png": {
+    "src": "/images/optimized/projects-tfg-diagrama-arquitectura-640.webp",
+    "srcSet": "/images/optimized/projects-tfg-diagrama-arquitectura-320.webp 320w, /images/optimized/projects-tfg-diagrama-arquitectura-640.webp 640w, /images/optimized/projects-tfg-diagrama-arquitectura-960.webp 960w",
+    "width": 1280,
+    "height": 720,
+    "thumbnail": {
+      "src": "/images/optimized/projects-tfg-diagrama-arquitectura-thumb-50.webp",
+      "srcSet": "/images/optimized/projects-tfg-diagrama-arquitectura-thumb-50.webp 50w, /images/optimized/projects-tfg-diagrama-arquitectura-thumb-100.webp 100w"
+    }
+  },
+  "/images/projects/tfg/esquema-electronico.jpg": {
+    "src": "/images/optimized/projects-tfg-esquema-electronico-640.webp",
+    "srcSet": "/images/optimized/projects-tfg-esquema-electronico-320.webp 320w, /images/optimized/projects-tfg-esquema-electronico-640.webp 640w, /images/optimized/projects-tfg-esquema-electronico-960.webp 960w",
+    "width": 1032,
+    "height": 418,
+    "thumbnail": {
+      "src": "/images/optimized/projects-tfg-esquema-electronico-thumb-50.webp",
+      "srcSet": "/images/optimized/projects-tfg-esquema-electronico-thumb-50.webp 50w, /images/optimized/projects-tfg-esquema-electronico-thumb-100.webp 100w"
+    }
+  },
+  "/images/projects/tfg/estudio-clinico.png": {
+    "src": "/images/optimized/projects-tfg-estudio-clinico-640.webp",
+    "srcSet": "/images/optimized/projects-tfg-estudio-clinico-320.webp 320w, /images/optimized/projects-tfg-estudio-clinico-640.webp 640w, /images/optimized/projects-tfg-estudio-clinico-897.webp 897w",
+    "width": 897,
+    "height": 742,
+    "thumbnail": {
+      "src": "/images/optimized/projects-tfg-estudio-clinico-thumb-50.webp",
+      "srcSet": "/images/optimized/projects-tfg-estudio-clinico-thumb-50.webp 50w, /images/optimized/projects-tfg-estudio-clinico-thumb-100.webp 100w"
+    }
+  },
+  "/images/projects/tfg/matricula-honor.png": {
+    "src": "/images/optimized/projects-tfg-matricula-honor-640.webp",
+    "srcSet": "/images/optimized/projects-tfg-matricula-honor-320.webp 320w, /images/optimized/projects-tfg-matricula-honor-640.webp 640w, /images/optimized/projects-tfg-matricula-honor-960.webp 960w",
+    "width": 1253,
+    "height": 121,
+    "thumbnail": {
+      "src": "/images/optimized/projects-tfg-matricula-honor-thumb-50.webp",
+      "srcSet": "/images/optimized/projects-tfg-matricula-honor-thumb-50.webp 50w, /images/optimized/projects-tfg-matricula-honor-thumb-100.webp 100w"
+    }
+  },
+  "/images/projects/tfg/panel-doctor.png": {
+    "src": "/images/optimized/projects-tfg-panel-doctor-640.webp",
+    "srcSet": "/images/optimized/projects-tfg-panel-doctor-320.webp 320w, /images/optimized/projects-tfg-panel-doctor-640.webp 640w, /images/optimized/projects-tfg-panel-doctor-960.webp 960w",
+    "width": 1876,
+    "height": 902,
+    "thumbnail": {
+      "src": "/images/optimized/projects-tfg-panel-doctor-thumb-50.webp",
+      "srcSet": "/images/optimized/projects-tfg-panel-doctor-thumb-50.webp 50w, /images/optimized/projects-tfg-panel-doctor-thumb-100.webp 100w"
+    }
+  },
+  "/images/projects/tfg/prototipo-hardware.png": {
+    "src": "/images/optimized/projects-tfg-prototipo-hardware-640.webp",
+    "srcSet": "/images/optimized/projects-tfg-prototipo-hardware-320.webp 320w, /images/optimized/projects-tfg-prototipo-hardware-640.webp 640w, /images/optimized/projects-tfg-prototipo-hardware-960.webp 960w",
+    "width": 1335,
+    "height": 758,
+    "thumbnail": {
+      "src": "/images/optimized/projects-tfg-prototipo-hardware-thumb-50.webp",
+      "srcSet": "/images/optimized/projects-tfg-prototipo-hardware-thumb-50.webp 50w, /images/optimized/projects-tfg-prototipo-hardware-thumb-100.webp 100w"
+    }
   }
 };

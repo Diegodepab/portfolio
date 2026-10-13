@@ -30,3 +30,6 @@ dist-ssr
 artifacts/
 playwright-report/
 test-results/
+
+# External reference repos
+TFG/
