@@ -39,10 +39,13 @@ function compileCV(texFileName, targetPdfName) {
     throw new Error(`TeX file not found: ${texPath}`);
   }
 
-  execFileSync('pdflatex', ['-interaction=nonstopmode', '-halt-on-error', texFileName], {
-    cwd: cvDir,
-    stdio: ['ignore', 'pipe', 'pipe'],
-  });
+  // Run pdflatex twice so \pageref{LastPage} and hyperref outlines resolve cleanly
+  for (let pass = 1; pass <= 2; pass++) {
+    execFileSync('pdflatex', ['-interaction=nonstopmode', '-halt-on-error', texFileName], {
+      cwd: cvDir,
+      stdio: ['ignore', 'pipe', 'pipe'],
+    });
+  }
 
   const baseName = path.basename(texFileName, '.tex');
   const generatedPdf = path.join(cvDir, `${baseName}.pdf`);
