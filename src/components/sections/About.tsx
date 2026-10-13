@@ -45,30 +45,28 @@ export const About: React.FC = () => {
           {lang === 'en' ? (
             <>
               <p className="about-paragraph">
-                I'm a full-stack engineer, and most of my time goes into deploying use cases and infrastructure — that's where I think the most interesting problems are, and why I chose the{' '}
+                I'm an engineer driven by learning as much as possible; I value what I can learn far more than the degree itself. Currently pursuing the{' '}
                 <a href="https://www.uma.es/etsi-informatica/info/152999/master-universitario-en-ingenieria-informaticaplan-2025/" target="_blank" rel="noopener noreferrer">
-                  Master's in Software Engineering (2026)
-                </a>.
+                  Master's in Computer Engineering
+                </a>{' '}
+                with the goal of pursuing a PhD in the future.
               </p>
               <p className="about-paragraph">
-                Before that, I graduated in{' '}
+                Before this, I graduated in{' '}
                 <a href="https://www.uma.es/grado-en-ingenieria-de-la-salud/" target="_blank" rel="noopener noreferrer">
                   Health Engineering (Bioinformatics)
                 </a>
-                . A multidisciplinary degree focused on problem-solving and adapting to cutting-edge technologies with a research-oriented approach.
-              </p>
-              <p className="about-paragraph">
-                If you want to see how I structure my ideas,{' '}
-                <a href="#projects">take a look at my projects</a>.
+                . A multidisciplinary degree focused on solving future challenges, adapting to emerging technologies, and research.
               </p>
             </>
           ) : (
             <>
               <p className="about-paragraph">
-                Soy ingeniero enfocado principalmente en casos de uso e infraestructura, que es donde creo que se resuelven los problemas más interesantes, y por lo cual elegí el{' '}
+                Soy un ingeniero que busca aprender lo máximo posible; le doy mucha más importancia a todo lo que puedo aprender que al título en sí. Actualmente cursando el{' '}
                 <a href="https://www.uma.es/etsi-informatica/info/152999/master-universitario-en-ingenieria-informaticaplan-2025/" target="_blank" rel="noopener noreferrer">
                   Máster Universitario en Ingeniería Informática
-                </a>.
+                </a>{' '}
+                y en un futuro con intención de realizar un doctorado.
               </p>
               <p className="about-paragraph">
                 Antes de esto, me gradué en{' '}
@@ -115,6 +113,7 @@ export const About: React.FC = () => {
             <CrossfadeGallery
               images={portraits[lang]}
               interval={7_000}
+              initialIndex={2}
               className="about-portrait-gallery"
               showControls
               label={lang === 'en' ? 'Choose Diego portrait' : 'Elegir retrato de Diego'}

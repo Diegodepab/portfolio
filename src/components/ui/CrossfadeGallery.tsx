@@ -73,6 +73,7 @@ export const CrossfadeGallery: FC<CrossfadeGalleryProps> = ({
               className="crossfade-gallery__image"
               style={{ objectPosition: image.position }}
               loading={eagerFirst && index === initialIndex ? 'eager' : 'lazy'}
+              fetchPriority={eagerFirst && index === initialIndex ? 'high' : undefined}
               decoding="async"
             />
           )}

@@ -33,8 +33,8 @@ export const featuredProjects: Project[] = [
     },
     caseStudy: {
       challenge: {
-        en: 'Deploying a full-stack application involves more than just writing code; it requires a deep understanding of packaging, networking, security, and scalability in a Cloud Native environment.',
-        es: 'Desplegar una aplicación full-stack implica mucho más que escribir código; requiere un profundo conocimiento de empaquetado, redes, seguridad y escalabilidad en un entorno Cloud Native.',
+        en: 'Modern full-stack systems require reproducible, declarative infrastructure. The challenge was transitioning an application from a local Docker Compose setup to an enterprise-grade Kubernetes cluster with automated GitOps, encrypted secrets, and high-availability storage without downtime.',
+        es: 'Los sistemas full-stack modernos exigen infraestructura declarativa y reproducible. El reto consistió en evolucionar una aplicación desde Docker Compose local hasta un clúster de Kubernetes de grado empresarial con GitOps automatizado, gestión cifrada de secretos y almacenamiento de alta disponibilidad sin interrupciones.',
       },
       solution: {
         en: 'Designed a progressive Infrastructure and DevOps Learning Path. It documents and automates the evolution of an application through 7 practical phases (00 to 06), moving from a simple Docker Compose setup to a complete Kubernetes cluster.',
@@ -240,8 +240,8 @@ export const featuredProjects: Project[] = [
     id: 'edaan-data-space',
     name: { en: 'EDAAN Data Space', es: 'Espacio de Datos EDAAN' },
     description: {
-      en: 'Agri-food Data Space of Andalusia (EDAAN). I contributed as a junior developer, focusing on frontend implementations and connecting features. This project provided essential hands-on learning in advanced data infrastructure, particularly Kubernetes and data connectors.',
-      es: 'Espacio de Datos Agroalimentario de Andalucía (EDAAN). Contribuí como desarrollador junior, enfocándome en diseños y conexión de funcionalidades. Este proyecto proporcionó un aprendizaje práctico en infraestructura avanzada, destacando Kubernetes y el uso de conectores.',
+      en: 'Agri-food Data Space of Andalusia (EDAAN). Implemented frontend architectures, interactive dataset exploration, and data connector integrations within a cloud-native Kubernetes environment.',
+      es: 'Espacio de Datos Agroalimentario de Andalucía (EDAAN). Implementé arquitecturas frontend, exploración interactiva de conjuntos de datos e integración de conectores dentro de un entorno cloud nativo en Kubernetes.',
     },
     shortDescription: {
       en: 'Agri-food Data Space',
@@ -253,21 +253,21 @@ export const featuredProjects: Project[] = [
     company: 'Khaos Research',
     link: 'https://edaan.agora-datalab.eu/',
     roleHighlight: {
-      en: 'Assisted with UI design implementation and functional connections while learning robust infrastructure deployments (Kubernetes) directly from senior engineers.',
-      es: 'Asistí en la implementación del diseño UI y conexiones funcionales, mientras aprendía sobre despliegues robustos de infraestructura (Kubernetes) directamente de ingenieros senior.',
+      en: 'Engineered frontend interfaces and data connector workflows, integrating complex agricultural datasets with resilient Kubernetes infrastructure.',
+      es: 'Desarrollé interfaces y flujos de conexión de datos, integrando catálogos agrícolas complejos sobre una infraestructura resiliente en Kubernetes.',
     },
     caseStudy: {
       challenge: {
-        en: 'As one of the most critical projects within SEDIA, the platform needed a robust, user-friendly interface to handle complex agricultural datasets, manage offers, and present data intuitively.',
-        es: 'Como uno de los proyectos más críticos dentro de SEDIA, la plataforma necesitaba una interfaz robusta y accesible para gestionar datasets agrícolas complejos, manejar ofertas y presentar datos de forma intuitiva.',
+        en: 'As one of the most critical platforms within SEDIA, the system needed a robust, high-performance interface to handle complex agricultural datasets, manage transactional offers, and present federated data intuitively.',
+        es: 'Como una de las plataformas clave dentro de SEDIA, el sistema necesitaba una interfaz robusta y de alto rendimiento para gestionar datasets agrícolas complejos, administrar ofertas transaccionales y presentar datos federados de forma intuitiva.',
       },
       solution: {
-        en: 'An evolving platform designed to streamline dataset operations, backed by a resilient Kubernetes infrastructure for high availability and scalability.',
-        es: 'Una plataforma en evolución diseñada para agilizar las operaciones con datasets, respaldada por una infraestructura resiliente en Kubernetes para alta disponibilidad y escalabilidad.',
+        en: 'A decoupled data space portal streamlining dataset operations, backed by a resilient Kubernetes cluster configuration for high availability and elastic scalability.',
+        es: 'Un portal desacoplado para espacios de datos que agiliza las operaciones con datasets, respaldado por una configuración resiliente de Kubernetes para alta disponibilidad y escalabilidad elástica.',
       },
       contribution: {
-        en: 'Driven by the group\'s growth, I took on UI/UX design and development tasks, significantly improving how users upload offers, manage datasets, and visualize information. This project also served as a vital hands-on learning experience in working with Kubernetes.',
-        es: 'Motivado por el crecimiento del grupo, asumí tareas de diseño y desarrollo UI/UX, mejorando significativamente la subida de ofertas, gestión de datasets y representación visual. Este proyecto también fue clave para mi aprendizaje práctico con Kubernetes.',
+        en: 'Engineered responsive UI/UX workflows for dataset offering and discovery, connecting frontend components to backend microservices and collaborating on Kubernetes deployment configurations.',
+        es: 'Desarrollé flujos UI/UX responsivos para publicación y descubrimiento de datos, integrando componentes frontend con microservicios backend y colaborando en configuraciones de despliegue sobre Kubernetes.',
       },
     },
     featured: false,

@@ -93,3 +93,24 @@ test('project media loads YouTube only after choosing to play', async ({ page })
   await page.locator('.video-preview button').click();
   await expect(page.locator('.video-preview iframe')).toHaveAttribute('src', /youtube-nocookie\.com\/embed\//);
 });
+
+test('resume button alternates href between standard and photo versions on click', async ({ page }) => {
+  await page.goto('/');
+  const resumeBtn = page.locator('.resume-button');
+  await expect(resumeBtn).toHaveAttribute('href', '/cv_DiegoDePablo_es.pdf');
+
+  const [popup1] = await Promise.all([
+    page.waitForEvent('popup'),
+    resumeBtn.click(),
+  ]);
+  await popup1.close();
+  await expect(resumeBtn).toHaveAttribute('href', '/cv_DiegoDePablo_es_photo.pdf');
+
+  const [popup2] = await Promise.all([
+    page.waitForEvent('popup'),
+    resumeBtn.click(),
+  ]);
+  await popup2.close();
+  await expect(resumeBtn).toHaveAttribute('href', '/cv_DiegoDePablo_es.pdf');
+});
+

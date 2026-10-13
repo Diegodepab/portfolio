@@ -15,6 +15,7 @@ export interface NavProps {
 export const Nav: React.FC<NavProps> = ({ pokemon, onPokemonChange }) => {
   const [hidden, setHidden] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [cvVariant, setCvVariant] = useState<'standard' | 'photo'>('standard');
   const lastY = useRef(0);
   const { lang, setLanguage } = useLanguage();
   const location = useLocation();
@@ -122,10 +123,37 @@ export const Nav: React.FC<NavProps> = ({ pokemon, onPokemonChange }) => {
           className="resume-button-container"
         >
           <a
-            href={lang === 'en' ? '/cv_en.pdf' : '/cv_es.pdf'}
+            href={
+              lang === 'en'
+                ? cvVariant === 'photo'
+                  ? '/cv_DiegoDePablo_en_photo.pdf'
+                  : '/cv_DiegoDePablo_en.pdf'
+                : cvVariant === 'photo'
+                  ? '/cv_DiegoDePablo_es_photo.pdf'
+                  : '/cv_DiegoDePablo_es.pdf'
+            }
             target="_blank"
             rel="noopener noreferrer"
             className="resume-button"
+            onClick={() => setCvVariant((prev) => (prev === 'standard' ? 'photo' : 'standard'))}
+            title={
+              lang === 'en'
+                ? cvVariant === 'photo'
+                  ? 'Open Resume (with photo) — click again to switch to standard'
+                  : 'Open Resume (standard) — click again to switch to photo version'
+                : cvVariant === 'photo'
+                  ? 'Abrir Currículum (con foto) — pulsa de nuevo para alternar a estándar'
+                  : 'Abrir Currículum (estándar) — pulsa de nuevo para alternar a con foto'
+            }
+            aria-label={
+              lang === 'en'
+                ? cvVariant === 'photo'
+                  ? 'Resume (version with photo)'
+                  : 'Resume (standard version)'
+                : cvVariant === 'photo'
+                  ? 'Currículum (versión con foto)'
+                  : 'Currículum (versión estándar)'
+            }
           >
             {lang === 'en' ? 'Resume' : 'Currículum'}
           </a>

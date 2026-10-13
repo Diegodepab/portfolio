@@ -1,47 +1,68 @@
-\documentclass[a4paper,9.5pt]{article}
+\documentclass[a4paper,10pt]{article}
 \usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
 \usepackage[spanish,es-tabla]{babel}
 \usepackage{geometry}
-\geometry{top=0.9cm, bottom=0.9cm, left=1.3cm, right=1.3cm}
+\geometry{top=0.8cm, bottom=0.8cm, left=1.2cm, right=1.2cm}
 \usepackage{xcolor}
 \usepackage{hyperref}
 \usepackage{enumitem}
 \usepackage{titlesec}
-\usepackage{fontawesome5}
-\usepackage{graphicx}
 \usepackage{tikz}
-\usepackage[default]{inter}
+\usepackage{graphicx}
 
-\definecolor{headerblue}{RGB}{29, 78, 216}
-\definecolor{ruleblue}{RGB}{147, 197, 253}
-\definecolor{textdark}{RGB}{30, 41, 59}
-\definecolor{subtext}{RGB}{71, 85, 105}
+% Soporte para caracteres Unicode subíndices (SpO₂)
+\DeclareUnicodeCharacter{2082}{\textsubscript{2}}
+
+% Paleta ejecutiva Navy & Slate
+\definecolor{primary}{RGB}{15, 34, 64}        % Deep Midnight Navy
+\definecolor{rulecolor}{RGB}{203, 213, 225}    % Muted Slate Rule (#cbd5e1)
+\definecolor{textdark}{RGB}{30, 41, 59}        % Slate 800 (#1e293b)
+\definecolor{subtext}{RGB}{100, 116, 139}      % Slate 500 (#64748b)
+\definecolor{accentlink}{RGB}{20, 50, 95}     % Deep Navy link
+
+\IfFileExists{inter.sty}{
+  \usepackage[default]{inter}
+}{
+  \usepackage{tgheros}
+  \renewcommand{\familydefault}{\sfdefault}
+}
+
+\IfFileExists{fontawesome5.sty}{
+  \usepackage{fontawesome5}
+}{
+  \newcommand{\faEnvelope}{\tikz[baseline=-0.3ex]{\draw[line width=0.55pt, rounded corners=0.5pt, draw=subtext] (0,0) rectangle (0.32,0.22); \draw[line width=0.45pt, draw=subtext] (0,0.22) -- (0.16,0.10) -- (0.32,0.22);}}
+  \newcommand{\faGlobe}{\tikz[baseline=-0.3ex]{\draw[line width=0.55pt, draw=subtext] (0,0) circle (0.11); \draw[line width=0.35pt, draw=subtext] (-0.11,0) -- (0.11,0); \draw[line width=0.35pt, draw=subtext] (0,-0.11) -- (0,0.11); \draw[line width=0.35pt, draw=subtext] (0,0) ellipse (0.05 and 0.11);}}
+  \newcommand{\faLinkedin}{\tikz[baseline=-0.4ex]{\node[fill=primary, text=white, rounded corners=0.8pt, inner sep=0.8pt, font=\fontsize{3.5}{4.5}\selectfont\bfseries] {in};}}
+  \expandafter\newcommand\csname faMapMarker*\endcsname{\tikz[baseline=-0.4ex]{\draw[line width=0.5pt, fill=subtext!50, draw=subtext] (0,0.06) circle (0.05); \draw[line width=0.45pt, draw=subtext] (-0.04,0.03) -- (0,-0.07) -- (0.04,0.03);}}
+  \expandafter\newcommand\csname faExternalLink*\endcsname{\tikz[baseline=-0.2ex]{\draw[line width=0.45pt, draw=accentlink] (0,0) -- (0.14,0) -- (0.14,0.06); \draw[line width=0.45pt, draw=accentlink] (0,0) -- (0.14,0) -- (0.06,0.14); \draw[line width=0.45pt, draw=accentlink] (0.04,0.04) -- (0.17,0.17); \draw[line width=0.45pt, draw=accentlink] (0.10,0.17) -- (0.17,0.17) -- (0.17,0.10);}}
+}
 
 \hypersetup{
   colorlinks=true,
-  urlcolor=headerblue,
-  linkcolor=headerblue
+  urlcolor=accentlink,
+  linkcolor=accentlink
 }
 
-\titleformat{\section}{\large\bfseries\color{headerblue}}{}{0em}{}[\vspace{1pt}\color{ruleblue}\titlerule]
-\titlespacing*{\section}{0pt}{6pt}{2.5pt}
+\titleformat{\section}{\large\bfseries\color{primary}}{}{0em}{}[\vspace{1.5pt}\color{rulecolor}\titlerule]
+\titlespacing*{\section}{0pt}{4.5pt}{2pt}
 
-\setlist[itemize]{label=\textcolor{headerblue}{\small\textbullet}, leftmargin=1.2em, itemsep=1.2pt, topsep=1.2pt, parsep=0pt}
+\setlist[itemize]{label=\textcolor{primary}{\small\textbullet}, leftmargin=1.15em, itemsep=1.0pt, topsep=1.0pt, parsep=0pt}
 
-\linespread{1.04}
+\linespread{1.0}
 \pagestyle{empty}
 
 \begin{document}
 \color{textdark}
 
-% Header with photo
+% Cabecera con foto centrada
 \noindent
 \begin{minipage}[c]{0.78\textwidth}
-  {\Huge\bfseries\color{headerblue} Diego De Pablo} \\[3pt]
-  {\large\textbf{Software Engineer \textbar\ Full-Stack \& Data Systems}} \\[4pt]
+  {\Huge\bfseries\color{primary} Diego De Pablo} \par\vspace{2.5pt}
+  {\large\textbf{\color{textdark}Ingeniero de Software \textbar\ Backend, Datos e IA Aplicada}} \par\vspace{3.5pt}
   {\small\color{subtext}
-    \href{mailto:depablodiegouma@gmail.com}{\faEnvelope\ depablodiegouma@gmail.com} \quad $\cdot$ \quad
-    {\faMapMarker*\ Málaga, España} \\[2.5pt]
+    \href{mailto:diegodepablo.programa@gmail.com}{\faEnvelope\ diegodepablo.programa@gmail.com} \quad $\cdot$ \quad
+    {\csname faMapMarker*\endcsname\ Málaga, España} \\[2.5pt]
     \href{https://linkedin.com/in/diego-de-pablo/}{\faLinkedin\ linkedin.com/in/diego-de-pablo} \quad $\cdot$ \quad
     \href{https://diegodepablo.is-a.dev/}{\faGlobe\ diegodepablo.is-a.dev}
   }
@@ -52,79 +73,86 @@
   \begin{tikzpicture}
     \begin{scope}
       \clip (0,0) circle (1.15cm);
-      \node at (0,0) {\includegraphics[width=2.4cm]{assets/diego-formal.jpg}};
+      \node at (0,0) {\includegraphics[width=2.3cm,height=2.3cm]{assets/diego-formal.jpg}};
     \end{scope}
-    \draw[ruleblue, line width=1.5pt] (0,0) circle (1.15cm);
+    \draw[rulecolor, line width=1.2pt] (0,0) circle (1.15cm);
   \end{tikzpicture}
 \end{minipage}
 
-\vspace{-4pt}
+\vspace{-2pt}
 
 \section*{Perfil Profesional}
-Graduado en \textbf{Ingeniería en Bioinformática} y estudiante del \textbf{Máster en Ingeniería Informática}. Especializado en \textbf{desarrollo full-stack}, \textbf{arquitectura cloud nativa} y \textbf{sistemas de datos con IA}. Amplia experiencia construyendo APIs de alto rendimiento con \textbf{FastAPI}, interfaces modernas con \textbf{React/Svelte}, orquestación en \textbf{Kubernetes} e integración de \textbf{agentes LLM} para espacios de datos federados.
+Ingeniero de software y graduado en Bioinformática centrado en desarrollo backend, ingeniería de datos e IA aplicada. Experiencia construyendo servicios web modulares, pipelines de datos concurrentes y motores de búsqueda semántica con integración de modelos. Graduado con honores académicos y actualmente cursando el Máster Universitario en Ingeniería Informática.
 
 \section*{Experiencia Profesional}
 
 \noindent\textbf{Software Engineer, Khaos Research} \hfill {\color{subtext}\textbf{Sept 2025 -- Actualidad}}
 \begin{itemize}
-  \item Desarrollo end-to-end de aplicaciones full-stack para espacios de datos federados e interoperables (proyecto SEDIA).
-  \item Diseño de un buscador semántico con LLM para consultas en lenguaje natural y recomendación de conjuntos de datos.
-  \item Creación de servicios modulares de extracción automática de metadatos (+30 formatos) y agentes de workflows.
+  \item Desarrollé servicios backend y módulos de integración para el proyecto europeo \textbf{SEDIA}, implementando especificaciones de espacios de datos federados e interoperables (Gaia-X).
+  \item Diseñé e integré un motor de búsqueda híbrida combinando recuperación vectorial en \textbf{Qdrant} y búsqueda léxica BM25 en \textbf{Elasticsearch}, estructurado mediante agentes validados con \textbf{Pydantic AI}.
+  \item Implementé el pipeline concurrente \textbf{MetaDataXtract} para la ingesta y extracción de metadatos en +30 formatos científicos, verificación de integridad SHA-256 y consulta automatizada a la API de VirusTotal para análisis de seguridad.
 \end{itemize}
-
-\vspace{2pt}
-\noindent\textbf{FullStack Developer, Msurgery} \hfill {\color{subtext}\textbf{Marzo 2025 -- Julio 2025}}
-\begin{itemize}
-  \item Migración estructural de repositorios centrales de Svelte 4 a Svelte 5, optimizando rendimiento y reactividad.
-  \item Implementación de funcionalidades clave para la plataforma SMOTTS y simulación médica mediante gemelos digitales.
-  \item Coordinación técnica con stakeholders internacionales y demostración oficial del producto en el Polo Digital.
-\end{itemize}
-
-\vspace{2pt}
-\noindent\textbf{Ingeniero de software júnior, T\&B Company Group} \hfill {\color{subtext}\textbf{Junio 2021 -- Diciembre 2021}}
-\begin{itemize}
-  \item Modernización de servicios legados hacia arquitecturas Java y Angular; resolución de incidencias en producción.
-  \item Elaboración de especificaciones técnicas y documentación exhaustiva de APIs REST para acelerar la integración.
-\end{itemize}
-
-\section*{Proyectos Destacados (Portafolio Interactivo)}
-
-\noindent\textbf{\href{https://diegodepablo.is-a.dev/projects/tfg-patient-monitoring}{\faExternalLink*\ Pulsera IoT de Monitorización de Pacientes (TFG)}} \hfill {\color{subtext}\textit{C++, FreeRTOS, MQTT, Flutter, FastAPI}}
-\begin{itemize}
-  \item Sistema embebido e infraestructura de telemetría biomédica en tiempo real con detección de anomalías y alertas clínicas.
-  \item Reconocido con \textbf{Calificación 10/10 y Mención de Honor}. Enlace al proyecto con arquitectura y demo interactiva.
-\end{itemize}
-
-\vspace{2pt}
-\noindent\textbf{\href{https://diegodepablo.is-a.dev/projects/kubernetes-platform}{\faExternalLink*\ Laboratorio Kubernetes \& GitOps Cloud-Native}} \hfill {\color{subtext}\textit{K8s, Argo CD, Helm, Envoy, Longhorn}}
-\begin{itemize}
-  \item Plataforma cloud reproducible en 7 fases: despliegue automatizado con Argo CD, cifrado con Sealed Secrets y almacenamiento distribuido.
-\end{itemize}
-
-\vspace{2pt}
-\noindent\textbf{\href{https://diegodepablo.is-a.dev/projects/titan-workflow}{\faExternalLink*\ TITAN Workflow Agent}} \hfill {\color{subtext}\textit{FastAPI, LangChain, LLM Agents, Docker}}
-\begin{itemize}
-  \item Agente autónomo para la planificación y ejecución validada de pipelines bioinformáticos y analítica sobre datos federados.
-\end{itemize}
-
-\section*{Formación Académica e Idiomas}
-
-\noindent\textbf{GRADO EN INGENIERÍA EN BIOINFORMÁTICA} \hfill {\color{subtext}Nota media: 7,96/10 \quad \textbf{Sep 2021 -- Jul 2025}}
-\begin{itemize}
-  \item Matrícula de Honor en \textbf{Fundamentos de Programación}, \textbf{Sistemas Inteligentes} y \textbf{Proyectos de Bioinformática}.
-\end{itemize}
-
-\vspace{2pt}
-\noindent\textbf{MÁSTER UNIVERSITARIO EN INGENIERÍA INFORMÁTICA} \hfill {\color{subtext}\textbf{2026 -- Actualidad}}
 
 \vspace{2.5pt}
-\noindent\textbf{Idiomas:} \textbf{Español} (Nativo) \enskip $\cdot$ \enskip \textbf{Inglés} (B2 / Competencia profesional y técnica completa).
+\noindent\textbf{Desarrollador Full-Stack, mSurgery} \hfill {\color{subtext}\textbf{Marzo 2025 -- Julio 2025}}
+\begin{itemize}
+  \item Implementé la migración del frontend hacia \textbf{Svelte 5} adoptando runes, desacoplando la gestión del estado para optimizar la reactividad del visor quirúrgico 3D.
+  \item Desarrollé interfaces interactivas para la plataforma médica \textbf{SMOTTS}, integrando telemetría de gemelos digitales en tiempo real para simulación de procedimientos.
+  \item Realicé demostraciones técnicas de la plataforma en inglés ante inversores internacionales y comités evaluadores en el Polo Nacional de Contenidos Digitales.
+\end{itemize}
 
-\section*{Competencias Técnicas}
+\vspace{2.5pt}
+\noindent\textbf{Ingeniero de Software Júnior, T\&B Company Group} \hfill {\color{subtext}\textbf{Junio 2021 -- Diciembre 2021}}
+\begin{itemize}
+  \item Refactoricé módulos heredados en \textbf{Java} y \textbf{Angular} hacia arquitecturas desacopladas, resolviendo fallos en producción y mejorando la mantenibilidad del código.
+  \item Diseñé contratos de interfaz estandarizados con \textbf{OpenAPI/Swagger} y documenté microservicios REST para agilizar la integración entre equipos.
+\end{itemize}
 
-\noindent\textbf{Lenguajes:} Python, TypeScript, JavaScript, SQL, C++, C, C\#, Java, R.\\[1.5pt]
-\textbf{Backend \& Cloud:} FastAPI, Node.js, Express, Docker, Kubernetes, Helm, Argo CD, CI/CD, Linux.\\[1.5pt]
-\textbf{Frontend:} React, Svelte / SvelteKit, Angular, HTML5, CSS3, Tailwind CSS.\\[1.5pt]
-\textbf{Datos e Inteligencia Artificial:} LangChain, OpenAI / Ollama APIs, Polars, Pandas, scikit-learn, PyTorch.
+\section*{Proyectos Técnicos Seleccionados}
+
+\noindent\textbf{\href{https://diegodepablo.is-a.dev/projects/metadatasearch}{\csname faExternalLink*\endcsname\ MetaDataSearch: Buscador Semántico con IA}}
+\\[1pt]
+{\footnotesize\color{subtext}\textbf{Stack:} Next.js, FastAPI, Qdrant, Elasticsearch, Pydantic AI, Docker}
+\begin{itemize}
+  \item Sistema de búsqueda híbrida para catálogos científicos: combina vectorización densa y léxica, generando filtros semánticos estructurados a partir de consultas en lenguaje natural.
+\end{itemize}
+
+\vspace{2.5pt}
+\noindent\textbf{\href{https://diegodepablo.is-a.dev/projects/tfg-patient-monitoring}{\csname faExternalLink*\endcsname\ Pulsera IoT de Telemonitorización Biomédica (TFG)}}
+\\[1pt]
+{\footnotesize\color{subtext}\textbf{Stack:} C++, FreeRTOS, ESP32, MAX30102, MPU-6050, MQTT, FastAPI, TimescaleDB}
+\begin{itemize}
+  \item Prototipo end-to-end de telemonitorización: firmware en ESP32 para adquisición de constantes vitales por PPG (pulso y SpO2) y detección de caídas con acelerometría, sincronización vía MQTT y panel clínico web. \textbf{Calificación 10/10 y Matrícula de Honor}.
+\end{itemize}
+
+\vspace{2.5pt}
+\noindent\textbf{\href{https://diegodepablo.is-a.dev/projects/titan-workflow}{\csname faExternalLink*\endcsname\ TITAN Workflow: Asistente de Flujos Científicos}}
+\\[1pt]
+{\footnotesize\color{subtext}\textbf{Stack:} FastAPI, Pydantic AI, LangChain, Docker, LLM}
+\begin{itemize}
+  \item Servicio de composición de flujos científicos asistido por IA: valida dependencias de datos y esquemas de entrada/salida mediante contratos estrictos en Pydantic AI previo a su planificación.
+\end{itemize}
+
+\section*{Formación Académica}
+
+\noindent\textbf{Grado en Ingeniería de la Salud (Mención Bioinformática)} \textbar\ \textit{Universidad de Málaga} \hfill {\color{subtext}\textbf{2021 -- 2025}}
+\begin{itemize}
+  \item Matrículas de Honor en asignaturas clave: \textbf{Fundamentos de Programación}, \textbf{Sistemas Inteligentes} y \textbf{Proyectos de Bioinformática}.
+  \item Trabajo Fin de Grado (TFG) en IoT y Telemedicina calificado con \textbf{10/10 y Matrícula de Honor}.
+\end{itemize}
+
+\vspace{2.5pt}
+\noindent\textbf{Máster Universitario en Ingeniería Informática} \textbar\ \textit{Universidad de Málaga} \hfill {\color{subtext}\textbf{2025 -- Actualidad}}
+\begin{itemize}
+  \item Formación avanzada en sistemas distribuidos, arquitecturas de datos e inteligencia artificial aplicada.
+\end{itemize}
+
+\section*{Competencias Técnicas e Idiomas}
+
+\noindent\textbf{Lenguajes:} Python, TypeScript, JavaScript, C++, SQL, Java, Bash, R.\\[2pt]
+\textbf{Backend y Datos:} FastAPI, PostgreSQL, Elasticsearch, TimescaleDB, Qdrant (Vector DB), REST APIs, OpenAPI/Swagger.\\[2pt]
+\textbf{IA y Aprendizaje Automático:} Pydantic AI, LangChain, LLMs / Embeddings, PyTorch (académico y proyectos).\\[2pt]
+\textbf{DevOps, Sistemas y Web:} Docker, Kubernetes, Argo CD, CI/CD (GitHub Actions), Linux, FreeRTOS (ESP32), React, Svelte 5.\\[2pt]
+\textbf{Idiomas:} \textbf{Español} (Nativo) \enskip $\cdot$ \enskip \textbf{Inglés} (B2 Profesional / demostraciones técnicas internacionales).
 
 \end{document}

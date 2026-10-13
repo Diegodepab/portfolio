@@ -27,8 +27,8 @@ export const education: Education[] = [
     },
     // No endDate — hasn't started yet
     description: {
-      en: 'Graduate program in software engineering, focused on advanced system design, architecture, and data science.',
-      es: 'Programa de posgrado en ingeniería de software, enfocado en diseño y arquitectura de sistemas avanzados y ciencia de datos.',
+      en: 'Specializing in Data Science & Engineering to deepen distributed systems, scalable data architectures, and DevOps with Kubernetes.',
+      es: 'Especialización en Ingeniería y Ciencia de Datos para profundizar en sistemas distribuidos, arquitecturas de datos escalables y DevOps con Kubernetes.',
     },
   },
   {
@@ -60,12 +60,10 @@ export const education: Education[] = [
       en: `Bachelor's Degree in Health Engineering, specialisation in Bioinformatics. School of Computer Science and Telecommunications Engineering (ETSI IT), University of Málaga, Spain.
 
 - Honours in several subjects: Fundamentals of Programming, Intelligent Systems, Bioinformatics Projects, and the Final Degree Thesis.
-- Top 5 of the 2021–2025 cohort.
 - Active participant in extracurricular faculty events such as Hackers Week, datathons, seminars, etc.`,
       es: `Grado en Ingeniería de la Salud, especialización en Bioinformática. Escuela Técnica Superior de Ingeniería Informática y Telecomunicaciones, Universidad de Málaga, España.
 
 - Matrícula de honor en varias asignaturas como Fundamentos de Programación, Sistemas Inteligentes, Proyectos Bioinformáticos y en el Trabajo de Fin de Grado.
-- Top 5 (promoción 2021-2025).
 - Presente y participativo en actividades extras de la facultad como las Hackers Week, datathon, seminarios, etc.`,
     },
     skills: [

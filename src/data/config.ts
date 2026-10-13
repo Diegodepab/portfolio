@@ -8,8 +8,8 @@ export const siteConfig = {
     es: 'Ingeniero de Software',
   },
   description: {
-    en: 'Full-stack engineer focused on use-case deployment and infrastructure, where the most interesting problems live.',
-    es: 'Ingeniero full-stack especializado en despliegue de casos de uso e infraestructura, donde se resuelven los problemas más interesantes.',
+    en: 'Software engineer and bioinformatics graduate specializing in full-stack applications, applied AI, and DevOps with Docker and Kubernetes.',
+    es: 'Ingeniero de software y bioinformático especializado en aplicaciones full-stack, IA aplicada y DevOps con Docker y Kubernetes.',
   },
   email: 'diegodepablo.programa@gmail.com',
 };

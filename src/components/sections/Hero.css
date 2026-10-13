@@ -33,18 +33,18 @@
 }
 
 .hero-statement {
-  max-width: 16ch;
+  max-width: 32ch;
   margin-top: 20px;
   color: var(--color-text-heading);
   font-size: clamp(1.9rem, 3.7vw, 3.1rem);
   font-weight: 550;
   letter-spacing: -0.035em;
-  line-height: 1.12;
+  line-height: 1.14;
   text-wrap: balance;
 }
 
 .hero-description {
-  max-width: 48ch;
+  max-width: 52ch;
   margin-top: 24px;
   color: var(--color-text-primary);
   font-size: 1.02rem;
@@ -85,7 +85,7 @@
   border-radius: 14px;
   background: var(--color-bg-secondary);
   box-shadow: 0 16px 36px color-mix(in srgb, var(--color-bg-primary) 70%, transparent);
-  transition: transform var(--duration-normal) var(--ease-out-expo), border-color var(--duration-normal);
+  transition: transform var(--duration-normal) var(--ease-out-expo);
 }
 
 .hero-frame::after {

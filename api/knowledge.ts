@@ -28,7 +28,7 @@ export const knowledgeBase: KnowledgeChunk[] = [
   {
     category: 'profile',
     keywords: ['who', 'diego', 'about', 'quién', 'sobre', 'introduction', 'bio', 'perfil', 'profile', 'background', 'presentación', 'hola', 'hello', 'hi', 'buenas', 'saludos', 'que tal', 'hey'],
-    content: `Diego De Pablo is a Software Engineer (Bioinformatics Engineer with a Master's in Computer Engineering) based in Málaga, Spain. He is a full-stack engineer specialized in use-case deployment, infrastructure, data spaces and LLMs. He works at Khaos Research (University of Málaga) building data spaces and AI agents. Key achievements: Top 5 of his university cohort with Honours (Matrícula de Honor), lead architect on SEDIA Data Space deliverables (MetaDataXtract, MetaDataSearch, TITAN Workflow Agent), structural Svelte 5 migration at mSurgery, and 10.0 Honours TFG IoT patient monitoring bracelet. His email is diegodepablo.programa@gmail.com and LinkedIn is https://www.linkedin.com/in/diego-de-pablo/.`,
+    content: `Diego De Pablo is a Full-Stack Software Engineer (Bioinformatics Engineer specializing in Data Science & Engineering in the M.S. in Computer Engineering) based in Málaga, Spain. He specializes in federated data spaces, applied AI, and DevOps with Kubernetes. At Khaos Research (University of Málaga), he architects data space platforms and AI search engines. Key achievements: Multiple Highest Academic Honors (Matrícula de Honor), core engineer on SEDIA Data Space deliverables (MetaDataXtract, MetaDataSearch, AlignX, TITAN Workflow Agent), structural Svelte 5 migration at mSurgery, and 10.0 Honours distinction for his IoT patient monitoring bracelet. His email is diegodepablo.programa@gmail.com and LinkedIn is https://www.linkedin.com/in/diego-de-pablo/.`,
     references: [
       { type: 'section', id: 'about', label: { en: 'About Me', es: 'Sobre mí' }, route: '/#about' },
     ],
@@ -37,10 +37,10 @@ export const knowledgeBase: KnowledgeChunk[] = [
   // ─── EDUCATION ────────────────────────────────────────────────────
   {
     category: 'education',
-    keywords: ['education', 'degree', 'university', 'formación', 'grado', 'master', 'universidad', 'study', 'estudios', 'carrera', 'bioinformatics', 'bioinformática', 'health engineering', 'ingeniería salud', 'computer engineering', 'informática', 'honours', 'matrícula', 'honor', 'top', 'promotion', 'promoción'],
+    keywords: ['education', 'degree', 'university', 'formación', 'grado', 'master', 'universidad', 'study', 'estudios', 'carrera', 'bioinformatics', 'bioinformática', 'health engineering', 'ingeniería salud', 'computer engineering', 'informática', 'honours', 'matrícula', 'honor', 'promotion', 'promoción'],
     content: `Education:
-- Master's Degree in Computer Engineering (Plan 2026), University of Málaga. Specialization: Data Science & Engineering. Starting August 2026.
-- Bachelor's Degree in Health Engineering, specialization in Bioinformatics Engineering, University of Málaga (Sep 2021 – Jul 2025). Grade: 7.94/10. Honours (Matrícula de Honor) in several subjects: Fundamentals of Programming, Intelligent Systems, Bioinformatics Projects, and the Final Degree Thesis. Top 5 of the 2021–2025 cohort. Active participant in extracurricular events like Hackers Week, datathons, and seminars.`,
+- Master's Degree in Computer Engineering (Plan 2026), University of Málaga. Specialization: Data Science & Engineering. Starting August 2026. Focused on distributed systems, scalable data architectures, and DevOps with Kubernetes.
+- Bachelor's Degree in Health Engineering, specialization in Bioinformatics Engineering, University of Málaga (Sep 2021 – Jul 2025). Grade: 7.94/10. Honours (Matrícula de Honor) in several subjects: Fundamentals of Programming, Intelligent Systems, Bioinformatics Projects, and the Final Degree Thesis. Active participant in extracurricular events like Hackers Week, datathons, and seminars.`,
     references: [
       { type: 'education', id: 'education', label: { en: 'Education & Certifications', es: 'Formación y Certificaciones' }, route: '/#about' },
     ],
@@ -62,9 +62,9 @@ export const knowledgeBase: KnowledgeChunk[] = [
     category: 'experience',
     keywords: ['experience', 'work', 'job', 'experiencia', 'trabajo', 'donde', 'where', 'worked', 'career', 'empresa', 'company'],
     content: `Work Experience:
-1. Khaos Research (University of Málaga) — Software Engineer, Sep 2025 – Present (full-time, hybrid, Málaga). Focused on end-to-end development of full-stack applications for multi-domain data spaces, advanced search engine with LLM for natural language queries, and tools for automatic metadata extraction (+30 formats) and LLM-driven analysis workflow automation.
-2. mSurgery — FullStack Developer, Mar 2025 – Jul 2025 (internship, hybrid, Málaga). Structural migration of repositories from Svelte 4 to Svelte 5, developed features for SMOTTS and digital twins projects, managed international stakeholders and presented technically at Polo Digital.
-3. T&B Company Group — Junior Software Engineer, Jun 2021 – Dec 2021 (internship). Created API documentation, improved UX, resolved bugs, migrated legacy code for Java and Angular.`,
+1. Khaos Research (University of Málaga) — Software Engineer, Sep 2025 – Present (full-time, hybrid, Málaga). Architected and delivered 3 core platforms (MetaDataXtract, MetaDataSearch, AlignX) for the SEDIA federated data space. Designed a hybrid search engine combining Qdrant vector embeddings and Elasticsearch 8, orchestrated by Pydantic AI conversational agents. Engineered automated ingestion pipelines supporting 30+ scientific formats with SHA-256 validation, 70+ antivirus engines, and DCAT-AP JSON-LD export.
+2. mSurgery — FullStack Developer, Mar 2025 – Jul 2025 (internship, hybrid, Málaga). Spearheaded structural migration of core repositories from Svelte 4 to Svelte 5 (runes & new reactivity), optimizing 3D model rendering. Engineered biometric signal visualizers and clinical workflows for SMOTTS diagnostic devices and anatomical digital twins. Delivered technical product demonstrations in English to international stakeholders and investors at Polo Digital Málaga.
+3. T&B Company Group — Junior Software Engineer, Jun 2021 – Dec 2021 (internship). Refactored and modernized legacy business services into modular Java and Angular architectures, reducing tech debt. Diagnosed and resolved critical production defects. Authored technical REST API specifications and integration documentation.`,
     references: [
       { type: 'section', id: 'jobs', label: { en: 'Work Experience', es: 'Experiencia Laboral' }, route: '/#jobs' },
     ],
@@ -150,7 +150,7 @@ export const knowledgeBase: KnowledgeChunk[] = [
   {
     category: 'projects',
     keywords: ['kubernetes', 'k8s', 'gitops', 'argocd', 'argo', 'helm', 'docker', 'infrastructure', 'infraestructura', 'devops', 'envoy', 'longhorn', 'sealed secrets'],
-    content: `Kubernetes Operations & GitOps: Hands-on environment for cloud-native application architecture and operations. Illustrates the complete migration path from local Docker Compose to a robust Kubernetes ecosystem through 7 progressive phases. Technologies: Kubernetes, Docker, Helm, Argo CD, Sealed Secrets, Envoy, Longhorn, Prometheus, Grafana. Featured personal project.`,
+    content: `Kubernetes Operations & GitOps: Hands-on environment for container architecture and operations. Illustrates the complete migration path from local Docker Compose to a robust Kubernetes ecosystem through 7 progressive phases. Technologies: Kubernetes, Docker, Helm, Argo CD, Sealed Secrets, Envoy, Longhorn, Prometheus, Grafana. Featured personal project.`,
     references: [
       { type: 'project', id: 'kubernetes-platform', label: { en: 'Kubernetes & GitOps', es: 'Kubernetes & GitOps' }, route: '/projects/kubernetes-platform' },
     ],
@@ -169,7 +169,7 @@ export const knowledgeBase: KnowledgeChunk[] = [
     category: 'skills',
     keywords: ['skills', 'technologies', 'tech', 'stack', 'habilidades', 'tecnologías', 'python', 'linux', 'docker', 'java', 'react', 'nextjs', 'fastapi', 'svelte', 'machine learning', 'deep learning', 'llm', 'ai', 'ia', 'programming', 'programación', 'language', 'lenguaje'],
     content: `Technical Skills:
-- Core Stack: Python, Linux, R, Docker, Java
+- Core Stack: Python, TypeScript, Kubernetes, Docker, FastAPI, React, Svelte, PostgreSQL, Elasticsearch, Linux, Java, R
 - Frontend: React, Next.js, SvelteKit, Svelte 5, TypeScript, Vite
 - Backend: FastAPI, Python, SQLAlchemy, PostgreSQL, MongoDB, Redis
 - Infrastructure: Kubernetes, Docker, Helm, Argo CD, Envoy, Prometheus, Grafana

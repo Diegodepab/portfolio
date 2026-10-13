@@ -37,7 +37,7 @@ export const LatestBlogs: React.FC = () => {
       </Link>
       <style>{`
         .latest-blogs-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
-        .latest-blog-card { display: flex; min-height: 240px; padding: 24px; flex-direction: column; border: 1px solid color-mix(in srgb, var(--color-accent-1) 20%, transparent); border-radius: var(--border-radius); background: var(--color-surface-tint); transition: transform var(--duration-normal) var(--ease-out-expo), border-color var(--duration-normal); }
+        .latest-blog-card { display: flex; min-height: 240px; padding: 24px; flex-direction: column; border: 1px solid color-mix(in srgb, var(--color-accent-1) 20%, transparent); border-radius: var(--border-radius); background: var(--color-surface-tint); transition: transform var(--duration-normal) var(--ease-out-expo); }
         .latest-blog-card:hover { transform: translateY(-6px); border-color: var(--color-accent-2); }
         .latest-blog-card span { color: var(--color-accent-2); font-family: var(--font-mono); font-size: 11px; }
         .latest-blog-card h3 { margin: 16px 0 10px; color: var(--color-accent-1); font-size: 20px; }

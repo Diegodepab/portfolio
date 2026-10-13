@@ -10,6 +10,7 @@
   display: grid;
   grid-template-columns: 3fr 2fr;
   gap: 50px;
+  align-items: start;
 }
 
 .about-paragraph {
@@ -135,11 +136,11 @@
   cursor: default;
   font-family: var(--font-mono);
   font-size: 0.85rem;
-  transition: all var(--duration-fast);
+  transition: transform var(--duration-fast) var(--ease-out-expo), background-color var(--duration-fast);
 }
 
 .skill-icon {
-  transition: color var(--duration-fast);
+  flex-shrink: 0;
 }
 
 .skill-pill-1 { border-color: color-mix(in srgb, var(--color-accent-1) 20%, transparent); }

@@ -127,7 +127,7 @@
   background: transparent;
   cursor: pointer;
   opacity: 0.62;
-  transition: border-color var(--duration-fast), opacity var(--duration-fast);
+  transition: opacity var(--duration-fast);
 }
 
 .experience-gallery__thumbnails button:hover,

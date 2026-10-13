@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { socialLinks } from '../../data/config';
 import { Icon } from '../icons/Icon';
 import './Footer.css';
@@ -24,6 +24,10 @@ export const Footer: React.FC<FooterProps> = ({
 }) => {
   const { lang } = useLanguage();
   const { userReduced } = useVisualEffects();
+  const [optionsLoaded, setOptionsLoaded] = useState(false);
+  const handleLoadOptions = () => {
+    if (!optionsLoaded) setOptionsLoaded(true);
+  };
 
   const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const val = e.target.value;
@@ -56,15 +60,21 @@ export const Footer: React.FC<FooterProps> = ({
           className="site-footer__theme-select"
           value={themeName}
           onChange={handleSelectChange}
+          onFocus={handleLoadOptions}
+          onPointerDown={handleLoadOptions}
           aria-label={lang === 'es' ? 'Seleccionar tema de Pokémon' : 'Select Pokémon theme'}
           title={lang === 'es' ? 'Haz clic para cambiar de Pokémon' : 'Click to change Pokémon'}
         >
           <option value="__random__">🎲 {lang === 'es' ? 'Aleatorio' : 'Random'}</option>
-          {ALL_POKEMON_NAMES.map((name) => (
-            <option key={name} value={name}>
-              {name}
-            </option>
-          ))}
+          {optionsLoaded ? (
+            ALL_POKEMON_NAMES.map((name) => (
+              <option key={name} value={name}>
+                {name}
+              </option>
+            ))
+          ) : (
+            <option value={themeName}>{themeName}</option>
+          )}
         </select>
       </div>
 

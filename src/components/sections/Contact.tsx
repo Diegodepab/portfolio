@@ -85,6 +85,11 @@ export const Contact = () => {
         <div className="contact-intro">
           <h3>{lang === 'en' ? 'Let\'s talk.' : 'Hablemos'}</h3>
           <a className="contact-email" href={`mailto:${siteConfig.email}`}>{siteConfig.email}</a>
+          <p className="contact-availability">
+            {lang === 'en'
+              ? 'Open to engineering roles, data space initiatives, and high-impact full-stack collaborations.'
+              : 'Abierto a posiciones de ingeniería, iniciativas en espacios de datos y colaboraciones full-stack de alto impacto.'}
+          </p>
 
           <nav className="contact-socials" aria-label={lang === 'en' ? 'Social profiles' : 'Perfiles sociales'}>
             <p>{lang === 'en' ? 'You can also find me on' : 'También puedes encontrarme en'}</p>

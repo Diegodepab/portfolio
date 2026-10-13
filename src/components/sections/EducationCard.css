@@ -261,7 +261,7 @@
   color: var(--color-text-primary);
   font-family: var(--font-mono);
   font-size: 11px;
-  transition: all var(--duration-fast);
+  transition: transform var(--duration-fast), background-color var(--duration-fast);
 }
 
 .edu-skill-pill:hover {
@@ -290,7 +290,7 @@
   font-family: var(--font-mono);
   font-size: 12px;
   cursor: pointer;
-  transition: all var(--duration-fast);
+  transition: transform var(--duration-fast), background-color var(--duration-fast);
 }
 
 .edu-media__toggle:hover {

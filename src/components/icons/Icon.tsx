@@ -1,7 +1,7 @@
 import React from 'react';
 import { FiGithub, FiLinkedin, FiInstagram, FiExternalLink, FiMail, FiFolder, FiBookmark, FiChevronDown, FiAward, FiFileText } from 'react-icons/fi';
 import { FaPython, FaLinux, FaDocker, FaJava, FaRProject, FaGraduationCap } from 'react-icons/fa';
-import { SiTypescript, SiSvelte } from 'react-icons/si';
+import { SiTypescript, SiSvelte, SiKubernetes, SiFastapi, SiReact, SiPostgresql, SiMongodb, SiElasticsearch } from 'react-icons/si';
 import { TbBrandCSharp } from 'react-icons/tb';
 
 interface IconProps {
@@ -46,6 +46,20 @@ export const Icon: React.FC<IconProps> = ({ name, size = 20, className = '', sty
       return <FaLinux size={size} className={className} style={style} />;
     case 'docker':
       return <FaDocker size={size} className={className} style={style} />;
+    case 'kubernetes':
+    case 'k8s':
+      return <SiKubernetes size={size} className={className} style={style} />;
+    case 'fastapi':
+      return <SiFastapi size={size} className={className} style={style} />;
+    case 'react':
+      return <SiReact size={size} className={className} style={style} />;
+    case 'postgresql':
+    case 'postgres':
+      return <SiPostgresql size={size} className={className} style={style} />;
+    case 'mongodb':
+      return <SiMongodb size={size} className={className} style={style} />;
+    case 'elasticsearch':
+      return <SiElasticsearch size={size} className={className} style={style} />;
     case 'java':
       return <FaJava size={size} className={className} style={style} />;
     case 'r':

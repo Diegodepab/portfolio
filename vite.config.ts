@@ -106,7 +106,7 @@ export default defineConfig(({ mode }) => {
               },
               {
                 name: 'ui-vendor',
-                test: /node_modules[\\/](motion|framer-motion|lucide-react|react-icons)[\\/]/,
+                test: /node_modules[\\/](motion|framer-motion|react-icons)[\\/]/,
                 priority: 15,
               },
               {
@@ -120,6 +120,11 @@ export default defineConfig(({ mode }) => {
       },
     },
     server: {
+      watch: {
+        usePolling: true,
+        interval: 100,
+        ignored: ['**/dist/**', '**/dist-ssr/**', '**/cv/**', '**/.git/**', '**/artifacts/**'],
+      },
       proxy: {
         '/api/contact': {
           target: 'https://formsubmit.co',

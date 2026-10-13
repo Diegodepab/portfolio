@@ -6,6 +6,6 @@ export const skills: SkillCategory[] = [
       en: 'Core Stack',
       es: 'Stack Principal',
     },
-    skills: ['Python', 'Linux', 'R', 'Docker', 'Java']
-  }
+    skills: ['Python', 'Linux', 'R', 'Docker', 'Java'],
+  },
 ];

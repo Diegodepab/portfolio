@@ -53,12 +53,12 @@ a {
   text-decoration-skip-ink: auto;
   color: inherit;
   position: relative;
-  transition: color var(--duration-normal) var(--ease-out-expo);
 }
 
 a:hover,
 a:focus {
   color: var(--color-accent-2);
+  transition: color var(--duration-fast);
 }
 
 .numbered-heading {

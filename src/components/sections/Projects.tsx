@@ -31,8 +31,8 @@ export const Projects: React.FC = () => {
           <SectionHeading title={lang === 'en' ? 'Selected Work' : 'Trabajos Destacados'} />
           <p className="projects-intro">
             {lang === 'en'
-              ? 'From infrastructure to connected devices: two projects, from the first idea to deployment.'
-              : 'De la infraestructura a los dispositivos conectados: dos proyectos, desde la idea hasta el despliegue.'}
+              ? 'A production-grade GitOps infrastructure lab and an award-winning IoT biomedical telemetry system — engineered from hardware and containers to production.'
+              : 'Un laboratorio de infraestructura GitOps y un sistema IoT biomédico galardonado con Matrícula de Honor — diseñados desde el hardware y los contenedores hasta producción.'}
           </p>
         </div>
       </div>

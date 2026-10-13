@@ -21,14 +21,14 @@ export const experiences: JobExperience[] = [
     employmentType: 'full-time',
     highlights: {
       en: [
-        'End-to-end development of full-stack applications for a multi-domain data space.',
-        'Designed an advanced search engine with LLM for natural language queries and data recommendation.',
-        'Built integrated tools for automatic metadata extraction (+30 formats) and LLM-driven analysis workflow automation.',
+        'Architected and delivered 3 core platforms (MetaDataXtract, MetaDataSearch, AlignX) for the SEDIA federated data space.',
+        'Designed a hybrid search engine combining Qdrant vector embeddings and Elasticsearch 8, orchestrated by Pydantic AI conversational agents.',
+        'Engineered an automated ingestion pipeline supporting 30+ scientific formats, SHA-256 validation, 70+ antivirus engines, and DCAT-AP JSON-LD export.',
       ],
       es: [
-        'Desarrollo end-to-end de aplicaciones full-stack para un espacio de datos de diversa índole.',
-        'Diseño de un buscador avanzado con LLM para consultas en lenguaje natural y recomendación de datos.',
-        'Desarrollo de herramientas integradas para extracción automática de metadatos (+30 formatos) y automatización de workflows de análisis con LLM.',
+        'Arquitectura y desarrollo integral de 3 plataformas clave (MetaDataXtract, MetaDataSearch, AlignX) para el espacio de datos federado SEDIA.',
+        'Diseño de un motor de búsqueda híbrido combinando embeddings vectoriales en Qdrant y Elasticsearch 8, orquestado por agentes conversacionales Pydantic AI.',
+        'Implementación de un pipeline de ingesta automatizado para +30 formatos científicos con validación SHA-256, 70+ motores antivirus y exportación JSON-LD DCAT-AP.',
       ],
     },
     projectIds: ['metadataxtract', 'metadatasearch', 'alignx', 'titan-workflow', 'edaan-data-space'],
@@ -75,14 +75,14 @@ export const experiences: JobExperience[] = [
     employmentType: 'internship',
     highlights: {
       en: [
-        'Structural migration of main repositories from Svelte 4 to Svelte 5.',
-        'Developed new features for SMOTTS projects and digital twins.',
-        'Managed international stakeholders and presented the project technically at Polo Digital.',
+        'Spearheaded structural migration of core repositories from Svelte 4 to Svelte 5 (runes & new reactivity), optimizing 3D model rendering.',
+        'Engineered biometric signal visualizers and clinical workflows for SMOTTS diagnostic devices and anatomical digital twins.',
+        'Delivered technical product demonstrations in English to international stakeholders and investors at Polo Digital Málaga.',
       ],
       es: [
-        'Migración estructural de repositorios principales de Svelte 4 a Svelte 5.',
-        'Desarrollo de nuevas funcionalidades para proyectos SMOTTS y gemelos digitales.',
-        'Gestión de stakeholders internacionales y presentación técnica del proyecto en el Polo Digital.',
+        'Lideré la migración estructural de repositorios centrales de Svelte 4 a Svelte 5 (runas y reactividad moderna), optimizando el renderizado 3D.',
+        'Desarrollo de visualizadores de señales biomédicas y flujos clínicos para dispositivos de diagnóstico SMOTTS y gemelos digitales anatómicos.',
+        'Presentación y defensa técnica del producto en inglés ante stakeholders e inversores internacionales en el Polo Digital de Málaga.',
       ],
     },
     projectIds: ['msurgery-platform', 'smotts', 'digital-twins'],
@@ -118,14 +118,14 @@ export const experiences: JobExperience[] = [
     employmentType: 'internship',
     highlights: {
       en: [
-        'Created API documentation and reviewed outdated projects.',
-        'Improved user experience and resolved bugs.',
-        'Migrated legacy code and refactored for Java and Angular.',
+        'Refactored and modernized legacy business services into modular Java and Angular architectures, reducing tech debt.',
+        'Diagnosed and resolved critical production defects, collaborating closely with senior engineering staff.',
+        'Authored technical REST API specifications and developer documentation to accelerate cross-team integration.',
       ],
       es: [
-        'Creación de documentación para APIs y revisión de proyectos desactualizados.',
-        'Ajuste de experiencia de usuario y resolución de bugs.',
-        'Migración de código legacy y mejora para Java y Angular.',
+        'Refactorización y modernización de servicios legados hacia arquitecturas modulares con Java y Angular, reduciendo deuda técnica.',
+        'Diagnóstico y resolución de incidencias en producción, colaborando estrechamente con el equipo de ingeniería.',
+        'Elaboración de especificaciones técnicas de APIs REST y documentación de integración para acelerar el desarrollo entre equipos.',
       ],
     },
     projectIds: [],

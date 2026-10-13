@@ -20,12 +20,12 @@ async function ensurePortrait() {
   const portraitOut = path.join(assetsDir, 'diego-formal.jpg');
   const sourceWebp = path.join(publicDir, 'images', 'portraits', 'diego-formal.webp');
 
-  if (!fs.existsSync(portraitOut) && fs.existsSync(sourceWebp)) {
-    console.log('Generating portrait asset for CV...');
+  if (fs.existsSync(sourceWebp)) {
+    console.log('Generating centered square portrait asset for CV...');
     const sharp = (await import('sharp')).default;
     await sharp(sourceWebp)
-      .extract({ left: 30, top: 0, width: 340, height: 380 })
-      .resize(300, 340)
+      .extract({ left: 55, top: 25, width: 320, height: 320 })
+      .resize(400, 400)
       .jpeg({ quality: 95 })
       .toFile(portraitOut);
     console.log('Portrait generated at:', portraitOut);
@@ -39,7 +39,7 @@ function compileCV(texFileName, targetPdfName) {
     throw new Error(`TeX file not found: ${texPath}`);
   }
 
-  execFileSync('pdflatex', ['-interaction=nonstopmode', texFileName], {
+  execFileSync('pdflatex', ['-interaction=nonstopmode', '-halt-on-error', texFileName], {
     cwd: cvDir,
     stdio: ['ignore', 'pipe', 'pipe'],
   });
@@ -75,23 +75,31 @@ async function main() {
   try {
     await ensurePortrait();
 
+    // Primary recruiter-facing filenames containing candidate's name
     const variants = [
-      { tex: 'cv-es.tex', pdf: 'cv_es.pdf' },
-      { tex: 'cv-en.tex', pdf: 'cv_en.pdf' },
-      { tex: 'cv-es-photo.tex', pdf: 'cv_es_foto.pdf' },
-      { tex: 'cv-en-photo.tex', pdf: 'cv_en_photo.pdf' },
+      { tex: 'cv-es.tex', pdf: 'cv_DiegoDePablo_es.pdf' },
+      { tex: 'cv-en.tex', pdf: 'cv_DiegoDePablo_en.pdf' },
+      { tex: 'cv-es-photo.tex', pdf: 'cv_DiegoDePablo_es_photo.pdf' },
+      { tex: 'cv-en-photo.tex', pdf: 'cv_DiegoDePablo_en_photo.pdf' },
     ];
 
     for (const v of variants) {
       compileCV(v.tex, v.pdf);
     }
 
-    // Copy cv_es.pdf to legacy name for compatibility
-    fs.copyFileSync(
-      path.join(publicDir, 'cv_es.pdf'),
-      path.join(publicDir, 'cv_diego_de_pablos.pdf')
-    );
-    console.log('✓ Updated public/cv_diego_de_pablos.pdf (legacy alias)');
+    // Keep backwards-compatible aliases in public/
+    const aliases = [
+      { from: 'cv_DiegoDePablo_es.pdf', to: 'cv_es.pdf' },
+      { from: 'cv_DiegoDePablo_en.pdf', to: 'cv_en.pdf' },
+      { from: 'cv_DiegoDePablo_es_photo.pdf', to: 'cv_es_foto.pdf' },
+      { from: 'cv_DiegoDePablo_en_photo.pdf', to: 'cv_en_photo.pdf' },
+      { from: 'cv_DiegoDePablo_es.pdf', to: 'cv_diego_de_pablos.pdf' },
+    ];
+
+    for (const a of aliases) {
+      fs.copyFileSync(path.join(publicDir, a.from), path.join(publicDir, a.to));
+      console.log(`✓ Updated public/${a.to} (alias)`);
+    }
 
     cleanArtifacts();
     console.log('\nAll CV variants successfully built!');
