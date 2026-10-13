@@ -27,5 +27,5 @@ for (const route of routes) {
 }
 const sitemap = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${routes.map(route => `  <url><loc>${escape(siteUrl + route)}</loc></url>`).join('\n')}\n</urlset>\n`;
 await writeFile('dist/sitemap.xml', sitemap);
-await writeFile('dist/robots.txt', `User-agent: *\nAllow: /\n\nSitemap: ${siteUrl}/sitemap.xml\n`);
+await writeFile('dist/robots.txt', `User-agent: *\nAllow: /\n\nSitemap: ${siteUrl}/sitemap.xml\nAgentmap: ${siteUrl}/ai-catalog.json\n`);
 console.log(`Prerendered ${routes.length} routes; sitemap and canonical URLs use ${siteUrl}.`);

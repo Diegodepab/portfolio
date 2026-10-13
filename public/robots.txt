@@ -2,3 +2,4 @@ User-agent: *
 Allow: /
 
 Sitemap: https://diegodepablo.is-a.dev/sitemap.xml
+Agentmap: https://diegodepablo.is-a.dev/ai-catalog.json
