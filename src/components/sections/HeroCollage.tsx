@@ -4,7 +4,12 @@ import { CrossfadeGallery, type GalleryImage } from '../ui/CrossfadeGallery';
 
 const landscapeMedia = (name: string) => ({
   ...imageAssets[`/images/landscapes/${name}.webp`],
-  sizes: '(max-width: 480px) 70vw, (max-width: 768px) 372px, (max-width: 1120px) 30vw, 390px',
+  sizes: '(max-width: 480px) 220px, (max-width: 768px) 285px, 350px',
+});
+
+const landscapeWideMedia = (name: string) => ({
+  ...imageAssets[`/images/landscapes/${name}-wide.webp`],
+  sizes: '(max-width: 480px) 175px, (max-width: 768px) 225px, 270px',
 });
 
 const landscapes: Record<'es' | 'en', GalleryImage[]> = {
@@ -19,6 +24,21 @@ const landscapes: Record<'es' | 'en', GalleryImage[]> = {
     { ...landscapeMedia('mar'), alt: 'Rocky coastline by the sea' },
     { ...landscapeMedia('muelle'), alt: 'Pier facing the sea at sunset' },
     { ...landscapeMedia('naturaleza'), alt: 'Stream surrounded by vegetation' },
+  ],
+};
+
+const landscapesWide: Record<'es' | 'en', GalleryImage[]> = {
+  es: [
+    { ...landscapeWideMedia('atardecer'), alt: 'Camino al atardecer entre árboles' },
+    { ...landscapeWideMedia('mar'), alt: 'Costa rocosa junto al mar' },
+    { ...landscapeWideMedia('muelle'), alt: 'Muelle frente al mar al atardecer' },
+    { ...landscapeWideMedia('naturaleza'), alt: 'Arroyo rodeado de vegetación' },
+  ],
+  en: [
+    { ...landscapeWideMedia('atardecer'), alt: 'Path at sunset between trees' },
+    { ...landscapeWideMedia('mar'), alt: 'Rocky coastline by the sea' },
+    { ...landscapeWideMedia('muelle'), alt: 'Pier facing the sea at sunset' },
+    { ...landscapeWideMedia('naturaleza'), alt: 'Stream surrounded by vegetation' },
   ],
 };
 
@@ -41,7 +61,7 @@ export const HeroCollage = () => {
         <img
           src={portrait.src}
           srcSet={portrait.srcSet}
-          sizes="(max-width: 480px) 44vw, (max-width: 768px) 234px, 248px"
+          sizes="(max-width: 480px) 170px, (max-width: 768px) 220px, 250px"
           alt={lang === 'en' ? 'Formal portrait of Diego De Pablo' : 'Retrato formal de Diego De Pablo'}
           loading="eager"
           fetchPriority="high"
@@ -53,10 +73,7 @@ export const HeroCollage = () => {
 
       <div className="hero-frame hero-frame--secondary-landscape">
         <CrossfadeGallery
-          images={landscapes[lang].map((image) => ({
-            ...image,
-            sizes: '(max-width: 480px) 52vw, (max-width: 768px) 258px, 271px',
-          }))}
+          images={landscapesWide[lang]}
           interval={12_000}
           initialDelay={6_000}
           initialIndex={2}

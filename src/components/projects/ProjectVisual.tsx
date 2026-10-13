@@ -332,7 +332,7 @@ export const ProjectVisual: React.FC<ProjectVisualProps> = ({ kind = 'generic', 
           <div className="surgery-brand">
             <div className="surgery-brand-logo-wrap">
               <span className="surgery-brand-ring" />
-              <img src="/images/msurgery/favicon.png" alt="mSurgery Icon" className="surgery-logo-img" />
+              <img src="/images/msurgery/favicon.png" alt="mSurgery Icon" width={32} height={32} loading="lazy" decoding="async" className="surgery-logo-img" />
             </div>
             <div className="surgery-logo-text">
               <span className="surgery-logo-m">m</span><span className="surgery-logo-rest">Surgery</span>

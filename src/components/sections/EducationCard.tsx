@@ -94,6 +94,10 @@ const MediaViewer: React.FC<{ media: EducationMedia; lang: LanguageCode }> = ({ 
                   src={media.src}
                   alt={media.alt || ''}
                   className="edu-media__img"
+                  width={600}
+                  height={420}
+                  loading="lazy"
+                  decoding="async"
                   draggable={false}
                   onContextMenu={e => e.preventDefault()}
                 />

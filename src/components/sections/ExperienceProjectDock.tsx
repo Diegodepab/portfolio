@@ -56,7 +56,7 @@ const ProjectMark = memo(({ project }: { project: Project }) => {
   if (project.image && !imageFailed) {
     return (
       <span className="project-dock__mark" aria-hidden="true">
-        <img src={project.image} alt="" draggable={false} className={`project-dock__logo project-dock__logo--${project.imageFit ?? 'cover'}`} onError={() => setImageFailed(true)} />
+        <img src={project.image} alt="" draggable={false} width={40} height={40} className={`project-dock__logo project-dock__logo--${project.imageFit ?? 'cover'}`} onError={() => setImageFailed(true)} />
       </span>
     );
   }
@@ -261,7 +261,7 @@ const ProjectBubble = memo(({
               {VISUAL_KINDS[project.id]
                 ? <ProjectVisual kind={VISUAL_KINDS[project.id]} label={project.name[lang]} />
                 : previewImage
-                  ? <img src={previewImage.src} alt={previewImage.alt?.[lang] ?? project.name[lang]} />
+                  ? <img src={previewImage.src} alt={previewImage.alt?.[lang] ?? project.name[lang]} width={640} height={360} loading="lazy" decoding="async" />
                   : <div><ProjectMark project={project} /><strong>{project.name[lang]}</strong></div>}
             </div>
           </motion.article>

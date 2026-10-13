@@ -121,11 +121,31 @@ export const imageAssets: Record<string, ResponsiveImageAsset> = {
       "srcSet": "/images/optimized/landscapes-atardecer-thumb-50.webp 50w, /images/optimized/landscapes-atardecer-thumb-100.webp 100w"
     }
   },
+  "/images/landscapes/atardecer-wide.webp": {
+    "src": "/images/optimized/landscapes-atardecer-wide-480.webp",
+    "srcSet": "/images/optimized/landscapes-atardecer-wide-320.webp 320w, /images/optimized/landscapes-atardecer-wide-480.webp 480w",
+    "width": 480,
+    "height": 270,
+    "thumbnail": {
+      "src": "/images/optimized/landscapes-atardecer-thumb-50.webp",
+      "srcSet": "/images/optimized/landscapes-atardecer-thumb-50.webp 50w, /images/optimized/landscapes-atardecer-thumb-100.webp 100w"
+    }
+  },
   "/images/landscapes/mar.webp": {
     "src": "/images/optimized/landscapes-mar-480.webp",
     "srcSet": "/images/optimized/landscapes-mar-320.webp 320w, /images/optimized/landscapes-mar-480.webp 480w, /images/optimized/landscapes-mar-700.webp 700w",
     "width": 700,
     "height": 933,
+    "thumbnail": {
+      "src": "/images/optimized/landscapes-mar-thumb-50.webp",
+      "srcSet": "/images/optimized/landscapes-mar-thumb-50.webp 50w, /images/optimized/landscapes-mar-thumb-100.webp 100w"
+    }
+  },
+  "/images/landscapes/mar-wide.webp": {
+    "src": "/images/optimized/landscapes-mar-wide-480.webp",
+    "srcSet": "/images/optimized/landscapes-mar-wide-320.webp 320w, /images/optimized/landscapes-mar-wide-480.webp 480w",
+    "width": 480,
+    "height": 270,
     "thumbnail": {
       "src": "/images/optimized/landscapes-mar-thumb-50.webp",
       "srcSet": "/images/optimized/landscapes-mar-thumb-50.webp 50w, /images/optimized/landscapes-mar-thumb-100.webp 100w"
@@ -141,11 +161,31 @@ export const imageAssets: Record<string, ResponsiveImageAsset> = {
       "srcSet": "/images/optimized/landscapes-muelle-thumb-50.webp 50w, /images/optimized/landscapes-muelle-thumb-100.webp 100w"
     }
   },
+  "/images/landscapes/muelle-wide.webp": {
+    "src": "/images/optimized/landscapes-muelle-wide-480.webp",
+    "srcSet": "/images/optimized/landscapes-muelle-wide-320.webp 320w, /images/optimized/landscapes-muelle-wide-480.webp 480w",
+    "width": 480,
+    "height": 270,
+    "thumbnail": {
+      "src": "/images/optimized/landscapes-muelle-thumb-50.webp",
+      "srcSet": "/images/optimized/landscapes-muelle-thumb-50.webp 50w, /images/optimized/landscapes-muelle-thumb-100.webp 100w"
+    }
+  },
   "/images/landscapes/naturaleza.webp": {
     "src": "/images/optimized/landscapes-naturaleza-480.webp",
     "srcSet": "/images/optimized/landscapes-naturaleza-320.webp 320w, /images/optimized/landscapes-naturaleza-480.webp 480w, /images/optimized/landscapes-naturaleza-700.webp 700w",
     "width": 700,
     "height": 933,
+    "thumbnail": {
+      "src": "/images/optimized/landscapes-naturaleza-thumb-50.webp",
+      "srcSet": "/images/optimized/landscapes-naturaleza-thumb-50.webp 50w, /images/optimized/landscapes-naturaleza-thumb-100.webp 100w"
+    }
+  },
+  "/images/landscapes/naturaleza-wide.webp": {
+    "src": "/images/optimized/landscapes-naturaleza-wide-480.webp",
+    "srcSet": "/images/optimized/landscapes-naturaleza-wide-320.webp 320w, /images/optimized/landscapes-naturaleza-wide-480.webp 480w",
+    "width": 480,
+    "height": 270,
     "thumbnail": {
       "src": "/images/optimized/landscapes-naturaleza-thumb-50.webp",
       "srcSet": "/images/optimized/landscapes-naturaleza-thumb-50.webp 50w, /images/optimized/landscapes-naturaleza-thumb-100.webp 100w"
