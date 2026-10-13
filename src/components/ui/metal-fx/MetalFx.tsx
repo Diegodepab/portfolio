@@ -19,6 +19,24 @@ function useResolvedTheme(theme: MetalFxTheme): 'dark' | 'light' {
   return theme === 'auto' ? system : theme;
 }
 
+function useHasFinePointer() {
+  const [hasFinePointer, setHasFinePointer] = useState(() => {
+    if (typeof window === 'undefined' || typeof window.matchMedia !== 'function') return false;
+    return window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+  });
+
+  useEffect(() => {
+    if (typeof window === 'undefined' || typeof window.matchMedia !== 'function') return;
+    const mq = window.matchMedia('(hover: hover) and (pointer: fine)');
+    setHasFinePointer(mq.matches);
+    const handler = (e: MediaQueryListEvent) => setHasFinePointer(e.matches);
+    mq.addEventListener('change', handler);
+    return () => mq.removeEventListener('change', handler);
+  }, []);
+
+  return hasFinePointer;
+}
+
 /** A complete CSS button first; GPU rendering is an optional enhancement. */
 export const MetalFx = forwardRef<HTMLDivElement, MetalFxProps>(function MetalFx({
   children, variant = 'button', preset = 'chromatic', theme = 'auto', strength = 1,
@@ -34,6 +52,7 @@ export const MetalFx = forwardRef<HTMLDivElement, MetalFxProps>(function MetalFx
   const { visible } = useEffectVisibility(rootRef);
   const [entered, setEntered] = useState(false);
   const [ready, setReady] = useState(false);
+  const hasFinePointer = useHasFinePointer();
   const resolvedTheme = useResolvedTheme(theme);
   const options: MetalRuntimeOptions = {
     shape: variant === 'circle' ? 'circle' : 'pill', preset, theme: resolvedTheme,
@@ -44,18 +63,38 @@ export const MetalFx = forwardRef<HTMLDivElement, MetalFxProps>(function MetalFx
   useImperativeHandle(forwardedRef, () => rootRef.current!, []);
   useEffect(() => { if (visible) setEntered(true); }, [visible]);
 
-  const enabled = quality === 'full' && entered;
+  const enabled = quality === 'full' && entered && hasFinePointer;
   useEffect(() => {
     if (!enabled) return;
     let cancelled = false;
     setReady(false);
-    void import('./metalRuntime').then(({ mountMetal }) => {
-      if (cancelled || !rootRef.current || !canvasRef.current || !glowRef.current || !contentRef.current) return;
-      runtime.current = mountMetal(rootRef.current, canvasRef.current, glowRef.current, contentRef.current,
-        latest.current, () => { if (!cancelled) setReady(true); });
-    }).catch(() => { if (!cancelled) reduceEffects(); });
+
+    let idleId: number | undefined;
+    const init = () => {
+      if (cancelled) return;
+      void import('./metalRuntime').then(({ mountMetal }) => {
+        if (cancelled || !rootRef.current || !canvasRef.current || !glowRef.current || !contentRef.current) return;
+        runtime.current = mountMetal(rootRef.current, canvasRef.current, glowRef.current, contentRef.current,
+          latest.current, () => { if (!cancelled) setReady(true); });
+      }).catch(() => { if (!cancelled) reduceEffects(); });
+    };
+
+    if (typeof window !== 'undefined' && 'requestIdleCallback' in window) {
+      idleId = (window as unknown as { requestIdleCallback: (cb: () => void, opts?: { timeout: number }) => number })
+        .requestIdleCallback(init, { timeout: 1500 });
+    } else {
+      idleId = (typeof setTimeout !== 'undefined') ? (setTimeout(init, 200) as unknown as number) : undefined;
+    }
+
     return () => {
       cancelled = true;
+      if (typeof idleId === 'number') {
+        if (typeof window !== 'undefined' && 'cancelIdleCallback' in window) {
+          (window as unknown as { cancelIdleCallback: (id: number) => void }).cancelIdleCallback(idleId);
+        } else {
+          clearTimeout(idleId);
+        }
+      }
       runtime.current?.destroy();
       runtime.current = null;
       setReady(false);

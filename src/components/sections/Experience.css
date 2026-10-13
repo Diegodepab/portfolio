@@ -2,9 +2,9 @@
 .experience-section > :not(.ambient-backdrop) { position: relative; z-index: 1; }
 .experience-shell { display: grid; grid-template-columns: 190px minmax(0, 1fr); gap: clamp(26px, 4vw, 58px); align-items: start; }
 .experience-tabs { position: sticky; top: calc(var(--nav-height) + 28px); }
-.experience-tabs button { display: flex; width: 100%; height: 52px; align-items: center; gap: 13px; padding: 0 16px; border: 0; border-left: 1px solid var(--color-bg-surface); background: transparent; color: var(--color-text-muted); cursor: pointer; font: .69rem var(--font-mono); text-align: left; transition: color var(--duration-fast), background-color var(--duration-fast); }
+.experience-tabs button { display: flex; width: 100%; height: 52px; align-items: center; gap: 13px; padding: 0 16px; border: 0; border-left: 1px solid var(--color-bg-surface); background: transparent; color: var(--color-text-muted); cursor: pointer; font: .69rem var(--font-mono); text-align: left; }
 .experience-tabs button span { color: var(--color-accent-3); font-size: .56rem; opacity: .65; }
-.experience-tabs button:hover { background: color-mix(in srgb, var(--color-accent-2) 8%, transparent); color: var(--color-text-heading); }
+.experience-tabs button:hover, .experience-tabs button:focus-visible { background: color-mix(in srgb, var(--color-accent-2) 8%, transparent); color: var(--color-text-heading); transition: color var(--duration-fast), background-color var(--duration-fast); }
 .experience-tabs button[aria-selected="true"] { color: var(--color-accent-1); background: linear-gradient(90deg, color-mix(in srgb, var(--color-accent-2) 14%, transparent), transparent); }
 .experience-tab-marker { position: absolute; top: 0; left: 0; width: 2px; height: 52px; background: var(--color-accent-1); box-shadow: 0 0 14px color-mix(in srgb, var(--color-accent-1) 55%, transparent); }
 .experience-card { min-width: 0; }

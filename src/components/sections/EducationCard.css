@@ -22,12 +22,13 @@
   font-size: 14px;
   font-weight: 500;
   cursor: pointer;
-  transition: all var(--duration-normal) var(--ease-out-expo);
 }
 
-.edu-card__trigger:hover {
+.edu-card__trigger:hover,
+.edu-card__trigger:focus-visible {
   border-color: var(--color-accent-1);
   background: color-mix(in srgb, var(--color-accent-1) 6%, var(--color-bg-surface));
+  transition: background-color var(--duration-normal) var(--ease-out-expo), border-color var(--duration-normal) var(--ease-out-expo);
 }
 
 .edu-card__trigger[aria-expanded="true"] {
@@ -92,12 +93,13 @@
   font-family: var(--font-mono);
   font-size: 13px;
   cursor: pointer;
-  transition: all var(--duration-fast);
 }
 
-.edu-tab:hover {
+.edu-tab:hover,
+.edu-tab:focus-visible {
   color: var(--color-text-heading);
   background: color-mix(in srgb, var(--color-bg-surface) 50%, transparent);
+  transition: color var(--duration-fast), background-color var(--duration-fast);
 }
 
 .edu-tab--active {
