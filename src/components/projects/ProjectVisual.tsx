@@ -5,7 +5,7 @@ import { Icon } from '../icons/Icon';
 import { useLanguage } from '../../context/LanguageContext';
 import { ThinkingOrb } from '../ui/thinking-orbs/ThinkingOrb';
 
-export type ProjectVisualKind = 'kubernetes' | 'health' | 'ai' | 'extract' | 'titan' | 'alignx' | 'surgery' | 'smotts' | 'twins' | 'edaan' | 'circlescope' | 'generic';
+export type ProjectVisualKind = 'kubernetes' | 'health' | 'ai' | 'extract' | 'titan' | 'alignx' | 'surgery' | 'smotts' | 'twins' | 'edaan' | 'circlescope' | 'satellite' | 'generic';
 
 interface ProjectVisualProps {
   kind?: ProjectVisualKind;
@@ -35,6 +35,7 @@ export const ProjectVisual: React.FC<ProjectVisualProps> = ({ kind = 'generic', 
             : kind === 'twins' ? 'organ.scan'
             : kind === 'edaan' ? 'data.space'
             : kind === 'circlescope' ? 'force.graph'
+            : kind === 'satellite' ? 'sentinel.dask'
             : 'project.preview'}
         </small>
       </div>
@@ -485,6 +486,49 @@ export const ProjectVisual: React.FC<ProjectVisualProps> = ({ kind = 'generic', 
             <span><strong data-tone="1">24</strong>Mutuals</span>
             <span><strong data-tone="2">12</strong>Fans</span>
             <span><strong data-tone="3">8</strong>Traitors</span>
+          </div>
+        </div>
+      ) : kind === 'satellite' ? (
+        <div className="project-visual-satellite">
+          <div className="satellite-radar">
+            <svg className="satellite-orbit-svg" viewBox="0 0 160 160" aria-hidden="true">
+              <circle cx="80" cy="80" r="72" className="sat-ring sat-ring--outer" />
+              <circle cx="80" cy="80" r="48" className="sat-ring sat-ring--mid" />
+              <circle cx="80" cy="80" r="24" className="sat-ring sat-ring--inner" />
+              <ellipse cx="80" cy="80" rx="68" ry="32" transform="rotate(-30 80 80)" className="sat-orbit-ellipse" />
+              <g className="sat-satellite-marker">
+                <circle cx="138" cy="46" r="3" className="sat-satellite-point" />
+                <circle cx="138" cy="46" r="7" className="sat-satellite-pulse" />
+              </g>
+              <path d="M80 80 L138 46" className="sat-beam-line" />
+            </svg>
+
+            <div className="satellite-tile-grid">
+              <span className="sat-tile sat-tile--done" title="Tile Processed" />
+              <span className="sat-tile sat-tile--processing" title="Dask Worker Ingestion" />
+              <span className="sat-tile sat-tile--done" title="Tile Processed" />
+              <span className="sat-tile sat-tile--done" title="Tile Processed" />
+              <span className="sat-tile sat-tile--active" title="Sentinel-2 Granule Active" />
+              <span className="sat-tile sat-tile--done" title="Tile Processed" />
+              <span className="sat-tile sat-tile--queued" title="Tile Queued" />
+              <span className="sat-tile sat-tile--processing" title="Dask Worker Ingestion" />
+              <span className="sat-tile sat-tile--queued" title="Tile Queued" />
+            </div>
+          </div>
+
+          <div className="satellite-meta">
+            <div className="satellite-pill">
+              <span className="satellite-pill-dot" />
+              <strong>Dask Ingestion</strong>
+              <small>+80% Speedup</small>
+            </div>
+            <div className="satellite-bands">
+              <span>B02</span>
+              <span>B03</span>
+              <span>B04</span>
+              <span>B08</span>
+              <span className="sat-band-accent">NDVI</span>
+            </div>
           </div>
         </div>
       ) : (

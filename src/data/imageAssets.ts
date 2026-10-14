@@ -111,6 +111,16 @@ export const imageAssets: Record<string, ResponsiveImageAsset> = {
       "srcSet": "/images/optimized/khaos-metadataxtract-logo-thumb-50.webp 50w, /images/optimized/khaos-metadataxtract-logo-thumb-100.webp 100w"
     }
   },
+  "/images/landcoverpy/forests_example.jpg": {
+    "src": "/images/optimized/landcoverpy-forests_example-640.webp",
+    "srcSet": "/images/optimized/landcoverpy-forests_example-320.webp 320w, /images/optimized/landcoverpy-forests_example-640.webp 640w, /images/optimized/landcoverpy-forests_example-960.webp 960w",
+    "width": 1181,
+    "height": 852,
+    "thumbnail": {
+      "src": "/images/optimized/landcoverpy-forests_example-thumb-50.webp",
+      "srcSet": "/images/optimized/landcoverpy-forests_example-thumb-50.webp 50w, /images/optimized/landcoverpy-forests_example-thumb-100.webp 100w"
+    }
+  },
   "/images/landscapes/atardecer.webp": {
     "src": "/images/optimized/landscapes-atardecer-480.webp",
     "srcSet": "/images/optimized/landscapes-atardecer-320.webp 320w, /images/optimized/landscapes-atardecer-480.webp 480w, /images/optimized/landscapes-atardecer-700.webp 700w",

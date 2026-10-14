@@ -694,3 +694,215 @@
 .circlescope-metrics strong { font-size: .6rem; }
 
 @keyframes circlescope-rotate { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+/* Satellite visual (LandCoverPy) */
+.project-visual-satellite {
+  position: absolute;
+  inset: 38px 0 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  padding: 12px;
+  font-family: var(--font-mono);
+}
+
+.satellite-radar {
+  position: relative;
+  width: 140px;
+  height: 140px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 14px;
+}
+
+.satellite-orbit-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.sat-ring {
+  fill: none;
+  stroke: color-mix(in srgb, var(--color-accent-1) 18%, transparent);
+  stroke-width: 1;
+}
+
+.sat-ring--outer {
+  stroke-dasharray: 4 4;
+  opacity: 0.6;
+  animation: sat-spin-slow 40s linear infinite;
+  transform-origin: 80px 80px;
+}
+
+.sat-ring--mid {
+  stroke-dasharray: 2 4;
+  opacity: 0.8;
+}
+
+.sat-ring--inner {
+  stroke: color-mix(in srgb, var(--color-accent-2) 25%, transparent);
+}
+
+.sat-orbit-ellipse {
+  fill: none;
+  stroke: color-mix(in srgb, var(--color-accent-1) 45%, transparent);
+  stroke-width: 1.2;
+  stroke-dasharray: 3 3;
+}
+
+.sat-satellite-marker {
+  transform-origin: 80px 80px;
+  animation: sat-orbit-spin 12s linear infinite;
+}
+
+.sat-satellite-point {
+  fill: var(--color-accent-1);
+  filter: drop-shadow(0 0 6px var(--color-accent-1));
+}
+
+.sat-satellite-pulse {
+  fill: none;
+  stroke: var(--color-accent-1);
+  stroke-width: 1;
+  animation: sat-pulse-glow 2s ease-out infinite;
+}
+
+.sat-beam-line {
+  stroke: color-mix(in srgb, var(--color-accent-2) 30%, transparent);
+  stroke-width: 1;
+  stroke-dasharray: 2 2;
+  animation: sat-orbit-spin 12s linear infinite;
+  transform-origin: 80px 80px;
+}
+
+.satellite-tile-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 20px);
+  grid-gap: 4px;
+  padding: 6px;
+  background: color-mix(in srgb, var(--color-bg-primary) 70%, transparent);
+  border: 1px solid color-mix(in srgb, var(--color-accent-1) 25%, transparent);
+  border-radius: 6px;
+  z-index: 2;
+  backdrop-filter: blur(2px);
+}
+
+.sat-tile {
+  width: 20px;
+  height: 20px;
+  border-radius: 3px;
+  border: 1px solid transparent;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.sat-tile--done {
+  background: color-mix(in srgb, var(--color-accent-2) 35%, transparent);
+  border-color: color-mix(in srgb, var(--color-accent-2) 60%, transparent);
+}
+
+.sat-tile--processing {
+  background: color-mix(in srgb, var(--color-accent-1) 40%, transparent);
+  border-color: var(--color-accent-1);
+  animation: sat-tile-flicker 2.4s ease-in-out infinite alternate;
+}
+
+.sat-tile--active {
+  background: var(--color-accent-1);
+  border-color: #fff;
+  box-shadow: 0 0 8px var(--color-accent-1);
+}
+
+.sat-tile--queued {
+  background: color-mix(in srgb, var(--color-text-muted) 15%, transparent);
+  border-color: color-mix(in srgb, var(--color-text-muted) 30%, transparent);
+}
+
+.satellite-meta {
+  position: absolute;
+  bottom: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  z-index: 3;
+}
+
+.satellite-pill {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 2px 10px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--color-accent-1) 12%, transparent);
+  border: 1px solid color-mix(in srgb, var(--color-accent-1) 32%, transparent);
+  font-size: 0.46rem;
+}
+
+.satellite-pill-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--color-accent-1);
+  box-shadow: 0 0 6px var(--color-accent-1);
+  animation: sat-blink 1.8s infinite;
+}
+
+.satellite-pill strong {
+  color: var(--color-text-heading);
+  font-weight: 600;
+}
+
+.satellite-pill small {
+  color: var(--color-accent-1);
+  font-weight: 700;
+}
+
+.satellite-bands {
+  display: flex;
+  gap: 4px;
+  font-size: 0.4rem;
+  color: var(--color-text-muted);
+}
+
+.satellite-bands span {
+  padding: 1px 4px;
+  border-radius: 3px;
+  background: color-mix(in srgb, var(--color-bg-primary) 60%, transparent);
+  border: 1px solid color-mix(in srgb, var(--color-accent-3) 25%, transparent);
+}
+
+.satellite-bands .sat-band-accent {
+  color: var(--color-accent-2);
+  border-color: color-mix(in srgb, var(--color-accent-2) 40%, transparent);
+  font-weight: 600;
+}
+
+@keyframes sat-orbit-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes sat-spin-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(-360deg); }
+}
+
+@keyframes sat-pulse-glow {
+  0% { r: 3; opacity: 1; }
+  100% { r: 8; opacity: 0; }
+}
+
+@keyframes sat-tile-flicker {
+  0% { opacity: 0.4; }
+  100% { opacity: 0.95; }
+}
+
+@keyframes sat-blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}

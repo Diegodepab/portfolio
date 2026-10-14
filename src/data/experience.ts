@@ -31,7 +31,7 @@ export const experiences: JobExperience[] = [
         'Implementación de un pipeline de ingesta automatizado para +30 formatos científicos con validación SHA-256, 70+ motores antivirus y exportación JSON-LD DCAT-AP.',
       ],
     },
-    projectIds: ['metadataxtract', 'metadatasearch', 'alignx', 'titan-workflow', 'edaan-data-space'],
+    projectIds: ['metadataxtract', 'metadatasearch', 'landcoverpy', 'alignx', 'titan-workflow', 'edaan-data-space'],
     photos: [
       {
         ...imageAssets['/images/khaos/logo.png'],

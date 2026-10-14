@@ -557,6 +557,94 @@ export const featuredProjects: Project[] = [
     featured: false,
   },
 
+  {
+    id: 'landcoverpy',
+    name: {
+      en: 'LandCoverPy: Distributed Satellite Pipeline',
+      es: 'LandCoverPy: Pipeline Satelital Distribuido',
+    },
+    description: {
+      en: 'Scalable distributed workflow for high-resolution land cover and land use classification across large geographic areas (Mediterranean Basin). Orchestrates Sentinel-2 satellite granule ingestion with Dask, atomic MongoDB coordination locks, and MinIO/S3 lifecycle management, reducing data processing overhead by 80%.',
+      es: 'Flujo de trabajo distribuido y escalable para la clasificación de cobertura terrestre de alta resolución en grandes áreas geográficas (Cuenca del Mediterráneo). Orquesta la ingesta de imágenes Sentinel-2 con Dask, sincronización atómica en MongoDB y ciclo de vida en MinIO/S3, reduciendo un 80% los tiempos de procesamiento.',
+    },
+    shortDescription: {
+      en: 'Distributed Satellite Imagery & ML Pipeline',
+      es: 'Pipeline Distribuido Satelital e Inferencia ML',
+    },
+    technologies: ['Python', 'Dask', 'Sentinel-2', 'MongoDB', 'Docker', 'MinIO', 'GeoTIFF', 'Rasterio'],
+    tag: 'professional',
+    category: 'data-science',
+    company: 'Khaos Research',
+    github: 'https://github.com/KhaosResearch/landcoverpy',
+    link: 'https://doi.org/10.1186/s40537-023-00770-z',
+    awardBadge: {
+      en: '📄 Published in Springer Nature Journal of Big Data (DOI: 10.1186/s40537-023-00770-z)',
+      es: '📄 Publicado en Journal of Big Data · Springer Nature (DOI: 10.1186/s40537-023-00770-z)',
+    },
+    stats: [
+      {
+        label: { en: 'Processing Speedup', es: 'Aceleración de Ingesta' },
+        value: '80%',
+        subtext: { en: 'Dask Tile & Season Sharding', es: 'Particionado Dask por Tiles y Estaciones' },
+      },
+      {
+        label: { en: 'Geographic Scale', es: 'Escala Territorial' },
+        value: '540+ Tiles',
+        subtext: { en: 'Mediterranean Basin (Spain & Portugal)', es: 'Cuenca Mediterránea (Península Ibérica)' },
+      },
+      {
+        label: { en: 'Spatial Resolution', es: 'Resolución Espacial' },
+        value: '10 m',
+        subtext: { en: 'Sentinel-2 L2A MSI & ASTER GDEM', es: 'Bandas L2A Sentinel-2 y ASTER GDEM' },
+      },
+    ],
+    roleHighlight: {
+      en: 'Architected and optimized the distributed ingestion pipeline for massive Sentinel-2 satellite granules, achieving an 80% reduction in processing time through Dask parallelization, seasonal tile partitioning, and atomic MongoDB claim locks.',
+      es: 'Diseñé y optimicé la arquitectura distribuida para la ingesta de gránulos satelitales Sentinel-2 masivos, reduciendo un 80% los tiempos de procesamiento mediante paralelización con Dask, particionamiento por tiles/estaciones y locks atómicos en MongoDB.',
+    },
+    caseStudy: {
+      title: {
+        en: 'Scaling Earth Observation & Machine Learning Pipelines',
+        es: 'Escalando Pipelines de Observación de la Tierra e IA',
+      },
+      challenge: {
+        en: 'Classifying multi-temporal land cover over extensive geographic areas such as the Mediterranean Basin requires processing hundreds of Sentinel-2 granule tiles across four seasons. The sheer volume of raw multi-band raster data (terabytes) easily causes network bottlenecks, disk exhaustion, race conditions between workers, and days of computing overhead.',
+        es: 'Clasificar la cobertura vegetal y usos del suelo en áreas tan extensas como la Cuenca Mediterránea exige procesar cientos de gránulos satelitales Sentinel-2 a lo largo de las cuatro estaciones. El volumen masivo de datos ráster multibanda (terabytes) provoca cuellos de botella en red, saturación de disco, condiciones de carrera entre nodos y días de cómputo acumulados.',
+      },
+      solution: {
+        en: 'Designed a divide-and-conquer distributed architecture decoupling compute workers from storage. Workers coordinate dynamically via an atomic tile_claims collection in MongoDB with TTL-based crash recovery, download granules on demand, compute 11 multi-spectral and biophysical composite bands (NDVI, NDWI, SAVI, BSI), and stream intermediate products into MinIO/S3 object storage with automated chunked purge lifecycles.',
+        es: 'Diseñé una arquitectura distribuida divide-y-vencerás desacoplando el cómputo del almacenamiento. Los nodos de procesamiento se coordinan dinámicamente mediante una colección tile_claims en MongoDB con recuperación automática de caídas por TTL, descargan gránulos bajo demanda, calculan 11 compuestos multiespectrales e índices biofísicos (NDVI, NDWI, SAVI, BSI), y transfieren productos intermedios a MinIO/S3 con purgado cíclico automático.',
+      },
+      contribution: {
+        en: 'Engineered the Dask distributed pipeline and parallel tile/season execution flow, achieving an 80% speedup in end-to-end dataset generation. Implemented distributed synchronization locks preventing duplicate tile downloads, and containerized the end-to-end pipeline with Docker Compose for reproducible execution across heterogeneous compute nodes.',
+        es: 'Implementé el pipeline distribuido en Dask y el flujo de ejecución paralela por partición de tiles y estaciones, logrando un 80% de reducción en los tiempos de generación del dataset. Diseñé los locks de sincronización atómicos para evitar descargas duplicadas entre workers y contenericé todo el flujo con Docker Compose para su ejecución reproducible en nodos heterogéneos.',
+      },
+      evolution: {
+        en: 'Published in Springer Nature Journal of Big Data (DOI: 10.1186/s40537-023-00770-z). Serves as an institutional foundation for automated land use classification and agricultural monitoring models in European research programs.',
+        es: 'Publicado en Journal of Big Data de Springer Nature (DOI: 10.1186/s40537-023-00770-z). Constituye una base institucional para modelos de monitorización agrícola y clasificación del suelo en proyectos de investigación europeos.',
+      },
+    },
+    media: [
+      {
+        type: 'image' as const,
+        src: '/images/landcoverpy/forests_example.jpg',
+        alt: {
+          en: 'LandCoverPy Iberian Peninsula Forest Classification Map',
+          es: 'Mapa de Clasificación Forestal de la Península Ibérica generado con LandCoverPy',
+        },
+        title: {
+          en: 'LandCoverPy — High-Resolution Land Cover Classification Map',
+          es: 'LandCoverPy — Mapa de Clasificación de Cobertura Terrestre de Alta Resolución',
+        },
+        caption: {
+          en: 'High-resolution classification map generated from multi-temporal Sentinel-2 composites and DEM data over the Iberian Peninsula.',
+          es: 'Mapa de clasificación de alta resolución generado a partir de compuestos multi-temporales Sentinel-2 y datos DEM sobre la Península Ibérica.',
+        },
+      },
+    ],
+    featured: false,
+  },
+
   // ─── Msurgery ─────────────────────────────────────────────────────
   {
     id: 'msurgery-platform',
