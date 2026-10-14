@@ -23,8 +23,12 @@ async function ensurePortrait() {
   if (fs.existsSync(sourceWebp)) {
     console.log('Generating centered square portrait asset for CV...');
     const sharp = (await import('sharp')).default;
+    const meta = await sharp(sourceWebp).metadata();
+    const extractOpts = meta.width >= 1000
+      ? { left: 145, top: 50, width: 780, height: 780 }
+      : { left: 55, top: 25, width: 320, height: 320 };
     await sharp(sourceWebp)
-      .extract({ left: 55, top: 25, width: 320, height: 320 })
+      .extract(extractOpts)
       .resize(400, 400)
       .jpeg({ quality: 95 })
       .toFile(portraitOut);

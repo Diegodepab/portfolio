@@ -16,12 +16,10 @@ const portraits: Record<'es' | 'en', GalleryImage[]> = {
   es: [
     { ...imageAssets['/images/portraits/diego-carnet.webp'], sizes: '(max-width: 768px) 300px, 360px', alt: 'Retrato de Diego De Pablo', position: 'center 18%' },
     { ...imageAssets['/images/portraits/diego-formal.webp'], sizes: '(max-width: 768px) 300px, 360px', alt: 'Diego De Pablo vestido de forma formal', position: 'center 22%' },
-    { ...imageAssets['/images/portraits/diego-formal-group.webp'], sizes: '(max-width: 768px) 300px, 360px', alt: 'Diego De Pablo acompañado en un acto formal', position: 'center center' },
   ],
   en: [
     { ...imageAssets['/images/portraits/diego-carnet.webp'], sizes: '(max-width: 768px) 300px, 360px', alt: 'Portrait of Diego De Pablo', position: 'center 18%' },
     { ...imageAssets['/images/portraits/diego-formal.webp'], sizes: '(max-width: 768px) 300px, 360px', alt: 'Diego De Pablo in formal attire', position: 'center 22%' },
-    { ...imageAssets['/images/portraits/diego-formal-group.webp'], sizes: '(max-width: 768px) 300px, 360px', alt: 'Diego De Pablo with others at a formal event', position: 'center center' },
   ],
 };
 
@@ -113,7 +111,7 @@ export const About: React.FC = () => {
             <CrossfadeGallery
               images={portraits[lang]}
               interval={7_000}
-              initialIndex={2}
+              initialIndex={1}
               className="about-portrait-gallery"
               showControls
               label={lang === 'en' ? 'Choose Diego portrait' : 'Elegir retrato de Diego'}

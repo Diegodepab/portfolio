@@ -88,7 +88,7 @@ export const experiences: JobExperience[] = [
     projectIds: ['msurgery-platform', 'smotts', 'digital-twins'],
     photos: [
       {
-        ...imageAssets['/images/msurgery/favicon.png'],
+        ...imageAssets['/images/msurgery/logo.png'],
         sizes: '(max-width: 768px) 90vw, 608px',
         kind: 'logo',
         alt: { en: 'mSurgery Logo', es: 'Logo de mSurgery' },
