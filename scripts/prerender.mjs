@@ -7,7 +7,7 @@ const manifest = JSON.parse(await readFile('dist/.vite/manifest.json', 'utf8'));
 const escape = value => value.replaceAll('&', '&amp;').replaceAll('"', '&quot;').replaceAll('<', '&lt;').replaceAll('>', '&gt;');
 for (const route of routes) {
   const { html, head } = await render(route);
-  const page = route === '/projects' ? 'ProjectsPage' : route.startsWith('/projects/') ? 'ProjectDetailPage' : route.startsWith('/blog/') ? 'BlogPost' : route === '/blog' ? 'BlogList' : null;
+  const page = route === '/' ? 'HomePage' : route === '/projects' ? 'ProjectsPage' : route.startsWith('/projects/') ? 'ProjectDetailPage' : route.startsWith('/blog/') ? 'BlogPost' : route === '/blog' ? 'BlogList' : null;
   const styles = new Set();
   const scripts = new Set();
   const visited = new Set();
@@ -21,9 +21,24 @@ for (const route of routes) {
     for (const dependency of item.imports ?? []) visit(dependency);
   };
   if (page) for (const key of Object.keys(manifest)) if (key.endsWith(`/${page}.tsx`)) visit(key);
-  const stylesheetLinks = [...styles].map(file => `<link rel="stylesheet" href="/${escape(file)}">`).join('\n');
+  const inlinedStyles = [];
+  const stylesheetLinks = [];
+  for (const file of styles) {
+    try {
+      const content = await readFile(path.join('dist', file), 'utf8');
+      if (content.length < 60000) {
+        inlinedStyles.push(`<style data-route-css="${escape(file)}">${content}</style>`);
+        continue;
+      }
+    } catch {}
+    stylesheetLinks.push(`<link rel="stylesheet" href="/${escape(file)}">`);
+  }
+  const stylesheetTags = [...inlinedStyles, ...stylesheetLinks].join('\n');
   const modulePreloadLinks = [...scripts].map(file => `<link rel="modulepreload" crossorigin href="/${escape(file)}">`).join('\n');
   let pageTemplate = template;
+  if (route !== '/') {
+    pageTemplate = pageTemplate.replace(/<link\s+rel="preload"[^>]*href="\/images\/optimized\/landscapes-atardecer-[^"]*"[^>]*>\s*/gi, '');
+  }
   if (head.includes('property="og:title"')) {
     pageTemplate = pageTemplate.replace(/<meta\s+property="og:title"[^>]*>\s*/gi, '');
   }
@@ -43,7 +58,7 @@ for (const route of routes) {
     if (p1.includes('fetchpriority')) return match;
     return `${p1} fetchpriority="high">`;
   });
-  const injectedHead = [head, stylesheetLinks, modulePreloadLinks].filter(Boolean).join('\n');
+  const injectedHead = [head, stylesheetTags, modulePreloadLinks].filter(Boolean).join('\n');
   const result = pageTemplate.replace('<!--app-head-->', injectedHead).replace('<div id="root"></div>', `<div id="root" data-prerendered="${escape(route)}">${html}</div>`);
   const file = path.join('dist', route, 'index.html');
   await mkdir(path.dirname(file), { recursive: true });

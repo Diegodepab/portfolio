@@ -3,12 +3,6 @@ import { Routes, Route, useLocation, Navigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { LanguageProvider, useLanguage } from './context/LanguageContext';
 import { Layout } from './components/layout/Layout';
-import { Hero } from './components/sections/Hero';
-import { About } from './components/sections/About';
-import { Experience } from './components/sections/Experience';
-import { Projects } from './components/sections/Projects';
-import { Contact } from './components/sections/Contact';
-import { ChatWidget } from './components/chat/ChatWidget';
 import { TourProvider } from './hooks/useTour';
 import { featuredProjects } from './data/projects';
 import { siteConfig } from './data/config';
@@ -17,6 +11,9 @@ import type { Palette } from './utils/palettes';
 import './styles/global.css';
 import { ErrorBoundary } from './components/ui/ErrorBoundary';
 
+const HomePage = lazy(() => import('./components/pages/HomePage').then((module) => ({ default: module.HomePage })));
+const ExperienceSection = lazy(() => import('./components/sections/Experience').then((module) => ({ default: module.Experience })));
+const ChatWidget = lazy(() => import('./components/chat/ChatWidget').then((module) => ({ default: module.ChatWidget })));
 const BlogList = lazy(() => import('./components/blog/BlogList').then((module) => ({ default: module.BlogList })));
 const BlogPost = lazy(() => import('./components/blog/BlogPost').then((module) => ({ default: module.BlogPost })));
 const ProjectsPage = lazy(() => import('./components/pages/ProjectsPage').then((module) => ({ default: module.ProjectsPage })));
@@ -25,6 +22,7 @@ const NotFoundPage = lazy(() => import('./components/pages/NotFoundPage').then((
 const AvatarGuide = lazy(() => import('./components/ui/AvatarGuide').then((module) => ({ default: module.AvatarGuide })));
 
 export interface RouteOverrides {
+  HomePage?: React.ComponentType<any>;
   ProjectsPage?: React.ComponentType<any>;
   ProjectDetailPage?: React.ComponentType<any>;
   BlogList?: React.ComponentType<any>;
@@ -84,7 +82,9 @@ const ScrollHandler = () => {
       const timer = window.setTimeout(scrollToHash, 50);
       return () => window.clearTimeout(timer);
     }
-    window.scrollTo({ top: 0, behavior: 'instant' });
+    if (typeof window !== 'undefined' && window.scrollY > 0) {
+      window.scrollTo({ top: 0, behavior: 'instant' });
+    }
   }, [pathname, hash]);
   
   return null;
@@ -112,17 +112,8 @@ const SiteMetadata = () => {
   );
 };
 
-const HomePage = () => (
-  <main>
-    <Hero />
-    <About />
-    <Experience />
-    <Projects />
-    <Contact />
-  </main>
-);
-
 function MainApp({ routeOverrides }: { routeOverrides?: RouteOverrides } = {}) {
+  const ResolvedHomePage = routeOverrides?.HomePage ?? HomePage;
   const ResolvedProjectsPage = routeOverrides?.ProjectsPage ?? ProjectsPage;
   const ResolvedProjectDetailPage = routeOverrides?.ProjectDetailPage ?? ProjectDetailPage;
   const ResolvedBlogList = routeOverrides?.BlogList ?? BlogList;
@@ -192,11 +183,11 @@ function MainApp({ routeOverrides }: { routeOverrides?: RouteOverrides } = {}) {
         >
           <ErrorBoundary><Suspense fallback={<div className="route-loading" role="status" aria-live="polite">Loading…</div>}>
             <Routes>
-              <Route path="/" element={<HomePage />} />
+              <Route path="/" element={<ResolvedHomePage />} />
               <Route path="/projects" element={<ResolvedProjectsPage />} />
               <Route path="/projects/circlescope" element={<Navigate to="/projects/instagram-epic-tool" replace />} />
               <Route path="/projects/:id" element={<ResolvedProjectDetailPage />} />
-              <Route path="/experience" element={<main><Experience /></main>} />
+              <Route path="/experience" element={<main><Suspense fallback={null}><ExperienceSection /></Suspense></main>} />
               <Route path="/blog" element={<main><ResolvedBlogList /></main>} />
               <Route path="/blog/:slug" element={<main><ResolvedBlogPost /></main>} />
               <Route path="*" element={<ResolvedNotFoundPage />} />
@@ -205,7 +196,7 @@ function MainApp({ routeOverrides }: { routeOverrides?: RouteOverrides } = {}) {
           {enhanced && <><ErrorBoundary><Suspense fallback={null}>
             <AvatarGuide onOpenChat={handleOpenChat} />
           </Suspense></ErrorBoundary>
-          <ChatWidget forceOpen={chatForceOpen} onOpen={handleChatOpened} /></>}
+          <Suspense fallback={null}><ChatWidget forceOpen={chatForceOpen} onOpen={handleChatOpened} /></Suspense></>}
         </Layout>
         </TourProvider>
 

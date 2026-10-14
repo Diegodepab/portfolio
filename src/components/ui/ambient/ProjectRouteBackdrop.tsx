@@ -23,7 +23,7 @@ export const ProjectRouteBackdrop = ({ variant = 'random' }: ProjectRouteBackdro
         return (
           <AntsCursor
             color="var(--color-accent-1)"
-            numberOfAnts={56}
+            numberOfAnts={24}
             speed={0.78}
             sizeMultiplier={0.48}
             opacity={0.22}

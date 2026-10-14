@@ -45,6 +45,7 @@ export const Nav: React.FC<NavProps> = ({ pokemon, onPokemonChange }) => {
 
   return (
     <motion.header
+      initial={false}
       variants={{
         visible: { y: 0, opacity: 1 },
         hidden: { y: '-100%', opacity: 0 }

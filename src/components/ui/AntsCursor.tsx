@@ -55,13 +55,27 @@ export const AntsCursor: React.FC<AntsCursorProps> = ({
       });
     };
 
-    syncCursor();
+    let idleId: number | undefined;
+    const win = typeof window !== 'undefined' ? (window as any) : undefined;
+    if (win && typeof win.requestIdleCallback === 'function') {
+      idleId = win.requestIdleCallback(syncCursor, { timeout: 1200 });
+    } else {
+      idleId = setTimeout(syncCursor, 120) as unknown as number;
+    }
+
     const paletteObserver = color.startsWith('var(')
       ? new MutationObserver(syncCursor)
       : null;
     paletteObserver?.observe(document.documentElement, { attributes: true, attributeFilter: ['style'] });
 
     return () => {
+      if (idleId !== undefined) {
+        if (win && typeof win.cancelIdleCallback === 'function') {
+          win.cancelIdleCallback(idleId);
+        } else {
+          clearTimeout(idleId);
+        }
+      }
       cancelVisualMeasurement(measurementKey);
       paletteObserver?.disconnect();
       cursor?.destroy();

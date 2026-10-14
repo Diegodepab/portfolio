@@ -6,6 +6,7 @@ import { VisualEffectsProvider } from './performance/VisualEffects';
 import { featuredProjects } from './data/projects';
 import { siteConfig } from './data/config';
 import { getAllPosts } from './utils/blog';
+import { HomePage } from './components/pages/HomePage';
 import { ProjectsPage } from './components/pages/ProjectsPage';
 import { ProjectDetailPage } from './components/pages/ProjectDetailPage';
 import { BlogList } from './components/blog/BlogList';
@@ -16,6 +17,7 @@ export const siteUrl = siteConfig.url;
 export const routes = ['/', '/projects', '/experience', '/blog', ...featuredProjects.map(project => `/projects/${project.id}`), ...getAllPosts().map(post => `/blog/${post.slug}`)];
 
 const serverRoutes: RouteOverrides = {
+  HomePage,
   ProjectsPage,
   ProjectDetailPage,
   BlogList,

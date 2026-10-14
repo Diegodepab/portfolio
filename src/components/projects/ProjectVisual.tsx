@@ -274,27 +274,25 @@ export const ProjectVisual: React.FC<ProjectVisualProps> = ({ kind = 'generic', 
                 <span className="lead-name">LEAD II</span>
                 <span className="lead-meta">1.0 mV · FILTER · 25 mm/s</span>
               </div>
-              <div className="surgery-ecg-viewport">
-                <div className="surgery-ecg-scroller">
-                  {[0, 1].map((copy) => (
-                    <svg
-                      key={copy}
-                      className="surgery-ecg-svg"
-                      viewBox="0 0 400 90"
-                      preserveAspectRatio="none"
-                      aria-hidden="true"
-                    >
-                      <path
-                        className="surgery-ecg-glow"
-                        d="M 0 50 L 24 50 C 28 50 32 40 37 40 C 42 40 46 50 50 50 L 65 50 L 71 56 L 80 10 L 89 74 L 96 50 L 110 50 C 116 50 122 28 130 28 C 138 28 144 50 150 50 L 200 50 L 224 50 C 228 50 232 40 237 40 C 242 40 246 50 250 50 L 265 50 L 271 56 L 280 10 L 289 74 L 296 50 L 310 50 C 316 50 322 28 330 28 C 338 28 344 50 350 50 L 400 50"
-                      />
-                      <path
-                        className="surgery-ecg-core"
-                        d="M 0 50 L 24 50 C 28 50 32 40 37 40 C 42 40 46 50 50 50 L 65 50 L 71 56 L 80 10 L 89 74 L 96 50 L 110 50 C 116 50 122 28 130 28 C 138 28 144 50 150 50 L 200 50 L 224 50 C 228 50 232 40 237 40 C 242 40 246 50 250 50 L 265 50 L 271 56 L 280 10 L 289 74 L 296 50 L 310 50 C 316 50 322 28 330 28 C 338 28 344 50 350 50 L 400 50"
-                      />
-                    </svg>
-                  ))}
-                </div>
+              <div className="surgery-ecg-scroller">
+                {[0, 1].map((copy) => (
+                  <svg
+                    key={copy}
+                    className="surgery-ecg-svg"
+                    viewBox="0 0 400 90"
+                    preserveAspectRatio="none"
+                    aria-hidden="true"
+                  >
+                    <path
+                      className="surgery-ecg-glow"
+                      d="M 0 50 L 24 50 C 28 50 32 40 37 40 C 42 40 46 50 50 50 L 65 50 L 71 56 L 80 10 L 89 74 L 96 50 L 110 50 C 116 50 122 28 130 28 C 138 28 144 50 150 50 L 200 50 L 224 50 C 228 50 232 40 237 40 C 242 40 246 50 250 50 L 265 50 L 271 56 L 280 10 L 289 74 L 296 50 L 310 50 C 316 50 322 28 330 28 C 338 28 344 50 350 50 L 400 50"
+                    />
+                    <path
+                      className="surgery-ecg-core"
+                      d="M 0 50 L 24 50 C 28 50 32 40 37 40 C 42 40 46 50 50 50 L 65 50 L 71 56 L 80 10 L 89 74 L 96 50 L 110 50 C 116 50 122 28 130 28 C 138 28 144 50 150 50 L 200 50 L 224 50 C 228 50 232 40 237 40 C 242 40 246 50 250 50 L 265 50 L 271 56 L 280 10 L 289 74 L 296 50 L 310 50 C 316 50 322 28 330 28 C 338 28 344 50 350 50 L 400 50"
+                    />
+                  </svg>
+                ))}
               </div>
             </div>
 
@@ -304,27 +302,25 @@ export const ProjectVisual: React.FC<ProjectVisualProps> = ({ kind = 'generic', 
                 <span className="lead-name lead-name--pleth">PLETH</span>
                 <span className="lead-meta">PULSE SYNC</span>
               </div>
-              <div className="surgery-pleth-viewport">
-                <div className="surgery-pleth-scroller">
-                  {[0, 1].map((copy) => (
-                    <svg
-                      key={copy}
-                      className="surgery-pleth-svg"
-                      viewBox="0 0 400 50"
-                      preserveAspectRatio="none"
-                      aria-hidden="true"
-                    >
-                      <path
-                        className="surgery-pleth-glow"
-                        d="M 0 36 L 25 36 C 34 36 44 8 54 8 C 62 8 68 24 74 24 C 78 24 81 19 85 19 C 90 19 94 28 98 30 C 108 34 120 36 135 36 L 200 36 L 225 36 C 234 36 244 8 254 8 C 262 8 268 24 274 24 C 278 24 281 19 285 19 C 290 19 294 28 298 30 C 308 34 320 36 335 36 L 400 36"
-                      />
-                      <path
-                        className="surgery-pleth-core"
-                        d="M 0 36 L 25 36 C 34 36 44 8 54 8 C 62 8 68 24 74 24 C 78 24 81 19 85 19 C 90 19 94 28 98 30 C 108 34 120 36 135 36 L 200 36 L 225 36 C 234 36 244 8 254 8 C 262 8 268 24 274 24 C 278 24 281 19 285 19 C 290 19 294 28 298 30 C 308 34 320 36 335 36 L 400 36"
-                      />
-                    </svg>
-                  ))}
-                </div>
+              <div className="surgery-pleth-scroller">
+                {[0, 1].map((copy) => (
+                  <svg
+                    key={copy}
+                    className="surgery-pleth-svg"
+                    viewBox="0 0 400 50"
+                    preserveAspectRatio="none"
+                    aria-hidden="true"
+                  >
+                    <path
+                      className="surgery-pleth-glow"
+                      d="M 0 36 L 25 36 C 34 36 44 8 54 8 C 62 8 68 24 74 24 C 78 24 81 19 85 19 C 90 19 94 28 98 30 C 108 34 120 36 135 36 L 200 36 L 225 36 C 234 36 244 8 254 8 C 262 8 268 24 274 24 C 278 24 281 19 285 19 C 290 19 294 28 298 30 C 308 34 320 36 335 36 L 400 36"
+                    />
+                    <path
+                      className="surgery-pleth-core"
+                      d="M 0 36 L 25 36 C 34 36 44 8 54 8 C 62 8 68 24 74 24 C 78 24 81 19 85 19 C 90 19 94 28 98 30 C 108 34 120 36 135 36 L 200 36 L 225 36 C 234 36 244 8 254 8 C 262 8 268 24 274 24 C 278 24 281 19 285 19 C 290 19 294 28 298 30 C 308 34 320 36 335 36 L 400 36"
+                    />
+                  </svg>
+                ))}
               </div>
             </div>
           </div>

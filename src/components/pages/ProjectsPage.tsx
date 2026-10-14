@@ -113,12 +113,12 @@ export const ProjectsPage: React.FC = () => {
         </div>
 
         <div className="catalog-grid">
-          <AnimatePresence>
+          <AnimatePresence initial={false}>
             {filteredItems.map(item => {
               const href = item.type === 'post' ? `/blog/${item.blogSlug}` : `/projects/${item.id}`;
               const isInternal = true;
               return (
-                <motion.article key={item.id} id={`project-${item.id}`} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.18 }} className={`catalog-card${selectedProject === item.id ? ' is-selected' : ''}`}>
+                <motion.article key={item.id} id={`project-${item.id}`} initial={false} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.18 }} className={`catalog-card${selectedProject === item.id ? ' is-selected' : ''}`}>
                   <ProjectVisual kind={projectVisuals[item.id] ?? 'generic'} label={item.title} />
                   <div className="catalog-card-body">
                     <div className="catalog-card-meta"><span>{item.category ? CATEGORY_LABELS[item.category][lang] : lang === 'en' ? 'Writing' : 'Artículo'}</span><small>{item.company ?? (item.tag === 'professional' ? 'Professional' : 'Independent')}</small></div>
