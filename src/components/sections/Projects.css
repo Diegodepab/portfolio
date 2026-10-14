@@ -85,7 +85,7 @@
 .cluster-line--one { left: calc(7% + 96px); width: calc(50% - 7% - 96px - 48px); }
 .cluster-line--two { left: calc(50% + 48px); width: calc(50% - 7% - 96px - 48px); }
 
-.cluster-packet { position: absolute; top: -3px; left: 0; width: 8px; height: 8px; border-radius: 50%; filter: drop-shadow(0 0 6px currentColor); will-change: transform, opacity; animation: cluster-packet-run 2.2s cubic-bezier(0.4, 0, 0.2, 1) infinite; }
+.cluster-packet { position: absolute; top: -3px; left: 0; width: 8px; height: 8px; border-radius: 50%; box-shadow: 0 0 6px currentColor; will-change: transform, opacity; animation: cluster-packet-run 2.2s cubic-bezier(0.4, 0, 0.2, 1) infinite; }
 .cluster-line--one .cluster-packet { background: var(--color-accent-1); color: var(--color-accent-1); }
 .cluster-line--two .cluster-packet { background: var(--color-accent-2); color: var(--color-accent-2); }
 .cluster-packet.p2 { animation-delay: 1.1s; }
@@ -152,7 +152,7 @@
 /* Titan Agent Workflow visual */
 .project-visual-titan { position: absolute; inset: 38px 0 0; display: flex; flex-direction: column; overflow: hidden; padding: 12px; gap: 12px; }
 .titan-chat-container { display: flex; flex-direction: column; gap: 8px; width: 100%; }
-.titan-chat-msg { padding: 6px 12px; border-radius: 8px; font-family: var(--font-mono); font-size: .52rem; max-width: 85%; line-height: 1.4; opacity: 0; }
+.titan-chat-msg { padding: 6px 12px; border-radius: 8px; font-family: var(--font-mono); font-size: .52rem; max-width: 85%; line-height: 1.4; opacity: 0; will-change: transform, opacity; }
 .titan-chat-msg--user { align-self: flex-end; background: color-mix(in srgb, var(--color-accent-2) 15%, transparent); color: var(--color-accent-2); border-bottom-right-radius: 2px; animation: titan-step-1 12s infinite; }
 .titan-chat-msg--agent { align-self: flex-start; background: color-mix(in srgb, var(--color-bg-surface) 60%, transparent); color: var(--color-text-muted); border-bottom-left-radius: 2px; border: 1px solid color-mix(in srgb, var(--color-accent-3) 20%, transparent); animation: titan-step-2 12s infinite; display: flex; align-items: center; gap: 8px; overflow: hidden; padding: 6px 12px; min-height: 32px; }
 .titan-typing { display: inline-flex; gap: 3px; align-items: center; height: 12px; }
@@ -328,6 +328,8 @@
   display: inline-block;
   color: #ef4444;
   font-size: 0.62rem;
+  filter: drop-shadow(0 0 3px #ef4444);
+  will-change: transform;
   animation: surgery-heartbeat 0.8s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
   transform-origin: center;
 }
@@ -585,9 +587,9 @@
 
 @keyframes surgery-heartbeat {
   0%, 100% { transform: scale(1); }
-  14% { transform: scale(1.35); filter: drop-shadow(0 0 4px #ef4444); }
+  14% { transform: scale(1.35); }
   28% { transform: scale(1.04); }
-  42% { transform: scale(1.22); filter: drop-shadow(0 0 3px #ef4444); }
+  42% { transform: scale(1.22); }
   56% { transform: scale(1); }
 }
 
@@ -652,10 +654,10 @@
 
 .project-visual-edaan { position: absolute; inset: 38px 0 0; display: flex; flex-direction: column; align-items: center; justify-content: center; overflow: hidden; padding: 12px; font-family: var(--font-mono); }
 .edaan-connections { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 1; pointer-events: none; }
-.edaan-line { fill: none; stroke-width: 0.4; stroke-dasharray: 2 2; animation: edaan-dash 4s linear infinite; opacity: 0.8; }
-.edaan-line--1 { stroke: var(--color-accent-2); animation-direction: reverse; }
-.edaan-line--2 { stroke: var(--color-accent-3); animation-direction: reverse; }
-.edaan-line--3 { stroke: var(--color-accent-1); animation-direction: reverse; }
+.edaan-line { fill: none; stroke-width: 0.4; stroke-dasharray: 2 2; opacity: 0.8; will-change: opacity; animation: edaan-pulse-line 3s ease-in-out infinite; }
+.edaan-line--1 { stroke: var(--color-accent-2); animation-delay: 0s; }
+.edaan-line--2 { stroke: var(--color-accent-3); animation-delay: 1s; }
+.edaan-line--3 { stroke: var(--color-accent-1); animation-delay: 2s; }
 .edaan-sys { position: absolute; transform: translate(-50%, -50%); display: flex; align-items: center; gap: 6px; padding: 4px 8px; border-radius: 6px; background: color-mix(in srgb, var(--color-bg-primary) 85%, transparent); border: 1px solid; font-family: var(--font-mono); z-index: 10; box-shadow: 0 4px 12px hsl(222 60% 2% / 60%); }
 .edaan-sys span { font-size: 0.42rem; font-weight: 600; text-transform: uppercase; color: var(--color-text-primary); letter-spacing: 0.05em; }
 .edaan-plug { background: color-mix(in srgb, currentColor 15%, transparent); padding: 2px 4px; border-radius: 3px; font-size: 0.35rem; font-weight: 700; color: inherit; }
@@ -672,12 +674,12 @@
 .edaan-status-bar small { font-size: 0.45rem; color: var(--color-accent-1); text-transform: uppercase; font-weight: 600; letter-spacing: 0.05em; }
 @keyframes edaan-pulse-new { 0% { transform: translate(-50%, -50%) scale(1); opacity: 1; } 100% { transform: translate(-50%, -50%) scale(2.8); opacity: 0; } }
 @keyframes edaan-blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.35; } }
-@keyframes edaan-dash { to { stroke-dashoffset: -100; } }
+@keyframes edaan-pulse-line { 0%, 100% { opacity: 0.35; } 50% { opacity: 0.95; } }
 
 /* CircleScope visual */
 .project-visual-circlescope { position: absolute; inset: 38px 0 0; display: flex; flex-direction: column; align-items: center; justify-content: center; overflow: hidden; padding: 16px; font-family: var(--font-mono); }
 .circlescope-graph { width: 100px; height: 100px; margin-bottom: 24px; overflow: visible; animation: circlescope-rotate 30s linear infinite; }
-.circlescope-edge { stroke: color-mix(in srgb, var(--color-accent-3) 30%, transparent); stroke-width: 1; stroke-dasharray: 2 2; animation: dash 20s linear infinite; }
+.circlescope-edge { stroke: color-mix(in srgb, var(--color-accent-3) 30%, transparent); stroke-width: 1; stroke-dasharray: 2 2; }
 .circlescope-edge--mutual { stroke: color-mix(in srgb, var(--color-accent-1) 40%, transparent); stroke-width: 1.5; stroke-dasharray: none; }
 .circlescope-node { fill: var(--color-bg-primary); stroke-width: 2; transition: transform .3s ease; }
 .circlescope-node--center { stroke: var(--color-accent-1); fill: color-mix(in srgb, var(--color-accent-1) 20%, transparent); filter: drop-shadow(0 0 6px var(--color-accent-1)); }

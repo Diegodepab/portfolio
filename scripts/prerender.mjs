@@ -9,17 +9,20 @@ for (const route of routes) {
   const { html, head } = await render(route);
   const page = route === '/projects' ? 'ProjectsPage' : route.startsWith('/projects/') ? 'ProjectDetailPage' : route.startsWith('/blog/') ? 'BlogPost' : route === '/blog' ? 'BlogList' : null;
   const styles = new Set();
+  const scripts = new Set();
   const visited = new Set();
   const visit = key => {
     if (visited.has(key)) return;
     visited.add(key);
     const item = manifest[key];
     if (!item) return;
+    if (item.file && item.file.endsWith('.js') && !template.includes(item.file)) scripts.add(item.file);
     for (const css of item.css ?? []) if (!template.includes(css)) styles.add(css);
     for (const dependency of item.imports ?? []) visit(dependency);
   };
   if (page) for (const key of Object.keys(manifest)) if (key.endsWith(`/${page}.tsx`)) visit(key);
   const stylesheetLinks = [...styles].map(file => `<link rel="stylesheet" href="/${escape(file)}">`).join('\n');
+  const modulePreloadLinks = [...scripts].map(file => `<link rel="modulepreload" crossorigin href="/${escape(file)}">`).join('\n');
   let pageTemplate = template;
   if (head.includes('property="og:title"')) {
     pageTemplate = pageTemplate.replace(/<meta\s+property="og:title"[^>]*>\s*/gi, '');
@@ -36,7 +39,12 @@ for (const route of routes) {
   if (head.includes('name="twitter:description"')) {
     pageTemplate = pageTemplate.replace(/<meta\s+name="twitter:description"[^>]*>\s*/gi, '');
   }
-  const result = pageTemplate.replace('<!--app-head-->', `${head}\n${stylesheetLinks}`).replace('<div id="root"></div>', `<div id="root" data-prerendered="${escape(route)}">${html}</div>`);
+  pageTemplate = pageTemplate.replace(/(<link\s+rel="stylesheet"[^>]*href="\/assets\/index-[^"]*\.css"[^>]*?)>/i, (match, p1) => {
+    if (p1.includes('fetchpriority')) return match;
+    return `${p1} fetchpriority="high">`;
+  });
+  const injectedHead = [head, stylesheetLinks, modulePreloadLinks].filter(Boolean).join('\n');
+  const result = pageTemplate.replace('<!--app-head-->', injectedHead).replace('<div id="root"></div>', `<div id="root" data-prerendered="${escape(route)}">${html}</div>`);
   const file = path.join('dist', route, 'index.html');
   await mkdir(path.dirname(file), { recursive: true });
   await writeFile(file, result);

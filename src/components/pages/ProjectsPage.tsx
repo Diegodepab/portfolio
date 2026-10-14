@@ -61,7 +61,7 @@ export const ProjectsPage: React.FC = () => {
   ];
 
   return (
-    <motion.main className="projects-page" initial={false} animate={{ opacity: 1 }} transition={{ duration: 0.35 }}>
+    <main className="projects-page">
       <ProjectRouteBackdrop variant="ants" />
 
       <header className="projects-page-hero">
@@ -112,13 +112,13 @@ export const ProjectsPage: React.FC = () => {
           <span>{hasFilters ? (lang === 'en' ? 'Filtered view' : 'Vista filtrada') : (lang === 'en' ? 'Complete index' : 'Índice completo')}</span>
         </div>
 
-        <motion.div layout className="catalog-grid">
-          <AnimatePresence mode="popLayout">
+        <div className="catalog-grid">
+          <AnimatePresence>
             {filteredItems.map(item => {
               const href = item.type === 'post' ? `/blog/${item.blogSlug}` : `/projects/${item.id}`;
               const isInternal = true;
               return (
-                <motion.article key={item.id} id={`project-${item.id}`} layout initial={false} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, scale: 0.96 }} className={`catalog-card${selectedProject === item.id ? ' is-selected' : ''}`}>
+                <motion.article key={item.id} id={`project-${item.id}`} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.18 }} className={`catalog-card${selectedProject === item.id ? ' is-selected' : ''}`}>
                   <ProjectVisual kind={projectVisuals[item.id] ?? 'generic'} label={item.title} />
                   <div className="catalog-card-body">
                     <div className="catalog-card-meta"><span>{item.category ? CATEGORY_LABELS[item.category][lang] : lang === 'en' ? 'Writing' : 'Artículo'}</span><small>{item.company ?? (item.tag === 'professional' ? 'Professional' : 'Independent')}</small></div>
@@ -130,10 +130,10 @@ export const ProjectsPage: React.FC = () => {
               );
             })}
           </AnimatePresence>
-        </motion.div>
+        </div>
 
         {filteredItems.length === 0 && <div className="projects-empty-state"><FiSearch /><h2>{lang === 'en' ? 'No matching projects' : 'No hay proyectos coincidentes'}</h2><p>{lang === 'en' ? 'Try another term or reset the active filters.' : 'Prueba otro término o restablece los filtros activos.'}</p><button type="button" onClick={clearFilters}>{lang === 'en' ? 'Reset explorer' : 'Restablecer explorador'}</button></div>}
       </section>
-    </motion.main>
+    </main>
   );
 };

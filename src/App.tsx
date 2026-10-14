@@ -90,7 +90,7 @@ const ScrollHandler = () => {
   return null;
 };
 
-const SiteMetadata = ({ sprite }: { sprite?: string }) => {
+const SiteMetadata = () => {
   const { lang } = useLanguage();
   const { pathname } = useLocation();
   const project = pathname.startsWith('/projects/') ? featuredProjects.find(project => project.id === pathname.split('/')[2]) : undefined;
@@ -108,7 +108,6 @@ const SiteMetadata = ({ sprite }: { sprite?: string }) => {
       <meta property="og:image" content={`${siteConfig.url}/images/portraits/diego-formal.webp`} />
       <meta name="twitter:card" content="summary_large_image" />
       <link rel="canonical" href={canonicalUrl} />
-      {sprite && <link rel="preload" as="image" href={sprite} />}
     </Helmet>
   );
 };
@@ -183,7 +182,7 @@ function MainApp({ routeOverrides }: { routeOverrides?: RouteOverrides } = {}) {
 
   return (
         <TourProvider>
-        <SiteMetadata sprite={currentPalette.sprite} />
+        <SiteMetadata />
         <ScrollHandler />
         <Layout
           themeName={currentPalette.name}

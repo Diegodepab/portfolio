@@ -64,7 +64,6 @@ export const HeroCollage = () => {
           sizes="(max-width: 480px) 170px, (max-width: 768px) 220px, 250px"
           alt={lang === 'en' ? 'Formal portrait of Diego De Pablo' : 'Retrato formal de Diego De Pablo'}
           loading="eager"
-          fetchPriority="high"
           decoding="async"
           width={446}
           height={594}
