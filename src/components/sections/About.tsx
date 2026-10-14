@@ -14,11 +14,11 @@ import './About.css';
 
 const portraits: Record<'es' | 'en', GalleryImage[]> = {
   es: [
-    { ...imageAssets['/images/portraits/diego-carnet.webp'], sizes: '(max-width: 768px) 300px, 360px', alt: 'Retrato de Diego De Pablo', position: 'center 18%' },
-    { ...imageAssets['/images/portraits/diego-formal.webp'], sizes: '(max-width: 768px) 300px, 360px', alt: 'Diego De Pablo vestido de forma formal', position: 'center 22%' },
+    { ...imageAssets['/images/portraits/diego-carnet.webp'], sizes: '(max-width: 768px) 300px, 360px', alt: 'Diego De Pablo con traje azul y gafas', position: 'center 22%' },
+    { ...imageAssets['/images/portraits/diego-formal.webp'], sizes: '(max-width: 768px) 300px, 360px', alt: 'Diego De Pablo con traje formal', position: 'center 22%' },
   ],
   en: [
-    { ...imageAssets['/images/portraits/diego-carnet.webp'], sizes: '(max-width: 768px) 300px, 360px', alt: 'Portrait of Diego De Pablo', position: 'center 18%' },
+    { ...imageAssets['/images/portraits/diego-carnet.webp'], sizes: '(max-width: 768px) 300px, 360px', alt: 'Diego De Pablo in blue suit with glasses', position: 'center 22%' },
     { ...imageAssets['/images/portraits/diego-formal.webp'], sizes: '(max-width: 768px) 300px, 360px', alt: 'Diego De Pablo in formal attire', position: 'center 22%' },
   ],
 };

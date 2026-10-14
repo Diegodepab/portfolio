@@ -222,10 +222,10 @@ export const imageAssets: Record<string, ResponsiveImageAsset> = {
     }
   },
   "/images/portraits/diego-carnet.webp": {
-    "src": "/images/optimized/portraits-diego-carnet-377.webp",
-    "srcSet": "/images/optimized/portraits-diego-carnet-248.webp 248w, /images/optimized/portraits-diego-carnet-377.webp 377w",
-    "width": 377,
-    "height": 381,
+    "src": "/images/optimized/portraits-diego-carnet-446.webp",
+    "srcSet": "/images/optimized/portraits-diego-carnet-248.webp 248w, /images/optimized/portraits-diego-carnet-446.webp 446w",
+    "width": 1091,
+    "height": 1442,
     "thumbnail": {
       "src": "/images/optimized/portraits-diego-carnet-thumb-50.webp",
       "srcSet": "/images/optimized/portraits-diego-carnet-thumb-50.webp 50w, /images/optimized/portraits-diego-carnet-thumb-100.webp 100w"
