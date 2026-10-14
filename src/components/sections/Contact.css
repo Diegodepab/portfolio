@@ -90,7 +90,6 @@
   font-family: var(--font-mono);
   font-size: .72rem;
   transition:
-    border-color var(--duration-fast),
     background-color var(--duration-fast),
     color var(--duration-fast),
     transform var(--duration-fast);

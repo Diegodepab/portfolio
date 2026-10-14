@@ -33,6 +33,8 @@ export const AntsCursor: React.FC<AntsCursorProps> = ({
     const resolveColor = (): string => {
       if (!color.startsWith('var(')) return color;
       const varName = color.slice(4, -1).trim();
+      const inline = document.documentElement.style.getPropertyValue(varName)?.trim();
+      if (inline) return inline;
       return getComputedStyle(document.documentElement).getPropertyValue(varName).trim() || '#ffffff';
     };
 

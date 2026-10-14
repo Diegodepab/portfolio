@@ -16,7 +16,7 @@ export const Hero = () => {
         <h2 className="hero-statement">{lang === 'es' ? 'Siempre abierto a nuevos proyectos.' : 'Always open to new projects.'}</h2>
         <p className="hero-description">{lang === 'es' ? 'Desarrollo aplicaciones full-stack, ingeniería de datos e IA aplicada, con foco en rendimiento, contenedores y despliegue.' : 'I build full-stack applications, data engineering, and applied AI — focused on performance, containers, and deployment.'}</p>
         <div className="hero-cta">
-          <MetalFx theme="dark" variant="button" preset="silver" strength={0.6} normalizeHostStyles={false}>
+          <MetalFx theme="dark" variant="button" preset="silver" strength={0.6} borderRadius={8} normalizeHostStyles={false}>
             <Button href="#projects" size="lg">{lang === 'es' ? 'Ver mis proyectos' : 'View my projects'} <span aria-hidden="true">↗</span></Button>
           </MetalFx>
         </div>

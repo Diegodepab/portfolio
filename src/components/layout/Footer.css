@@ -47,13 +47,13 @@
 .site-footer__theme-select:hover {
   border-color: var(--color-accent-1);
   background: color-mix(in srgb, var(--color-bg-secondary) 95%, var(--color-accent-1));
-  transition: border-color var(--duration-fast, 0.2s), background-color var(--duration-fast, 0.2s);
+  transition: background-color var(--duration-fast, 0.2s);
 }
 
 .site-footer__theme-select:focus-visible {
   border-color: var(--color-accent-2);
   box-shadow: 0 0 0 2px color-mix(in srgb, var(--color-accent-2) 30%, transparent);
-  transition: border-color var(--duration-fast, 0.2s), background-color var(--duration-fast, 0.2s);
+  transition: background-color var(--duration-fast, 0.2s);
 }
 
 .site-footer__theme-select option {

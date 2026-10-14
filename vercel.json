@@ -39,7 +39,7 @@
     {
       "source": "/ai-catalog\\.json",
       "headers": [
-        { "key": "Content-Type", "value": "application/json; charset=utf-8" },
+        { "key": "Content-Type", "value": "application/ai-catalog+json; charset=utf-8" },
         { "key": "Cache-Control", "value": "public, max-age=86400, stale-while-revalidate=86400" },
         { "key": "Access-Control-Allow-Origin", "value": "*" }
       ]

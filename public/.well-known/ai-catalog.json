@@ -1,17 +1,16 @@
 {
-  "$schema": "https://json-schema.org/draft/2020-12/schema",
   "specVersion": "1.0",
   "host": {
-    "displayName": "Diego De Pablo Portfolio",
+    "displayName": "Diego De Pablo",
     "identifier": "did:web:diegodepablo.is-a.dev",
     "documentationUrl": "https://diegodepablo.is-a.dev/llms.txt",
     "logoUrl": "https://diegodepablo.is-a.dev/images/avatar-pixel.webp"
   },
   "entries": [
     {
-      "identifier": "urn:ai:diegodepablo.is-a.dev:assistant",
+      "identifier": "urn:air:diegodepablo.is-a.dev:portfolio:assistant",
       "displayName": "Diego De Pablo Portfolio AI Assistant",
-      "type": "application/json",
+      "type": "application/agent-card+json",
       "description": "Interactive AI assistant that answers questions about Diego De Pablo's software engineering background, bioinformatics research at Khaos Research, mSurgery telemetry, tech stack, and portfolio projects.",
       "url": "https://diegodepablo.is-a.dev/api/chat",
       "representativeQueries": [
@@ -23,4 +22,3 @@
     }
   ]
 }
-

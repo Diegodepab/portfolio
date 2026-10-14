@@ -48,7 +48,7 @@ export function mountMetal(root: HTMLElement, canvas: HTMLCanvasElement, glow: H
     const cssHeight = root.offsetHeight;
     if (!cssWidth || !cssHeight) return;
     const child = content.firstElementChild ?? root;
-    const radius = options.borderRadius ?? (parseFloat(getComputedStyle(child).borderTopLeftRadius) || 8);
+    const radius = options.borderRadius ?? (parseFloat((child as HTMLElement).style?.borderRadius || '') || parseFloat(getComputedStyle(child).borderTopLeftRadius) || 8);
     const cornerRadius = options.shape === 'circle' ? Math.min(cssWidth, cssHeight) / 2 : Math.min(radius, cssWidth / 2, cssHeight / 2);
     const geometry = `${cssWidth}:${cssHeight}:${cornerRadius}:${options.scale}:${options.shape}`;
     return () => {
