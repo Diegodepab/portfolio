@@ -6,22 +6,11 @@ import { skills } from '../../data/skills';
 import { languages } from '../../data/education';
 import { useLanguage } from '../../context/LanguageContext';
 import { Icon } from '../icons/Icon';
-import { CrossfadeGallery, type GalleryImage } from '../ui/CrossfadeGallery';
-import { CALM_TRANSITION_EFFECTS } from '../ui/image-transitions/effects';
 import { EducationCard } from './EducationCard';
 import { AntsCursor } from '../ui/AntsCursor';
 import './About.css';
 
-const portraits: Record<'es' | 'en', GalleryImage[]> = {
-  es: [
-    { ...imageAssets['/images/portraits/diego-carnet.webp'], sizes: '(max-width: 768px) 300px, 360px', alt: 'Diego De Pablo con traje azul y gafas', position: 'center 22%' },
-    { ...imageAssets['/images/portraits/diego-formal.webp'], sizes: '(max-width: 768px) 300px, 360px', alt: 'Diego De Pablo con traje formal', position: 'center 22%' },
-  ],
-  en: [
-    { ...imageAssets['/images/portraits/diego-carnet.webp'], sizes: '(max-width: 768px) 300px, 360px', alt: 'Diego De Pablo in blue suit with glasses', position: 'center 22%' },
-    { ...imageAssets['/images/portraits/diego-formal.webp'], sizes: '(max-width: 768px) 300px, 360px', alt: 'Diego De Pablo in formal attire', position: 'center 22%' },
-  ],
-};
+const portraitAsset = imageAssets['/images/portraits/diego-carnet.webp'];
 
 export const About: React.FC = () => {
   const { lang } = useLanguage();
@@ -108,14 +97,16 @@ export const About: React.FC = () => {
 
         <div className="about-image">
           <div className="about-image__frame">
-            <CrossfadeGallery
-              images={portraits[lang]}
-              interval={7_000}
-              initialIndex={1}
-              className="about-portrait-gallery"
-              showControls
-              label={lang === 'en' ? 'Choose Diego portrait' : 'Elegir retrato de Diego'}
-              effects={CALM_TRANSITION_EFFECTS}
+            <img
+              src={portraitAsset.src}
+              srcSet={portraitAsset.srcSet}
+              sizes="(max-width: 768px) 300px, 360px"
+              width={portraitAsset.width}
+              height={portraitAsset.height}
+              alt={lang === 'en' ? 'Diego De Pablo in formal suit with glasses' : 'Diego De Pablo con traje formal y gafas'}
+              className="about-image__img"
+              loading="lazy"
+              decoding="async"
             />
             <div className="about-image__tint" aria-hidden="true" />
           </div>

@@ -28,6 +28,7 @@ export interface RouteOverrides {
   BlogList?: React.ComponentType<any>;
   BlogPost?: React.ComponentType<any>;
   NotFoundPage?: React.ComponentType<any>;
+  Experience?: React.ComponentType<any>;
 }
 
 const FAVORITE_PALETTE_CHANCE = 0.4;
@@ -119,6 +120,7 @@ function MainApp({ routeOverrides }: { routeOverrides?: RouteOverrides } = {}) {
   const ResolvedBlogList = routeOverrides?.BlogList ?? BlogList;
   const ResolvedBlogPost = routeOverrides?.BlogPost ?? BlogPost;
   const ResolvedNotFoundPage = routeOverrides?.NotFoundPage ?? NotFoundPage;
+  const ResolvedExperience = routeOverrides?.Experience ?? ExperienceSection;
 
   const [currentPalette, setCurrentPalette] = useState<Palette>(DEFAULT_PALETTE);
   const [enhanced, setEnhanced] = useState(false);
@@ -187,7 +189,7 @@ function MainApp({ routeOverrides }: { routeOverrides?: RouteOverrides } = {}) {
               <Route path="/projects" element={<ResolvedProjectsPage />} />
               <Route path="/projects/circlescope" element={<Navigate to="/projects/instagram-epic-tool" replace />} />
               <Route path="/projects/:id" element={<ResolvedProjectDetailPage />} />
-              <Route path="/experience" element={<main><Suspense fallback={null}><ExperienceSection /></Suspense></main>} />
+              <Route path="/experience" element={<main><Suspense fallback={null}><ResolvedExperience /></Suspense></main>} />
               <Route path="/blog" element={<main><ResolvedBlogList /></main>} />
               <Route path="/blog/:slug" element={<main><ResolvedBlogPost /></main>} />
               <Route path="*" element={<ResolvedNotFoundPage />} />

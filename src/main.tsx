@@ -15,7 +15,10 @@ async function bootstrap() {
   const routeOverrides: RouteOverrides = {};
   if (root.dataset.prerendered && prerenderedPath === currentPath) {
     try {
-      if (currentPath === '/projects') {
+      if (currentPath === '/') {
+        const mod = await import('./components/pages/HomePage');
+        routeOverrides.HomePage = mod.HomePage;
+      } else if (currentPath === '/projects') {
         const mod = await import('./components/pages/ProjectsPage');
         routeOverrides.ProjectsPage = mod.ProjectsPage;
       } else if (currentPath.startsWith('/projects/')) {
@@ -27,13 +30,18 @@ async function bootstrap() {
       } else if (currentPath.startsWith('/blog/')) {
         const mod = await import('./components/blog/BlogPost');
         routeOverrides.BlogPost = mod.BlogPost;
+      } else if (currentPath === '/experience') {
+        const mod = await import('./components/sections/Experience');
+        routeOverrides.Experience = mod.Experience;
       }
     } catch (error) {
       const FailedRoute = () => { throw error; };
-      if (currentPath === '/projects') routeOverrides.ProjectsPage = FailedRoute;
+      if (currentPath === '/') routeOverrides.HomePage = FailedRoute;
+      else if (currentPath === '/projects') routeOverrides.ProjectsPage = FailedRoute;
       else if (currentPath.startsWith('/projects/')) routeOverrides.ProjectDetailPage = FailedRoute;
       else if (currentPath === '/blog') routeOverrides.BlogList = FailedRoute;
       else if (currentPath.startsWith('/blog/')) routeOverrides.BlogPost = FailedRoute;
+      else if (currentPath === '/experience') routeOverrides.Experience = FailedRoute;
     }
   }
 

@@ -12,6 +12,7 @@ import { ProjectDetailPage } from './components/pages/ProjectDetailPage';
 import { BlogList } from './components/blog/BlogList';
 import { BlogPost } from './components/blog/BlogPost';
 import { NotFoundPage } from './components/pages/NotFoundPage';
+import { Experience } from './components/sections/Experience';
 
 export const siteUrl = siteConfig.url;
 export const routes = ['/', '/projects', '/experience', '/blog', ...featuredProjects.map(project => `/projects/${project.id}`), ...getAllPosts().map(post => `/blog/${post.slug}`)];
@@ -23,6 +24,7 @@ const serverRoutes: RouteOverrides = {
   BlogList,
   BlogPost,
   NotFoundPage,
+  Experience,
 };
 
 export async function render(url: string) {

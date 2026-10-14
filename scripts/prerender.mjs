@@ -7,7 +7,7 @@ const manifest = JSON.parse(await readFile('dist/.vite/manifest.json', 'utf8'));
 const escape = value => value.replaceAll('&', '&amp;').replaceAll('"', '&quot;').replaceAll('<', '&lt;').replaceAll('>', '&gt;');
 for (const route of routes) {
   const { html, head } = await render(route);
-  const page = route === '/' ? 'HomePage' : route === '/projects' ? 'ProjectsPage' : route.startsWith('/projects/') ? 'ProjectDetailPage' : route.startsWith('/blog/') ? 'BlogPost' : route === '/blog' ? 'BlogList' : null;
+  const page = route === '/' ? 'HomePage' : route === '/projects' ? 'ProjectsPage' : route === '/experience' ? 'Experience' : route.startsWith('/projects/') ? 'ProjectDetailPage' : route.startsWith('/blog/') ? 'BlogPost' : route === '/blog' ? 'BlogList' : null;
   const styles = new Set();
   const scripts = new Set();
   const visited = new Set();
