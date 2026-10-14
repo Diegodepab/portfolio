@@ -20,7 +20,23 @@ for (const route of routes) {
   };
   if (page) for (const key of Object.keys(manifest)) if (key.endsWith(`/${page}.tsx`)) visit(key);
   const stylesheetLinks = [...styles].map(file => `<link rel="stylesheet" href="/${escape(file)}">`).join('\n');
-  const result = template.replace('<!--app-head-->', `${head}\n${stylesheetLinks}`).replace('<div id="root"></div>', `<div id="root" data-prerendered="${escape(route)}">${html}</div>`);
+  let pageTemplate = template;
+  if (head.includes('property="og:title"')) {
+    pageTemplate = pageTemplate.replace(/<meta\s+property="og:title"[^>]*>\s*/gi, '');
+  }
+  if (head.includes('property="og:description"')) {
+    pageTemplate = pageTemplate.replace(/<meta\s+property="og:description"[^>]*>\s*/gi, '');
+  }
+  if (head.includes('name="description"')) {
+    pageTemplate = pageTemplate.replace(/<meta\s+name="description"[^>]*>\s*/gi, '');
+  }
+  if (head.includes('name="twitter:title"')) {
+    pageTemplate = pageTemplate.replace(/<meta\s+name="twitter:title"[^>]*>\s*/gi, '');
+  }
+  if (head.includes('name="twitter:description"')) {
+    pageTemplate = pageTemplate.replace(/<meta\s+name="twitter:description"[^>]*>\s*/gi, '');
+  }
+  const result = pageTemplate.replace('<!--app-head-->', `${head}\n${stylesheetLinks}`).replace('<div id="root"></div>', `<div id="root" data-prerendered="${escape(route)}">${html}</div>`);
   const file = path.join('dist', route, 'index.html');
   await mkdir(path.dirname(file), { recursive: true });
   await writeFile(file, result);

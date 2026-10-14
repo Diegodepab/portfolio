@@ -65,7 +65,7 @@ test('closing chat restores focus and cancels pending heuristic navigation', asy
 test('palette and the manual effects preference persist on reload', async ({ page }) => {
   await page.goto('/');
   await page.locator('.pokemon-trigger:visible').first().click();
-  const palette = await page.evaluate(() => localStorage.getItem('portfolio-palette'));
+  const palette = await page.evaluate(() => sessionStorage.getItem('portfolio-palette'));
   await page.locator('.effects-toggle').click();
   await page.reload();
   await expect(page.locator('.site-footer__theme')).toContainText(palette!);
@@ -87,14 +87,15 @@ test('project media loads YouTube only after choosing to play', async ({ page })
   const requests: string[] = [];
   page.on('request', request => requests.push(request.url()));
   await page.goto('/projects/tfg-patient-monitoring');
-  await expect(page.locator('.video-preview button')).toBeVisible();
+  await expect(page.locator('.video-preview button').first()).toBeVisible();
   expect(requests.some(url => /youtube\.com|youtube-nocookie\.com/.test(url))).toBe(false);
   await page.route('https://www.youtube-nocookie.com/**', route => route.fulfill({ body: '<html></html>', contentType: 'text/html' }));
-  await page.locator('.video-preview button').click();
-  await expect(page.locator('.video-preview iframe')).toHaveAttribute('src', /youtube-nocookie\.com\/embed\//);
+  await page.locator('.video-preview button').first().click();
+  await expect(page.locator('.video-preview iframe').first()).toHaveAttribute('src', /youtube-nocookie\.com\/embed\//);
 });
 
 test('resume button alternates href between standard and photo versions on click', async ({ page }) => {
+  await page.addInitScript(() => localStorage.setItem('portfolio-language', 'es'));
   await page.goto('/');
   const resumeBtn = page.locator('.resume-button');
   await expect(resumeBtn).toHaveAttribute('href', '/cv_DiegoDePablo_es.pdf');
@@ -112,5 +113,26 @@ test('resume button alternates href between standard and photo versions on click
   ]);
   await popup2.close();
   await expect(resumeBtn).toHaveAttribute('href', '/cv_DiegoDePablo_es.pdf');
+});
+
+test('resume button alternates href for english locale on click', async ({ page }) => {
+  await page.addInitScript(() => localStorage.setItem('portfolio-language', 'en'));
+  await page.goto('/');
+  const resumeBtn = page.locator('.resume-button');
+  await expect(resumeBtn).toHaveAttribute('href', '/cv_DiegoDePablo_en.pdf');
+
+  const [popup1] = await Promise.all([
+    page.waitForEvent('popup'),
+    resumeBtn.click(),
+  ]);
+  await popup1.close();
+  await expect(resumeBtn).toHaveAttribute('href', '/cv_DiegoDePablo_en_photo.pdf');
+
+  const [popup2] = await Promise.all([
+    page.waitForEvent('popup'),
+    resumeBtn.click(),
+  ]);
+  await popup2.close();
+  await expect(resumeBtn).toHaveAttribute('href', '/cv_DiegoDePablo_en.pdf');
 });
 
