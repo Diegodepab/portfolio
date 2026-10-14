@@ -5,8 +5,8 @@ import { imageAssets } from '../src/data/imageAssets';
 describe('Project detail data integrity', () => {
   it('validates tfg-patient-monitoring rich configuration', () => {
     const tfg = featuredProjects.find(p => p.id === 'tfg-patient-monitoring');
-    expect(tfg).toBeDefined();
-    expect(tfg?.awardBadge?.es).toContain('Matrícula de Honor');
+    expect(tfg?.awardBadge?.es).toContain('Hardware biomédico');
+    expect(tfg?.stats?.some(s => s.subtext?.es.includes('Matrícula de Honor'))).toBe(true);
     expect(tfg?.stats?.length).toBeGreaterThanOrEqual(4);
     expect(tfg?.architectureType).toBe('iot-telemetry');
     expect(tfg?.sections?.length).toBe(4);

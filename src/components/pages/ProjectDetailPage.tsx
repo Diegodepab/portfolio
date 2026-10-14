@@ -88,7 +88,8 @@ export const ProjectDetailPage: React.FC = () => {
             </span>
             {project.awardBadge && (
               <span className="project-detail-award">
-                <FiAward /> {project.awardBadge[lang]}
+                {project.id === 'tfg-patient-monitoring' ? <FiLayers aria-hidden="true" /> : project.id === 'landcoverpy' ? <FiFileText aria-hidden="true" /> : <FiAward aria-hidden="true" />}
+                <span>{project.awardBadge[lang]}</span>
               </span>
             )}
           </div>

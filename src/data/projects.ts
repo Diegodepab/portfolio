@@ -66,8 +66,8 @@ export const featuredProjects: Project[] = [
     category: 'use-case',
     github: 'https://github.com/Diegodepab/TFG_Pulsera_Seguimiento_Pacientes_Avanzada_Edad',
     awardBadge: {
-      en: '🏆 10.0 / 10 · Honours Degree Award (BSc Thesis in Bioinformatics, UMA)',
-      es: '🏆 10,0 / 10 · Matrícula de Honor (TFG Bioinformática, Univ. de Málaga)',
+      en: 'Biomedical Hardware · Database Connectivity · Clinical Platform & Patient Management',
+      es: 'Hardware biomédico · Conexión a base de datos · Plataforma clínica y gestión de pacientes',
     },
     stats: [
       {
@@ -578,8 +578,8 @@ export const featuredProjects: Project[] = [
     github: 'https://github.com/KhaosResearch/landcoverpy',
     link: 'https://doi.org/10.1186/s40537-023-00770-z',
     awardBadge: {
-      en: '📄 Published in Springer Nature Journal of Big Data (DOI: 10.1186/s40537-023-00770-z)',
-      es: '📄 Publicado en Journal of Big Data · Springer Nature (DOI: 10.1186/s40537-023-00770-z)',
+      en: 'Published in Springer Nature Journal of Big Data (DOI: 10.1186/s40537-023-00770-z)',
+      es: 'Publicado en Journal of Big Data · Springer Nature (DOI: 10.1186/s40537-023-00770-z)',
     },
     stats: [
       {
