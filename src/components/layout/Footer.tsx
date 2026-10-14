@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { socialLinks } from '../../data/config';
+import { socialLinks, siteConfig } from '../../data/config';
 import { Icon } from '../icons/Icon';
 import './Footer.css';
 import { useLanguage } from '../../context/LanguageContext';
@@ -41,6 +41,9 @@ export const Footer: React.FC<FooterProps> = ({
   return (
     <footer className="site-footer">
       <div className="social-links-mobile">
+        <a href={`mailto:${siteConfig.email}`} aria-label="Email">
+          <Icon name="mail" size={20} ariaHidden />
+        </a>
         {socialLinks.map((link) => (
           <a key={link.name} href={link.url} target="_blank" rel="noopener noreferrer" aria-label={link.name}>
             <Icon name={link.icon} size={20} ariaHidden />

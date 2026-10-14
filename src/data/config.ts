@@ -40,7 +40,7 @@ export const socialLinks: SocialLink[] = [
     icon: 'Github',
   },
   {
-    name: 'Linkedin',
+    name: 'LinkedIn',
     url: 'https://www.linkedin.com/in/diego-de-pablo/',
     icon: 'Linkedin',
   },

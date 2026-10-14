@@ -54,7 +54,7 @@ export const SideElements: React.FC<SideElementsProps> = ({ pokemon, onPokemonCh
 
   return (
     <>
-      {/* Left side: Social Links */}
+      {/* Left side: Social & Contact Links */}
       <div className="side-elements side-elements-left">
         <ul className="side-list">
           <motion.li
@@ -63,6 +63,15 @@ export const SideElements: React.FC<SideElementsProps> = ({ pokemon, onPokemonCh
             animate={{ scaleY: 1 }}
             transition={{ delay: 0.65, duration: 0.6 }}
           />
+          <motion.li
+            initial={shouldReduceMotion ? false : { opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.9 }}
+          >
+            <a href={`mailto:${siteConfig.email}`} className="side-social-link" aria-label="Email">
+              <Icon name="mail" size={20} />
+            </a>
+          </motion.li>
           {socialLinks.map((link, i) => (
             <motion.li 
               key={link.name}
@@ -79,47 +88,17 @@ export const SideElements: React.FC<SideElementsProps> = ({ pokemon, onPokemonCh
             className="side-line side-line-divider"
             initial={shouldReduceMotion ? false : { scaleY: 0 }}
             animate={{ scaleY: 1 }}
-            transition={{ delay: 1 + ((socialLinks.length + 1) * 0.1), duration: 0.5 }}
+            transition={{ delay: 1 + ((socialLinks.length + 2) * 0.1), duration: 0.5 }}
           />
           <motion.li
             className="side-pokemon"
             initial={shouldReduceMotion ? false : { opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 1 + (socialLinks.length * 0.1) }}
+            transition={{ delay: 1 + ((socialLinks.length + 1) * 0.1) }}
           >
             <PokemonButton pokemon={pokemon} onPokemonChange={onPokemonChange} />
           </motion.li>
         </ul>
-      </div>
-
-      {/* Right side: Email */}
-      <div className="side-elements side-elements-right">
-        <div className="side-email-wrap">
-          <motion.div
-            className="side-line side-email-line"
-            initial={shouldReduceMotion ? false : { scaleY: 0 }}
-            animate={{ scaleY: 1 }}
-            transition={{ delay: 0.75, duration: 0.5 }}
-          />
-          <motion.div
-            initial={shouldReduceMotion ? false : { opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 1 }}
-          >
-            <a 
-              href={`mailto:${siteConfig.email}`} 
-              className="side-email"
-            >
-              {siteConfig.email}
-            </a>
-          </motion.div>
-          <motion.div 
-            className="side-line side-email-line"
-            initial={shouldReduceMotion ? false : { scaleY: 0 }}
-            animate={{ scaleY: 1 }}
-            transition={{ delay: 1.1, duration: 0.5 }}
-          />
-        </div>
       </div>
 
 
