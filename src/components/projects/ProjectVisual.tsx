@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 import { useEffectVisibility } from '../../performance/useVisualEffects';
-import { FiShield, FiTool, FiCpu, FiCheckCircle, FiSearch, FiDatabase, FiLayers } from 'react-icons/fi';
+import { FiShield, FiTool, FiCpu, FiCheckCircle, FiSearch, FiDatabase, FiLayers, FiGlobe } from 'react-icons/fi';
 import { Icon } from '../icons/Icon';
 import { useLanguage } from '../../context/LanguageContext';
 import { ThinkingOrb } from '../ui/thinking-orbs/ThinkingOrb';
@@ -427,42 +427,75 @@ export const ProjectVisual: React.FC<ProjectVisualProps> = ({ kind = 'generic', 
           </div>
         </div>
       ) : kind === 'edaan' ? (
-        <div className="project-visual-edaan">
-          <svg className="edaan-connections" viewBox="0 0 100 100" preserveAspectRatio="none">
-            <path d="M 15 50 C 30 50, 35 50, 50 50" className="edaan-line edaan-line--1" />
-            <path d="M 85 25 C 65 25, 65 50, 50 50" className="edaan-line edaan-line--2" />
-            <path d="M 85 75 C 65 75, 65 50, 50 50" className="edaan-line edaan-line--3" />
-          </svg>
-          
-          <div className="edaan-sys edaan-sys--prov" style={{ top: '50%', left: '15%' }}>
-            <Icon name="database" size={12} />
-            <span>AgriData</span>
-            <div className="edaan-plug">IDS</div>
+        <div className="project-visual-edaan-lifecycle">
+          <div className="dataspace-flow-header">
+            <span className="dataspace-flow-tag">
+              <FiGlobe size={11} /> {lang === 'en' ? 'Data Space Lifecycle' : 'Ciclo de Vida del Espacio de Datos'}
+            </span>
+            <span className="dataspace-flow-badge">
+              {lang === 'en' ? 'Sovereign P2P Mesh' : 'Malla Soberana P2P'}
+            </span>
           </div>
 
-          <div className="edaan-sys edaan-sys--cons1" style={{ top: '25%', left: '85%' }}>
-            <div className="edaan-plug">IDS</div>
-            <span>Analytics</span>
-            <Icon name="activity" size={12} />
-          </div>
-
-          <div className="edaan-sys edaan-sys--cons2" style={{ top: '75%', left: '85%' }}>
-            <div className="edaan-plug">IDS</div>
-            <span>GovApp</span>
-            <Icon name="layout" size={12} />
-          </div>
-
-          <div className="edaan-broker-node" style={{ top: '50%', left: '50%' }}>
-            <Icon name="globe" size={16} />
-            <div className="edaan-broker-rings" />
-            <span>MDS Broker</span>
-          </div>
-
-          <div className="edaan-status">
-            <div className="edaan-status-bar">
-               <span className="edaan-status-indicator" />
-               <small>Federated Network Active</small>
+          <div className="dataspace-flow-track">
+            {/* Stage 1: Raw Ingest */}
+            <div className="dataspace-flow-step step-raw">
+              <span className="step-num">01</span>
+              <div className="step-icon-box"><FiDatabase size={13} /></div>
+              <strong>{lang === 'en' ? 'Raw Dataset' : 'Dato Bruto'}</strong>
+              <small>GeoTIFF · NetCDF · Parquet</small>
             </div>
+
+            {/* Pulse Connector 1 */}
+            <div className="dataspace-flow-connector">
+              <div className="connector-line line-1" />
+              <div className="connector-pulse pulse-1" />
+            </div>
+
+            {/* Stage 2: MetaDataXtract */}
+            <div className="dataspace-flow-step step-extract">
+              <span className="step-num">02</span>
+              <div className="step-icon-box"><FiCpu size={13} /></div>
+              <strong>MetaDataXtract</strong>
+              <small>DCAT-AP v2 · AGROVOC</small>
+            </div>
+
+            {/* Pulse Connector 2 */}
+            <div className="dataspace-flow-connector">
+              <div className="connector-line line-2" />
+              <div className="connector-pulse pulse-2" />
+            </div>
+
+            {/* Stage 3: ÁGORA / EDAAN */}
+            <div className="dataspace-flow-step step-sovereign">
+              <span className="step-num">03</span>
+              <div className="step-icon-box"><FiShield size={13} /></div>
+              <strong>ÁGORA / EDAAN</strong>
+              <small>ODRL 2.2 · Conector EDC</small>
+            </div>
+
+            {/* Pulse Connector 3 */}
+            <div className="dataspace-flow-connector">
+              <div className="connector-line line-3" />
+              <div className="connector-pulse pulse-3" />
+            </div>
+
+            {/* Stage 4: metadataSearchTool */}
+            <div className="dataspace-flow-step step-search">
+              <span className="step-num">04</span>
+              <div className="step-icon-box"><FiSearch size={13} /></div>
+              <strong>Pydantic AI</strong>
+              <small>{lang === 'en' ? 'RRF Search · Citations' : 'Búsqueda RRF · Citación'}</small>
+            </div>
+          </div>
+
+          <div className="dataspace-flow-status">
+            <span className="dataspace-flow-dot" />
+            <small>
+              {lang === 'en'
+                ? 'Zero data leakage · Bilateral contracts enforce sovereign transfer'
+                : 'Cero fugas de datos · Contratos bilaterales garantizan transferencia soberana'}
+            </small>
           </div>
         </div>
       ) : kind === 'circlescope' ? (

@@ -364,24 +364,24 @@ export const featuredProjects: Project[] = [
     },
     stats: [
       {
-        label: { en: 'Supported Formats', es: 'Formatos Soportados' },
-        value: '30+',
-        subtext: { en: 'Geospatial, Raster, Tabular, RDF', es: 'Geoespacial, Ráster, Tablas, RDF' },
+        label: { en: 'Federated Ecosystem', es: 'Ecosistema Federado' },
+        value: '3 Repos',
+        subtext: { en: 'Ingestion · Sovereignty · AI Discovery', es: 'Ingesta · Soberanía · Búsqueda IA' },
       },
       {
-        label: { en: 'Semantic Standard', es: 'Estándar Semántico' },
+        label: { en: 'Sovereign Governance', es: 'Gobernanza Soberana' },
+        value: 'ODRL + EDC',
+        subtext: { en: 'Bilateral Contracts · P2P Transfers', es: 'Contratos Bilaterales · Conector EDC' },
+      },
+      {
+        label: { en: 'Semantic Interoperability', es: 'Interoperabilidad Semántica' },
         value: 'DCAT-AP v2',
         subtext: { en: 'UNE 0087:2025 · AGROVOC · EuroVoc', es: 'UNE 0087:2025 · AGROVOC · EuroVoc' },
       },
       {
         label: { en: 'Discovery Engine', es: 'Motor de Búsqueda' },
         value: 'Híbrido RRF',
-        subtext: { en: 'Qdrant (Vectors) + Elasticsearch', es: 'Qdrant (Vectores) + Elasticsearch' },
-      },
-      {
-        label: { en: 'Autonomous Assistant', es: 'Asistencia IA' },
-        value: 'Pydantic AI',
-        subtext: { en: 'Graph Navigation & Ingestion', es: 'Navegación e Inferencia en Grafo' },
+        subtext: { en: 'Qdrant (Vectors) + Elasticsearch + Pydantic AI', es: 'Qdrant (Vectores) + Elasticsearch + Pydantic AI' },
       },
     ],
     architectureType: 'metadata-pipeline',
