@@ -695,102 +695,150 @@
   border: 1px solid color-mix(in srgb, var(--color-accent-2) 28%, transparent);
 }
 
-.dataspace-flow-track {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 4px;
+.dataspace-grid-flow {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 12px 16px;
   width: 100%;
-  margin: auto 0;
+  height: 100%;
+  max-width: 320px;
+  max-height: 190px;
+  margin: auto;
+  align-items: center;
+  justify-items: center;
 }
 
-.dataspace-flow-step {
-  flex: 1;
+.dataspace-grid-center-hub {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.hub-pulse-ring {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 1px dashed color-mix(in srgb, var(--color-accent-1) 35%, transparent);
+  animation: hub-spin 20s linear infinite;
+  background: color-mix(in srgb, var(--color-bg-primary) 90%, transparent);
+}
+
+.hub-label {
+  position: absolute;
+  font-size: 0.36rem;
+  color: var(--color-accent-1);
+  text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.dataspace-grid-node {
+  width: 100%;
+  height: 100%;
+  min-height: 64px;
+  background: color-mix(in srgb, var(--color-bg-primary) 88%, transparent);
+  border: 1px solid color-mix(in srgb, var(--color-accent-3) 24%, transparent);
+  border-radius: 8px;
+  padding: 6px 9px;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  text-align: center;
-  padding: 6px 4px;
-  border-radius: 8px;
-  background: color-mix(in srgb, var(--color-bg-primary) 85%, transparent);
-  border: 1px solid color-mix(in srgb, var(--color-accent-3) 22%, transparent);
+  justify-content: center;
   position: relative;
+  z-index: 3;
   transition: transform 0.2s ease, border-color 0.2s ease;
 }
 
-.dataspace-flow-step .step-num {
-  position: absolute;
-  top: 3px;
-  right: 5px;
-  font-size: 0.44rem;
-  color: var(--color-text-muted);
-  font-weight: 700;
+.dataspace-grid-node:hover {
+  transform: scale(1.02);
 }
 
-.dataspace-flow-step .step-icon-box {
-  width: 26px;
-  height: 26px;
-  border-radius: 6px;
+.grid-node-head {
   display: flex;
   align-items: center;
-  justify-content: center;
-  margin-bottom: 4px;
-  background: var(--color-bg-secondary);
+  justify-content: space-between;
+  margin-bottom: 2px;
 }
 
-.step-raw .step-icon-box { color: var(--color-accent-3); border: 1px solid color-mix(in srgb, var(--color-accent-3) 35%, transparent); }
-.step-extract .step-icon-box { color: #38bdf8; border: 1px solid color-mix(in srgb, #38bdf8 35%, transparent); }
-.step-sovereign .step-icon-box { color: #10b981; border: 1px solid color-mix(in srgb, #10b981 35%, transparent); }
-.step-search .step-icon-box { color: #a855f7; border: 1px solid color-mix(in srgb, #a855f7 35%, transparent); }
-
-.dataspace-flow-step strong {
-  font-size: 0.58rem;
-  color: var(--color-text-heading);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  max-width: 100%;
-}
-
-.dataspace-flow-step small {
+.node-step {
   font-size: 0.44rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+}
+
+.node-raw .node-step, .node-raw .node-icon { color: var(--color-accent-3); }
+.node-raw { border-color: color-mix(in srgb, var(--color-accent-3) 30%, transparent); }
+
+.node-extract .node-step, .node-extract .node-icon { color: #38bdf8; }
+.node-extract { border-color: color-mix(in srgb, #38bdf8 30%, transparent); }
+
+.node-sphere .node-step, .node-sphere .node-icon { color: #10b981; }
+.node-sphere { border-color: color-mix(in srgb, #10b981 30%, transparent); }
+
+.node-search .node-step, .node-search .node-icon { color: #a855f7; }
+.node-search { border-color: color-mix(in srgb, #a855f7 30%, transparent); }
+
+.dataspace-grid-node strong {
+  font-size: 0.62rem;
+  color: var(--color-text-heading);
+  line-height: 1.2;
+}
+
+.dataspace-grid-node small {
+  font-size: 0.42rem;
   color: var(--color-text-muted);
   line-height: 1.2;
   margin-top: 2px;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
 }
 
-.dataspace-flow-connector {
+/* Directional Connectors between the 4 nodes */
+.grid-connector {
+  position: absolute;
+  z-index: 4;
+  pointer-events: none;
   display: flex;
   align-items: center;
   justify-content: center;
-  position: relative;
-  width: 18px;
-  flex: 0 0 18px;
 }
 
-.connector-line {
-  width: 100%;
-  height: 2px;
-  background: color-mix(in srgb, var(--color-accent-3) 30%, transparent);
+.conn-arrow {
+  font-size: 0.65rem;
+  color: var(--color-accent-1);
+  opacity: 0.85;
 }
 
-.connector-pulse {
-  position: absolute;
-  width: 5px;
-  height: 5px;
-  border-radius: 50%;
-  background: var(--color-accent-1);
-  box-shadow: 0 0 6px var(--color-accent-1);
-  animation: lc-pulse-flow 2.4s ease-in-out infinite;
+.conn-top {
+  top: calc(25% - 8px);
+  left: 50%;
+  transform: translateX(-50%);
 }
 
-.pulse-1 { animation-delay: 0s; }
-.pulse-2 { animation-delay: 0.8s; }
-.pulse-3 { animation-delay: 1.6s; }
+.conn-right {
+  top: 50%;
+  right: calc(25% - 8px);
+  transform: translateY(-50%);
+}
+
+.conn-bottom {
+  bottom: calc(25% - 8px);
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.conn-left {
+  top: 50%;
+  left: calc(25% - 8px);
+  transform: translateY(-50%);
+}
 
 .dataspace-flow-status {
   display: flex;
@@ -820,10 +868,9 @@
   letter-spacing: 0.02em;
 }
 
-@keyframes lc-pulse-flow {
-  0% { left: 0%; opacity: 0.2; transform: scale(0.8); }
-  50% { opacity: 1; transform: scale(1.2); }
-  100% { left: 80%; opacity: 0.2; transform: scale(0.8); }
+@keyframes hub-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
 }
 
 @keyframes edaan-blink {

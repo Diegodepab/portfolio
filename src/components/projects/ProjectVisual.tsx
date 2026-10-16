@@ -430,62 +430,83 @@ export const ProjectVisual: React.FC<ProjectVisualProps> = ({ kind = 'generic', 
         <div className="project-visual-edaan-lifecycle">
           <div className="dataspace-flow-header">
             <span className="dataspace-flow-tag">
-              <FiGlobe size={11} /> {lang === 'en' ? 'Data Space Lifecycle' : 'Ciclo de Vida del Espacio de Datos'}
+              <FiGlobe size={11} /> {lang === 'en' ? 'Data Space Architecture' : 'Arquitectura del Espacio de Datos'}
             </span>
             <span className="dataspace-flow-badge">
               {lang === 'en' ? 'Sovereign P2P Mesh' : 'Malla Soberana P2P'}
             </span>
           </div>
 
-          <div className="dataspace-flow-track">
-            {/* Stage 1: Raw Ingest */}
-            <div className="dataspace-flow-step step-raw">
-              <span className="step-num">01</span>
-              <div className="step-icon-box"><FiDatabase size={13} /></div>
-              <strong>{lang === 'en' ? 'Raw Dataset' : 'Dato Bruto'}</strong>
-              <small>GeoTIFF · NetCDF · Parquet</small>
+          {/* 2x2 Cyclical Flywheel Grid */}
+          <div className="dataspace-grid-flow">
+            {/* Center Sovereign Hub */}
+            <div className="dataspace-grid-center-hub">
+              <div className="hub-pulse-ring" />
+              <span className="hub-label">Sovereignty Mesh</span>
             </div>
 
-            {/* Pulse Connector 1 */}
-            <div className="dataspace-flow-connector">
-              <div className="connector-line line-1" />
-              <div className="connector-pulse pulse-1" />
+            {/* Stage 1: Raw Data Ingest (Top-Left) */}
+            <div className="dataspace-grid-node node-raw">
+              <div className="grid-node-head">
+                <span className="node-step">01. INGEST</span>
+                <FiDatabase size={13} className="node-icon" />
+              </div>
+              <strong>{lang === 'en' ? 'Raw Datasets' : 'Dato Bruto'}</strong>
+              <small>+14 Familias · Tablas, Ráster, Audio, Código</small>
             </div>
 
-            {/* Stage 2: MetaDataXtract */}
-            <div className="dataspace-flow-step step-extract">
-              <span className="step-num">02</span>
-              <div className="step-icon-box"><FiCpu size={13} /></div>
+            {/* Connector Top: 1 -> 2 */}
+            <div className="grid-connector conn-top">
+              <span className="conn-arrow">→</span>
+              <span className="conn-beam beam-h" />
+            </div>
+
+            {/* Stage 2: MetaDataXtract (Top-Right) */}
+            <div className="dataspace-grid-node node-extract">
+              <div className="grid-node-head">
+                <span className="node-step">02. EXTRACT</span>
+                <FiCpu size={13} className="node-icon" />
+              </div>
               <strong>MetaDataXtract</strong>
-              <small>DCAT-AP v2 · AGROVOC</small>
+              <small>Extracción Determinista + LLM & DCAT-AP</small>
             </div>
 
-            {/* Pulse Connector 2 */}
-            <div className="dataspace-flow-connector">
-              <div className="connector-line line-2" />
-              <div className="connector-pulse pulse-2" />
+            {/* Connector Right: 2 -> 3 */}
+            <div className="grid-connector conn-right">
+              <span className="conn-arrow">↓</span>
+              <span className="conn-beam beam-v" />
             </div>
 
-            {/* Stage 3: ÁGORA / EDAAN */}
-            <div className="dataspace-flow-step step-sovereign">
-              <span className="step-num">03</span>
-              <div className="step-icon-box"><FiShield size={13} /></div>
+            {/* Stage 3: ÁGORA Data Sphere (Bottom-Right) */}
+            <div className="dataspace-grid-node node-sphere">
+              <div className="grid-node-head">
+                <span className="node-step">03. GOVERN</span>
+                <FiShield size={13} className="node-icon" />
+              </div>
               <strong>ÁGORA / EDAAN</strong>
-              <small>ODRL 2.2 · Conector EDC</small>
+              <small>Políticas ODRL 2.2 · Conector EDC</small>
             </div>
 
-            {/* Pulse Connector 3 */}
-            <div className="dataspace-flow-connector">
-              <div className="connector-line line-3" />
-              <div className="connector-pulse pulse-3" />
+            {/* Connector Bottom: 3 -> 4 */}
+            <div className="grid-connector conn-bottom">
+              <span className="conn-arrow">←</span>
+              <span className="conn-beam beam-h-rev" />
             </div>
 
-            {/* Stage 4: metadataSearchTool */}
-            <div className="dataspace-flow-step step-search">
-              <span className="step-num">04</span>
-              <div className="step-icon-box"><FiSearch size={13} /></div>
-              <strong>Pydantic AI</strong>
-              <small>{lang === 'en' ? 'RRF Search · Citations' : 'Búsqueda RRF · Citación'}</small>
+            {/* Stage 4: MetadataSearch (Bottom-Left) */}
+            <div className="dataspace-grid-node node-search">
+              <div className="grid-node-head">
+                <span className="node-step">04. DISCOVER</span>
+                <FiSearch size={13} className="node-icon" />
+              </div>
+              <strong>MetadataSearch</strong>
+              <small>{lang === 'en' ? 'Hybrid RRF & AI Discovery' : 'Fusión Híbrida RRF e IA'}</small>
+            </div>
+
+            {/* Connector Left: 4 -> 1 */}
+            <div className="grid-connector conn-left">
+              <span className="conn-arrow">↑</span>
+              <span className="conn-beam beam-v-rev" />
             </div>
           </div>
 
