@@ -3,7 +3,7 @@ import { useEffectVisibility } from '../../performance/useVisualEffects';
 import React, { useEffect, useRef, useState } from 'react';
 import {
   FiBox, FiActivity, FiSearch, FiTool, FiCpu,
-  FiGitMerge, FiGlobe, FiUsers, FiLayers, FiZap,
+  FiGitMerge, FiGlobe, FiLayers, FiZap,
 } from 'react-icons/fi';
 import { useLanguage } from '../../context/LanguageContext';
 
@@ -16,29 +16,29 @@ interface OrreryProject {
 }
 
 const PROJECTS_EN: OrreryProject[] = [
-  { id: 'kubernetes-platform', label: 'K8s',       icon: <FiBox size={14} /> },
-  { id: 'tfg-patient-monitoring', label: 'IoT',    icon: <FiActivity size={14} /> },
-  { id: 'metadataxtract', label: 'MXtract',        icon: <FiTool size={14} /> },
-  { id: 'metadatasearch', label: 'MSearch',         icon: <FiSearch size={14} /> },
-  { id: 'titan-workflow', label: 'TITAN',           icon: <FiCpu size={14} /> },
-  { id: 'alignx', label: 'AlignX',                 icon: <FiGitMerge size={14} /> },
   { id: 'edaan-data-space', label: 'EDAAN',         icon: <FiGlobe size={14} /> },
-  { id: 'instagram-epic-tool', label: 'Circle',     icon: <FiUsers size={14} /> },
-  { id: 'msurgery-platform', label: 'mSurgery',     icon: <FiZap size={14} /> },
-  { id: 'digital-twins', label: 'Twins',            icon: <FiLayers size={14} /> },
+  { id: 'tfg-patient-monitoring', label: 'IoT',    icon: <FiActivity size={14} /> },
+  { id: 'agrivision-agrifed', label: 'AgriFL',     icon: <FiLayers size={14} /> },
+  { id: 'edgecardio-lora', label: 'EdgeAI',        icon: <FiZap size={14} /> },
+  { id: 'replica-hotel', label: 'HotelSim',        icon: <FiBox size={14} /> },
+  { id: 'titan-workflow', label: 'TITAN',          icon: <FiCpu size={14} /> },
+  { id: 'alignx', label: 'AlignX',                 icon: <FiGitMerge size={14} /> },
+  { id: 'landcoverpy', label: 'LandCover',         icon: <FiSearch size={14} /> },
+  { id: 'msurgery-platform', label: 'mSurgery',    icon: <FiTool size={14} /> },
+  { id: 'digital-twins', label: 'Twins',           icon: <FiLayers size={14} /> },
 ];
 
 const PROJECTS_ES: OrreryProject[] = [
-  { id: 'kubernetes-platform', label: 'K8s',       icon: <FiBox size={14} /> },
-  { id: 'tfg-patient-monitoring', label: 'IoT',    icon: <FiActivity size={14} /> },
-  { id: 'metadataxtract', label: 'MXtract',        icon: <FiTool size={14} /> },
-  { id: 'metadatasearch', label: 'MSearch',         icon: <FiSearch size={14} /> },
-  { id: 'titan-workflow', label: 'TITAN',           icon: <FiCpu size={14} /> },
-  { id: 'alignx', label: 'AlignX',                 icon: <FiGitMerge size={14} /> },
   { id: 'edaan-data-space', label: 'EDAAN',         icon: <FiGlobe size={14} /> },
-  { id: 'instagram-epic-tool', label: 'Circle',     icon: <FiUsers size={14} /> },
-  { id: 'msurgery-platform', label: 'mSurgery',     icon: <FiZap size={14} /> },
-  { id: 'digital-twins', label: 'Gemelos',          icon: <FiLayers size={14} /> },
+  { id: 'tfg-patient-monitoring', label: 'IoT',    icon: <FiActivity size={14} /> },
+  { id: 'agrivision-agrifed', label: 'AgriFL',     icon: <FiLayers size={14} /> },
+  { id: 'edgecardio-lora', label: 'EdgeAI',        icon: <FiZap size={14} /> },
+  { id: 'replica-hotel', label: 'HotelSim',        icon: <FiBox size={14} /> },
+  { id: 'titan-workflow', label: 'TITAN',          icon: <FiCpu size={14} /> },
+  { id: 'alignx', label: 'AlignX',                 icon: <FiGitMerge size={14} /> },
+  { id: 'landcoverpy', label: 'LandCover',         icon: <FiSearch size={14} /> },
+  { id: 'msurgery-platform', label: 'mSurgery',    icon: <FiTool size={14} /> },
+  { id: 'digital-twins', label: 'Gemelos',         icon: <FiLayers size={14} /> },
 ];
 
 /* ── Constants ──────────────────────────────────────────────────────── */

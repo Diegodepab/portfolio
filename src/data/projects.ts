@@ -385,269 +385,83 @@ export const featuredProjects: Project[] = [
       },
     ],
     architectureType: 'metadata-pipeline',
-    sections: [
-      {
-        id: 'bottleneck',
-        number: '01',
-        title: {
-          en: 'The Annotation Bottleneck: Describing Without Disclosing',
-          es: 'El Cuello de Botella: Describir el Dato sin Entregarlo',
-        },
-        subtitle: {
-          en: 'From Kaggle and Zenodo deficiencies to critical data space requirements',
-          es: 'De las deficiencias en Zenodo y Kaggle al rigor de los espacios de datos',
-        },
-        content: {
-          en: `In open portals like **Zenodo** or **Kaggle**, dataset annotation is notoriously inconsistent: files are frequently uploaded without structural descriptions, missing spatial/temporal references, and lacking domain context. While inconvenient in open science, this ambiguity is a **fatal blocker in a Federated Data Space**.
-
-In a data space governed by data sovereignty, providers must describe what their data offers to potential consumers **before any raw file transfer takes place**. Potential buyers and collaborating researchers cannot evaluate a dataset without rigorous schema definitions, variable profiles, and licensing terms—yet providers cannot simply hand over proprietary or sensitive files uncontracted.
-
-To resolve this paradox, we engineered an **automated, format-agnostic metadata extraction pipeline**: no matter what file format is provided, the system inspects internal structure, derives technical properties, and formats the metadata precisely into the required organizational forms.`,
-          es: `En portales abiertos como **Zenodo** o **Kaggle**, la anotación de datasets suele ser deficiente: los archivos se suben frecuentemente sin descripciones estructurales claras, sin rangos temporales ni contexto de dominio. Si bien esto es problemático en ciencia abierta, en un **Espacio de Datos Federado se convierte en un cuello de botella crítico e insalvable**.
-
-En un espacio de datos regulado por la soberanía del dato, las organizaciones deben explicar exactamente qué ofrecen a los potenciales consumidores **sin entregarles el archivo todavía**. Nadie puede evaluar la utilidad de un dataset ni negociar un contrato bilateral sin conocer sus esquemas, cobertura temporal, sistemas de coordenadas y licencias; pero el proveedor tampoco puede exponer datos privados o comerciales sin un acuerdo previo.
-
-Para resolver este desafío, diseñamos un **pipeline automatizado y agnóstico al formato**: sin importar qué archivo suba el usuario, una herramienta inteligente inspecciona su estructura interna, extrae metadatos técnicos y genera especificaciones adaptadas a cualquier formulario de publicación requerido.`,
-        },
-        keyPoints: [
-          {
-            en: 'Automated structure and schema extraction across 30+ tabular, scientific, and geospatial formats.',
-            es: 'Extracción automatizada de estructura y esquemas para más de 30 formatos científicos y tabulares.',
-          },
-          {
-            en: 'Multi-engine pre-ingestion security checks: SHA-256 integrity, path-traversal guards, and 70+ AV scans.',
-            es: 'Pipeline de seguridad previa a la ingesta: integridad SHA-256, prevención de path traversal y escaneo con 70+ motores antivirus.',
-          },
-          {
-            en: 'Drastic reduction of human curation effort from hours of manual profiling to seconds of automated analysis.',
-            es: 'Reducción drástica del esfuerzo humano de catalogación, pasando de horas de redacción manual a segundos de procesado automático.',
-          },
-        ],
-        featuredImage: {
-          src: '/images/khaos/data-space/extract-upload.png',
-          alt: {
-            en: 'MetaDataXtract file upload interface',
-            es: 'Interfaz de subida y detección de formato en MetaDataXtract',
-          },
-          caption: {
-            en: 'Multi-format ingestion interface with automated MIME detection, security inspection, and assisted profiling.',
-            es: 'Interfaz de ingesta multi-formato con detección MIME, inspección de seguridad y perfilado asistido.',
-          },
-        },
-      },
-      {
-        id: 'extraction-evolution',
-        number: '02',
-        title: {
-          en: 'MetaDataXtract: Deterministic Extraction & Active Research Line',
-          es: 'MetaDataXtract: Extracción Determinista y Línea de Investigación',
-        },
-        subtitle: {
-          en: 'From an assisted publication form to an independent platform and scientific paper',
-          es: 'De un formulario asistido para EDAAN a plataforma institucional y paper en preparación',
-        },
-        content: {
-          en: `What originally began as a form helper to streamline dataset publishing on the **Agri-food Data Space of Andalusia ([EDAAN](https://edaan.agora-datalab.eu/))** quickly outgrew its initial scope. Observing how vital and technically demanding automated metadata extraction was across institutional data spaces, the system was decoupled and evolved into an independent flagship platform: **[MetaDataXtract](https://khaos.uma.es/metadataextract/es/login)**.
-
-The platform combines deterministic extraction handlers (by format family: NetCDF, GeoTIFF, HDF5, Parquet, DuckDB, RDF) with Apache Tika for embedded document metadata. Crucially, it maps domain properties against authoritative European SPARQL endpoints including **FAO AGROVOC** and **EuroVoc**, aligning outputs with the **DCAT-AP v2.0** and **UNE 0087:2025** standards. Optional LLM integrations synthesize narrative abstracts and utility recommendations while preserving strict deterministic schema validation.
-
-Recognizing the originality and architectural depth of this approach, the project evolved into an active institutional **scientific research line**, with a comprehensive research paper currently in preparation.`,
-          es: `Lo que originalmente comenzó como un formulario asistido para facilitar la publicación de conjuntos de datos y servicios en el **Espacio de Datos Agroalimentario de Andalucía ([EDAAN](https://edaan.agora-datalab.eu/))** superó rápidamente su alcance inicial. Al comprobar el valor estratégico y la complejidad técnica de la anotación en espacios de datos federados, la solución se desacopló y evolucionó hacia una plataforma de referencia institucional independiente: **[MetaDataXtract](https://khaos.uma.es/metadataextract/es/login)**.
-
-La arquitectura combina manejadores deterministas especializados por familias de formato (NetCDF, GeoTIFF, HDF5, Parquet, DuckDB, RDF) con Apache Tika para documentos embebidos. Fundamentalmente, conecta conceptos con autoridades ontológicas oficiales como **AGROVOC (FAO)** y **EuroVoc**, exportando JSON-LD estrictamente validado conforme al estándar europeo **DCAT-AP v2.0** y la norma española **UNE 0087:2025**. Integraciones auxiliares con LLMs sintetizan descripciones narrativas y resúmenes de utilidad sin comprometer la validación determinista.
-
-La madurez y solvencia técnica alcanzadas impulsaron el proyecto hacia una **línea de investigación científica formal**, contando actualmente con un manuscrito en preparación para su publicación en revista de impacto.`,
-        },
-        keyPoints: [
-          {
-            en: 'Strict JSON Schema v2.0 contract aligned with DCAT-AP and UNE 0087:2025 for interoperable data spaces.',
-            es: 'Contrato estricto JSON Schema v2.0 conforme a DCAT-AP y UNE 0087:2025 para máxima interoperabilidad federada.',
-          },
-          {
-            en: 'Dynamic ontological mapping to AGROVOC and EuroVoc vocabularies via server-side SPARQL caching.',
-            es: 'Mapeo ontológico dinámico hacia vocabularios AGROVOC y EuroVoc con caché SPARQL en backend.',
-          },
-          {
-            en: 'Institutional research line with a scientific manuscript currently in preparation for high-impact publication.',
-            es: 'Línea de investigación institucional activa con artículo científico en fase de redacción para revista internacional.',
-          },
-        ],
-        featuredImage: {
-          src: '/images/khaos/data-space/extract-form.png',
-          alt: {
-            en: 'MetaDataXtract metadata form interface',
-            es: 'Formulario de metadatos estandarizados en MetaDataXtract',
-          },
-          caption: {
-            en: 'Assisted metadata editorial form with controlled vocabulary lookup and automated DCAT-AP schema validation.',
-            es: 'Formulario asistido con consulta de vocabularios controlados y validación automática de esquemas DCAT-AP.',
-          },
-        },
-      },
-      {
-        id: 'hybrid-discovery',
-        number: '03',
-        title: {
-          en: 'MetaDataSearch: Hybrid Discovery & Conversational AI Agents',
-          es: 'MetaDataSearch: Búsqueda Híbrida y Agentes Conversacionales IA',
-        },
-        subtitle: {
-          en: 'Overcoming technical vocabulary barriers with dense vectors and Pydantic AI',
-          es: 'Superando la disparidad de vocabulario con vectores densos y Pydantic AI',
-        },
-        content: {
-          en: `Once datasets are annotated and published, locating the right asset in a federated architecture presents another major challenge. Conventional keyword search systems fail when independent organizations describe similar resources with divergent vocabularies.
-
-To overcome this, **MetaDataSearch** introduces a multimodal discovery engine that bridges lexical and semantic retrieval. Queries are dynamically routed to **Elasticsearch 8** (BM25 lexical scoring) or **Qdrant** (cosine similarity over \`paraphrase-multilingual-mpnet-base-v2\` embeddings), and unified using **Reciprocal Rank Fusion (RRF)**. 
-
-Furthermore, an autonomous conversational agent engineered with **Pydantic AI** maintains interactive chat sessions. The agent invokes live catalog search tools, explains table structures, and pinpoints suitable datasets. An interactive 2D/3D knowledge graph visualizes asset-to-app dependencies and domain relationships.`,
-          es: `Una vez que los datasets están anotados y publicados, localizarlos dentro de una arquitectura federada plantea un reto equivalente: los buscadores léxicos tradicionales fallan debido a la disparidad terminológica entre entidades independientes que describen conceptos afines con palabras distintas.
-
-Para superar esta barrera, **MetaDataSearch** implementa una capa de descubrimiento multimodal que combina recuperación léxica y semántica. El motor enruta las peticiones de forma inteligente hacia **Elasticsearch 8** (relevancia léxica BM25) y **Qdrant** (similitud vectorial densa con embeddings multilingües mpnet), unificando los resultados mediante el algoritmo **Reciprocal Rank Fusion (RRF)**.
-
-Además, un agente conversacional autónomo desarrollado con **Pydantic AI** asiste interactivamente al usuario. El agente ejecuta herramientas del catálogo en tiempo real, desglosa esquemas tabulares y sugiere recursos relevantes, mientras un visualizador de grafos 2D/3D expone las dependencias y el linaje entre datasets y aplicaciones de datos.`,
-        },
-        keyPoints: [
-          {
-            en: 'Hybrid search architecture uniting Elasticsearch 8 lexical BM25 and Qdrant dense vector embeddings via RRF.',
-            es: 'Arquitectura de búsqueda híbrida que une BM25 en Elasticsearch 8 con embeddings densos en Qdrant vía RRF.',
-          },
-          {
-            en: 'Autonomous conversational assistant built with Pydantic AI and dynamic catalog tool calling.',
-            es: 'Asistente conversacional autónomo construido con Pydantic AI y ejecución dinámica de herramientas del catálogo.',
-          },
-          {
-            en: 'Interactive 2D/3D knowledge graph illustrating relationships, providers, and consuming Data Apps.',
-            es: 'Grafo de conocimiento 2D/3D interactivo que ilustra relaciones, proveedores y aplicaciones consumidoras.',
-          },
-        ],
-        featuredImage: {
-          src: '/images/khaos/data-space/search-agent.png',
-          alt: {
-            en: 'Conversational agent in MetaDataSearch',
-            es: 'Agente conversacional en MetaDataSearch',
-          },
-          caption: {
-            en: 'Conversational AI agent in MetaDataSearch invoking backend catalog tools to answer natural language queries.',
-            es: 'Agente conversacional IA en MetaDataSearch invocando herramientas del catálogo para resolver dudas en lenguaje natural.',
-          },
-        },
-      },
-      {
-        id: 'sovereign-datasphere',
-        number: '04',
-        title: {
-          en: 'ÁGORA Data Sphere & Cloud-Native Kubernetes Infrastructure',
-          es: 'ÁGORA Data Sphere y Despliegue Cloud-Native en Kubernetes',
-        },
-        subtitle: {
-          en: 'Official web platform for the Agri-food Data Space of Andalusia (EDAAN)',
-          es: 'Plataforma oficial del Espacio de Datos Agroalimentario de Andalucía (EDAAN)',
-        },
-        content: {
-          en: `The full ecosystem culminates in the **ÁGORA Data Sphere**, the official web portal for the **Espacio de Datos Agroalimentario de Andalucía ([EDAAN](https://edaan.agora-datalab.eu/))**. 
-
-The portal orchestrates both sides of the federated market: **Provisioning** (asset upload, access policies, and transactional offers) and **Consumption** (catalog browsing, bilateral contract negotiations, and sovereign transfers). 
-
-Behind the interface, the ecosystem runs on a resilient **Kubernetes** cluster hosted at Khaos Research / UMA. The infrastructure features MongoDB replica sets as the authoritative source of truth, automated synchronization pipelines that reconcile disposable Elasticsearch and Qdrant search projections, and strict isolation of institutional authentication credentials in MariaDB with Argon2 hashing.`,
-          es: `El ecosistema culmina en **ÁGORA Data Sphere**, el portal web oficial del **Espacio de Datos Agroalimentario de Andalucía ([EDAAN](https://edaan.agora-datalab.eu/))**.
-
-El portal orquesta ambas vertientes del mercado federado: **Provisión** (publicación de recursos, definición de políticas de acceso ODRL y creación de ofertas transaccionales) y **Consumo** (exploración del catálogo, negociación bilateral de contratos y transferencias de datos seguras).
-
-En la capa de infraestructura, todo el ecosistema opera sobre un clúster de **Kubernetes** de alta disponibilidad alojado en Khaos Research / Universidad de Málaga. Cuenta con réplicas de MongoDB como fuente de verdad inmutable, sincronización continua hacia índices de búsqueda desechables en Elasticsearch y Qdrant, y aislamiento estricto de credenciales institucionales en MariaDB con hashing Argon2.`,
-        },
-        keyPoints: [
-          {
-            en: 'Sovereign contract negotiation and ODRL policy management within the official regional data space.',
-            es: 'Negociación bilateral de contratos y gestión de políticas ODRL en el espacio de datos agroalimentario regional.',
-          },
-          {
-            en: 'Modern bilingual web portal engineered with Next.js 16, React 19, and tailored UX workflows.',
-            es: 'Portal web bilingüe moderno desarrollado con Next.js 16, React 19 y flujos UX optimizados para provisión y consumo.',
-          },
-          {
-            en: 'Production-ready Kubernetes deployment with automated index reconciliation and zero-downtime microservices.',
-            es: 'Despliegue en producción sobre Kubernetes con reconciliación automática de índices y microservicios resilientes.',
-          },
-        ],
-        featuredImage: {
-          src: '/images/khaos/data-space/search-graph.png',
-          alt: {
-            en: 'Knowledge graph interface in MetaDataSearch',
-            es: 'Grafo de conocimiento y dependencias en MetaDataSearch',
-          },
-          caption: {
-            en: 'Topological relationship graph displaying links between cataloged datasets and consuming applications.',
-            es: 'Grafo topológico de relaciones que visualiza enlaces entre datasets catalogados y aplicaciones consumidoras.',
-          },
-        },
-      },
-    ],
-    media: [
-      {
-        type: 'image',
-        src: '/images/khaos/data-space/extract-upload.png',
-        title: { en: 'Multi-Format Ingestion', es: 'Ingesta Multi-Formato' },
-        alt: { en: 'MetaDataXtract ingestion interface', es: 'Interfaz de subida y detección de formato' },
-        caption: {
-          en: 'Automated structure detection for 30+ scientific and tabular formats.',
-          es: 'Detección automática de estructura para más de 30 formatos científicos y tabulares.',
-        },
-      },
-      {
-        type: 'image',
-        src: '/images/khaos/data-space/extract-form.png',
-        title: { en: 'Assisted Metadata Profiling', es: 'Perfilado de Metadatos Asistido' },
-        alt: { en: 'MetaDataXtract metadata form', es: 'Formulario de metadatos estandarizados' },
-        caption: {
-          en: 'Dynamic ontological enrichment with AGROVOC and EuroVoc vocabularies.',
-          es: 'Enriquecimiento ontológico dinámico con vocabularios AGROVOC y EuroVoc.',
-        },
-      },
-      {
-        type: 'image',
-        src: '/images/khaos/data-space/extract-preview.png',
-        title: { en: 'DCAT-AP v2 JSON-LD Export', es: 'Exportación JSON-LD DCAT-AP v2' },
-        alt: { en: 'MetaDataXtract JSON-LD preview', es: 'Previsualización y exportación JSON-LD' },
-        caption: {
-          en: 'Strict schema validation compliant with European interoperability standards.',
-          es: 'Validación estricta de esquemas conforme a estándares europeos de interoperabilidad.',
-        },
-      },
-      {
-        type: 'image',
-        src: '/images/khaos/data-space/search-catalog.png',
-        title: { en: 'Multimodal Discovery Layer', es: 'Capa de Descubrimiento Multimodal' },
-        alt: { en: 'MetaDataSearch catalog view', es: 'Vista de catálogo y filtros en MetaDataSearch' },
-        caption: {
-          en: 'Faceted search interface backed by Elasticsearch 8 and Qdrant dense vector indexes.',
-          es: 'Interfaz de búsqueda facetada respaldada por índices en Elasticsearch 8 y Qdrant.',
-        },
-      },
-      {
-        type: 'image',
-        src: '/images/khaos/data-space/search-agent.png',
-        title: { en: 'Pydantic AI Conversational Agent', es: 'Agente Conversacional Pydantic AI' },
-        alt: { en: 'MetaDataSearch AI assistant', es: 'Asistente conversacional IA en MetaDataSearch' },
-        caption: {
-          en: 'Autonomous assistant invoking live catalog tools to explain schemas and guide queries.',
-          es: 'Asistente autónomo que ejecuta herramientas en vivo para explicar esquemas y guiar consultas.',
-        },
-      },
-      {
-        type: 'image',
-        src: '/images/khaos/data-space/search-graph.png',
-        title: { en: 'Knowledge Graph & Lineage', es: 'Grafo de Conocimiento y Linaje' },
-        alt: { en: 'Knowledge graph view', es: 'Vista de grafo de conocimiento' },
-        caption: {
-          en: 'Interactive topological view revealing connections between datasets and Data Apps.',
-          es: 'Visualizador topológico interactivo que expone conexiones entre datasets y aplicaciones.',
-        },
-      },
-    ],
     roleHighlight: {
       en: 'Architected and developed the federated data space ecosystem: from deterministic extraction and security pipelines to hybrid vector search, Pydantic AI agent integration, and Kubernetes operations.',
       es: 'Diseñé y desarrollé integralmente el ecosistema de espacios de datos: desde los pipelines de extracción y seguridad hasta la búsqueda híbrida vectorial, agentes en Pydantic AI y despliegue en Kubernetes.',
+    },
+    featured: true,
+  },
+  {
+    id: 'agrivision-agrifed',
+    name: {
+      en: 'AgriVision & AgriFed: Data-Centric AI & Federated Learning',
+      es: 'AgriVision & AgriFed: IA Data-Centric y Aprendizaje Federado',
+    },
+    description: {
+      en: 'A two-stage computer vision platform for agriculture: automated data curation, perceptual deduplication, and anti-leakage audit (AgriVision), coupled with privacy-preserving collaborative model training across distributed cooperative nodes via Flower (AgriFed).',
+      es: 'Plataforma en dos fases de visión artificial agrícola: curación automatizada, deduplicación perceptual y prevención de data leakage (AgriVision), combinada con entrenamiento colaborativo privado entre cooperativas agrícolas mediante Flower (AgriFed).',
+    },
+    shortDescription: {
+      en: 'Data-Centric AI & Federated Vision Platform',
+      es: 'Plataforma de IA Data-Centric y Visión Federada',
+    },
+    technologies: [
+      'PyTorch',
+      'Flower (FL)',
+      'FiftyOne',
+      'FastAPI',
+      'Docker',
+      'MongoDB',
+      'Computer Vision',
+      'CKAN / Open Data',
+    ],
+    tag: 'professional',
+    category: 'data-science',
+    company: 'Khaos Research',
+    github: 'https://github.com/Diegodepab/agrivision-khaos',
+    awardBadge: {
+      en: '2-Phase Architecture · Data-Centric Curation · Distributed FL Aggregator',
+      es: 'Arquitectura en 2 Fases · Curación Data-Centric · Agregador FL Distribuido',
+    },
+    stats: [
+      {
+        label: { en: 'Pipeline Mode', es: 'Fases de Plataforma' },
+        value: '2 Fases',
+        subtext: { en: 'Curation (AgriVision) + FL (AgriFed)', es: 'Curación (AgriVision) + FL (AgriFed)' },
+      },
+      {
+        label: { en: 'FL Orchestrator', es: 'Orquestador FL' },
+        value: 'Flower 1.13',
+        subtext: { en: 'FedAvg · Secure Parameter Aggregation', es: 'FedAvg · Agregación Segura de Parámetros' },
+      },
+      {
+        label: { en: 'Curation Engine', es: 'Motor de Curación' },
+        value: 'FiftyOne',
+        subtext: { en: 'Perceptual Hash & Leakage Guard', es: 'Hash Perceptual y Control de Leakage' },
+      },
+      {
+        label: { en: 'Dataset Bundling', es: 'Empaquetado Open Data' },
+        value: '< 2 GB',
+        subtext: { en: 'CKAN Standard · SHA-256 Verified', es: 'Estándar CKAN · Verificado SHA-256' },
+      },
+    ],
+    roleHighlight: {
+      en: 'Engineered the data-centric image curation and deduplication pipeline in Docker, integrated auto-ontology normalization for crop pathologies, and implemented federated learning aggregation over PyTorch/Flower.',
+      es: 'Diseñé el pipeline dockerizado de curación y deduplicación de imágenes, la normalización ontológica de patologías foliares y la orquestación de aprendizaje federado con PyTorch y Flower.',
+    },
+    caseStudy: {
+      challenge: {
+        en: 'Agricultural diagnostic models require massive, diverse image datasets from multiple field organizations. However, agricultural cooperatives cannot share private visual data due to confidentiality and network constraints, and raw datasets often suffer from label noise, blurry captures, and cross-split data leakage.',
+        es: 'Los modelos de diagnóstico foliar requieren datasets de imágenes masivos y diversos de múltiples organizaciones. Sin embargo, las cooperativas no pueden centralizar sus imágenes por confidencialidad y conectividad limitada, y los datasets crudos presentan ruido de etiquetas, desenfoques y data leakage entre splits.',
+      },
+      solution: {
+        en: 'Built an end-to-end two-phase solution: 1) AgriVision Khaos cleans, deduplicates via perceptual hashing, resolves label typos, and packages datasets under 2 GB for CKAN; 2) AgriFed Khaos trains vision backbones collaboratively across on-premise cooperative nodes using Flower, transferring only model weights to the central master aggregator.',
+        es: 'Construí una solución integral en dos fases: 1) AgriVision Khaos limpia, deduplica mediante hash perceptual, normaliza etiquetas y empaqueta en bundles < 2 GB para CKAN; 2) AgriFed Khaos entrena redes neuronales colaborativamente en nodos on-premise mediante Flower, transmitiendo únicamente los gradientes al agregador maestro.',
+      },
+      contribution: {
+        en: 'Developed the autonomous curation CLI (`make run`), MongoDB metadata tracking, FiftyOne embeddings pipeline, and Flower federated simulation benchmarks, enabling multi-organization model training with zero raw data transfer.',
+        es: 'Desarrollé el flujo autónomo de curación (`make run`), trazabilidad en MongoDB, embeddings con FiftyOne y los benchmarks de simulación federada en Flower, permitiendo entrenar modelos multi-entidad sin transferir datos crudos.',
+      },
     },
     featured: true,
   },
@@ -944,36 +758,150 @@ En la capa de infraestructura, todo el ecosistema opera sobre un clúster de **K
     featured: false,
   },
 
-  // ─── Personal ─────────────────────────────────────────────────────
+  // ─── Personal Projects ─────────────────────────────────────────────
   {
-    id: 'instagram-epic-tool',
-    name: { en: 'CircleScope: Instagram Graph', es: 'CircleScope: Grafo de Instagram' },
+    id: 'edgecardio-lora',
+    name: {
+      en: 'EdgeCardio-LoRA: Efficient Edge AI for ECG Diagnostics',
+      es: 'EdgeCardio-LoRA: IA en el Borde para Diagnóstico de ECG',
+    },
     description: {
-      en: 'CircleScope turns an official Instagram data export into an understandable relationship map. It calculates followers, followed accounts, mutual relationships, people who only follow you, and people who do not follow you back.',
-      es: 'CircleScope convierte una exportación oficial de datos de Instagram en un mapa de relaciones comprensible. Calcula seguidores, seguidos, relaciones mutuas, y analiza quién no te sigue de vuelta.',
+      en: 'An Edge AI framework for real-time arrhythmia diagnosis from ECG signals. Combines 1D-CNN feature extraction with LoRA parameter-efficient adaptation (< 100 KB), weight fusion, and INT8 dynamic quantization for sub-millisecond on-device inference.',
+      es: 'Framework de IA en el Borde para diagnóstico de arritmias en tiempo real a partir de electrocardiogramas. Combina 1D-CNN con adaptación ligera LoRA (< 100 KB), fusión de pesos y cuantización dinámica INT8 para inferencia sub-milisegundo en dispositivo.',
     },
     shortDescription: {
-      en: 'Instagram Relationship Map',
-      es: 'Mapa de Relaciones de Instagram',
+      en: 'Edge AI ECG Diagnosis & LoRA Personalization',
+      es: 'IA Edge para ECG y Personalización con LoRA',
     },
-    technologies: ['FastAPI', 'React', 'Vite', 'Force Graph', 'Data Analysis'],
+    technologies: [
+      'PyTorch 2.2+',
+      'PEFT (LoRA)',
+      'ONNX Runtime INT8',
+      'FastAPI',
+      'DVC',
+      'MLflow',
+      'Docker',
+      'Python',
+    ],
     tag: 'personal',
-    category: 'full-stack',
-    github: 'https://github.com/Diegodepab/instagram-epic-tool',
+    category: 'data-science',
+    github: 'https://github.com/Diegodepab/EdgeCardio-LoRA',
+    awardBadge: {
+      en: 'Sub-millisecond Latency (< 1 ms) · LoRA Adapter < 100 KB · AAMI EC57 Compliant',
+      es: 'Latencia Sub-milisegundo (< 1 ms) · Adaptador LoRA < 100 KB · Estándar AAMI EC57',
+    },
+    stats: [
+      {
+        label: { en: 'Inference Latency', es: 'Latencia de Inferencia' },
+        value: '< 1 ms',
+        subtext: { en: 'ONNX Runtime INT8 on CPU', es: 'ONNX Runtime INT8 sobre CPU' },
+      },
+      {
+        label: { en: 'Memory Footprint', es: 'Consumo de Memoria' },
+        value: '< 35 MB',
+        subtext: { en: 'Embedded & Edge Devices', es: 'Dispositivos Edge y Embebidos' },
+      },
+      {
+        label: { en: 'LoRA Adapter Size', es: 'Tamaño Adaptador LoRA' },
+        value: '< 100 KB',
+        subtext: { en: 'Patient Personalization', es: 'Personalización por Paciente' },
+      },
+      {
+        label: { en: 'Clinical Standard', es: 'Estándar Clínico' },
+        value: 'AAMI EC57',
+        subtext: { en: 'MIT-BIH Arrhythmia (5 Classes)', es: 'MIT-BIH Arritmias (5 Clases)' },
+      },
+    ],
+    roleHighlight: {
+      en: 'Designed the complete causal signal preprocessing, 1D-CNN backbone with R-R interval feature fusion, patient-specific LoRA calibration, weight merge pipeline, and production-ready ONNX INT8 microservice.',
+      es: 'Diseñé el preprocesamiento causal de señal, la red 1D-CNN con fusión de intervalos R-R, la calibración adaptativa LoRA por paciente, la fusión de pesos y el microservicio ONNX INT8 de producción.',
+    },
     caseStudy: {
       challenge: {
-        en: 'The primary export-analysis flow never asks for an Instagram password, does not scrape Instagram, and makes no external API calls. Uploaded ZIP files are processed temporarily and are not retained by the application.',
-        es: 'El flujo de análisis principal nunca pide contraseñas, no hace web scraping, ni realiza llamadas a APIs externas. Los archivos ZIP se procesan de forma temporal y no se almacenan.',
+        en: 'Continuous cardiac monitoring on wearable and edge devices is bottlenecked by strict power, memory (< 50 MB), and latency (< 10 ms) constraints. Furthermore, high inter-patient physiological variability causes generic deep learning models to misclassify benign morphologic variations as arrhythmias.',
+        es: 'La monitorización cardíaca continua en dispositivos edge está limitada por restricciones severas de energía, memoria (< 50 MB) y latencia (< 10 ms). Además, la alta variabilidad morfológica entre pacientes hace que modelos genéricos confundan variaciones benignas con arritmias.',
       },
       solution: {
-        en: 'A separate, visibly experimental lab can be enabled by an operator for bounded access to an owned or expressly authorized account. The laboratory is informational, educational, and defensive.',
-        es: 'Un laboratorio experimental separado puede ser habilitado por un operador para acceso limitado a una cuenta propia o expresamente autorizada. El laboratorio es informativo, educativo y defensivo.',
+        en: 'Architected a decoupled MLOps lifecycle: a base 1D-CNN trained with inter-patient splits is personalized with LoRA on the first 150 patient beats (< 100 KB adapter). Weights are merged via `merge_and_unload()` and quantized into INT8 ONNX models with zero PyTorch runtime dependency.',
+        es: 'Diseñé un ciclo de vida MLOps desacoplado: una 1D-CNN base con partición inter-paciente se calibra mediante LoRA en los primeros 150 latidos del paciente (adaptador < 100 KB). Los pesos se fusionan con `merge_and_unload()` y se cuantizan a INT8 ONNX sin dependencias de PyTorch en tiempo de ejecución.',
       },
       contribution: {
-        en: 'Developed an interface that includes a fictional demo, exact relationship metrics, a performance-aware interactive graph, multiple authorized ZIP merging, complete paginated lists, category filters, and CSV export.',
-        es: 'Desarrollé una interfaz con una demo ficticia, métricas exactas, un grafo interactivo de alto rendimiento, fusión de múltiples ZIPs autorizados, listas paginadas, filtros por categoría y exportación a CSV.',
+        en: 'Engineered the full pipeline from DVC data versioning and MLflow tracking to causal bandpass filtering, 1D-CNN design, LoRA fine-tuning, INT8 quantization, and containerized FastAPI inference with automated health checks.',
+        es: 'Implementé el pipeline completo desde versionado con DVC y tracking en MLflow hasta filtrado causal, diseño 1D-CNN, fine-tuning LoRA, cuantización INT8 y microservicio FastAPI contenerizado con health probes.',
       },
     },
-    featured: false,
+    featured: true,
+  },
+  {
+    id: 'replica-hotel',
+    name: {
+      en: 'Hotel Replica: Post-Collapse Social Deduction Sim',
+      es: 'Hotel Replica: Simulación y Deducción Social Post-Colapso',
+    },
+    description: {
+      en: 'A 2D hotel management and social deduction game built in Godot 4 using 100% C# (.NET). Players manage a post-collapse refuge, screening daily visitors to identify and filter out deadly "Replicas" disguised as humans.',
+      es: 'Videojuego 2D de gestión hotelera y deducción social desarrollado en Godot 4 con 100% C# (.NET). Administras un hotel post-colapso, examinando a los visitantes para identificar y detener a "Réplicas" infiltradas.',
+    },
+    shortDescription: {
+      en: 'Post-Collapse Social Deduction & Hotel Sim',
+      es: 'Simulador y Deducción Social Post-Colapso',
+    },
+    technologies: [
+      'Godot 4',
+      'C# (.NET)',
+      'Event-Driven Architecture',
+      'Interface Decoupling',
+      'State Machines',
+      'Data-Driven Design',
+      'JSON Persistence',
+    ],
+    tag: 'personal',
+    category: 'game-dev',
+    github: 'https://github.com/Diegodepab/replica-hotel',
+    awardBadge: {
+      en: '100% C# (.NET) Architecture · 21 Integrated Minigames · Modular Simulation',
+      es: 'Arquitectura 100% C# (.NET) · 21 Minijuegos Integrados · Simulación Modular',
+    },
+    stats: [
+      {
+        label: { en: 'Core Engine', es: 'Motor y Lenguaje' },
+        value: 'Godot 4 · C#',
+        subtext: { en: 'Zero GDScript · Pure .NET Core', es: 'Sin GDScript · 100% .NET Tipado' },
+      },
+      {
+        label: { en: 'Connected Minigames', es: 'Minijuegos Conectados' },
+        value: '21 Mesas',
+        subtext: { en: 'Casino Arcade Module', es: 'Módulo de Casino y Desafíos' },
+      },
+      {
+        label: { en: 'Architecture Pattern', es: 'Patrón de Arquitectura' },
+        value: 'Event-Driven',
+        subtext: { en: 'Interface & DTO Decoupling', es: 'Desacoplamiento por Interfaces y DTOs' },
+      },
+      {
+        label: { en: 'Game Genre', es: 'Género' },
+        value: 'Social Sim',
+        subtext: { en: 'Resource Management & Deduction', es: 'Gestión y Deducción Social' },
+      },
+    ],
+    roleHighlight: {
+      en: 'Architected the game systems entirely in C# (.NET) with strict interface decoupling, event-driven module communication, procedural character traits, and an isolated 21-minigame casino subsystem.',
+      es: 'Diseñé la arquitectura del juego íntegramente en C# (.NET) con desacoplamiento estricto por interfaces, comunicación orientada a eventos, rasgos procedurales y un subsistema de casino de 21 minijuegos.',
+    },
+    caseStudy: {
+      challenge: {
+        en: 'Scaling a narrative and mechanical simulation in Godot can lead to tightly coupled node trees, brittle GDScript singletons, and presentation logic leaking into game rules.',
+        es: 'Escalar una simulación con mecánicas complejas en Godot suele provocar árboles de nodos acoplados, dependencias frágiles en GDScript y lógica de presentación mezclada con reglas de juego.',
+      },
+      solution: {
+        en: 'Adopted an uncompromising 100% C# architecture: zero GDScript, strict domain interfaces (`IMinigame`), typed DTOs for state transfer, C# `Action` events instead of global state mutation, and data-driven trait registries loaded from JSON.',
+        es: 'Adopté una arquitectura 100% en C#: prohibición estricta de GDScript, interfaces de dominio (`IMinigame`), DTOs tipados, eventos `Action` de C# para desacoplar subsistemas y registro de rasgos procedurales cargado desde JSON.',
+      },
+      contribution: {
+        en: 'Built the core game loop, visitor screening mechanics, trait analysis tools, procedural character generator, save/load state serialization, and the complete 21-minigame modular casino with challenge unlocks.',
+        es: 'Implementé el ciclo principal de juego, la mecánica de inspección de huéspedes, análisis de rasgos, generador procedural de personajes, serialización de partidas y el casino modular de 21 minijuegos con sistema de desbloqueos.',
+      },
+    },
+    featured: true,
   },
 ];

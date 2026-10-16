@@ -17,7 +17,7 @@ export type TechTag = string;
 export type ProjectTag = 'professional' | 'personal';
 
 /** Nature/category of the project */
-export type ProjectCategory = 'full-stack' | 'backend' | 'infrastructure' | 'data-science' | 'use-case';
+export type ProjectCategory = 'full-stack' | 'backend' | 'infrastructure' | 'data-science' | 'use-case' | 'game-dev';
 
 export interface ProjectMediaItem {
   type: 'image' | 'youtube' | 'link';

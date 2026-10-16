@@ -5,7 +5,7 @@ import { Icon } from '../icons/Icon';
 import { useLanguage } from '../../context/LanguageContext';
 import { ThinkingOrb } from '../ui/thinking-orbs/ThinkingOrb';
 
-export type ProjectVisualKind = 'kubernetes' | 'health' | 'ai' | 'extract' | 'titan' | 'alignx' | 'surgery' | 'smotts' | 'twins' | 'edaan' | 'circlescope' | 'satellite' | 'generic';
+export type ProjectVisualKind = 'kubernetes' | 'health' | 'ai' | 'extract' | 'titan' | 'alignx' | 'surgery' | 'smotts' | 'twins' | 'edaan' | 'circlescope' | 'satellite' | 'agrivision' | 'edgecardio' | 'replica' | 'generic';
 
 interface ProjectVisualProps {
   kind?: ProjectVisualKind;
@@ -36,6 +36,9 @@ export const ProjectVisual: React.FC<ProjectVisualProps> = ({ kind = 'generic', 
             : kind === 'edaan' ? 'data.space'
             : kind === 'circlescope' ? 'force.graph'
             : kind === 'satellite' ? 'sentinel.dask'
+            : kind === 'agrivision' ? 'agri.fl'
+            : kind === 'edgecardio' ? 'ecg.lora'
+            : kind === 'replica' ? 'hotel.sim'
             : 'project.preview'}
         </small>
       </div>
@@ -524,6 +527,93 @@ export const ProjectVisual: React.FC<ProjectVisualProps> = ({ kind = 'generic', 
               <span>B04</span>
               <span>B08</span>
               <span className="sat-band-accent">NDVI</span>
+            </div>
+          </div>
+        </div>
+      ) : kind === 'agrivision' ? (
+        <div className="project-visual-agrivision">
+          <div className="agrivision-pipeline">
+            <div className="agrivision-phase phase-curate">
+              <span className="phase-badge">Phase 1</span>
+              <strong>AgriVision</strong>
+              <small>FiftyOne Curation</small>
+              <div className="phase-tags">
+                <span>Anti-Leakage</span>
+                <span>CKAN &lt; 2GB</span>
+              </div>
+            </div>
+            <div className="agrivision-arrow">
+              <span className="arrow-pulse" />
+              <small>Weights</small>
+            </div>
+            <div className="agrivision-phase phase-fl">
+              <span className="phase-badge">Phase 2</span>
+              <strong>AgriFed</strong>
+              <small>Flower 1.13 Cluster</small>
+              <div className="phase-tags">
+                <span>FedAvg Hub</span>
+                <span>Coop Nodes</span>
+              </div>
+            </div>
+          </div>
+          <div className="agrivision-footer">
+            <span className="agrivision-status-dot" />
+            <small>Decentralized Federated Learning · Zero Raw Data Transfer</small>
+          </div>
+        </div>
+      ) : kind === 'edgecardio' ? (
+        <div className="project-visual-edgecardio">
+          <svg className="edgecardio-ecg-svg" viewBox="0 0 240 70" aria-hidden="true">
+            <path
+              d="M 10 35 L 40 35 L 48 35 L 54 30 L 60 40 L 68 35 L 82 35 L 88 38 L 94 10 L 102 62 L 108 35 L 116 35 L 124 28 L 132 35 L 164 35 L 170 38 L 176 10 L 184 62 L 190 35 L 230 35"
+              className="ecg-lead-line"
+            />
+            <circle cx="94" cy="10" r="3" className="ecg-qrs-marker" />
+            <circle cx="176" cy="10" r="3" className="ecg-qrs-marker" />
+          </svg>
+          <div className="edgecardio-metrics">
+            <div className="edgecardio-pill">
+              <strong>&lt; 1 ms</strong>
+              <small>ONNX INT8</small>
+            </div>
+            <div className="edgecardio-pill">
+              <strong>&lt; 100 KB</strong>
+              <small>LoRA Adapter</small>
+            </div>
+            <div className="edgecardio-pill">
+              <strong>AAMI EC57</strong>
+              <small>MIT-BIH 5-Cls</small>
+            </div>
+          </div>
+        </div>
+      ) : kind === 'replica' ? (
+        <div className="project-visual-replica">
+          <div className="replica-scanner-frame">
+            <div className="replica-scanner-header">
+              <span className="scanner-dot red" />
+              <span className="scanner-badge">GUEST SCREENING DOSSIER</span>
+              <span className="scanner-model">.NET C#</span>
+            </div>
+            <div className="replica-scanner-body">
+              <div className="replica-trait-row">
+                <span>Pupil Dilation</span>
+                <div className="replica-trait-bar"><span style={{ width: '88%' }} /></div>
+                <strong className="replica-threat">88%</strong>
+              </div>
+              <div className="replica-trait-row">
+                <span>Vocal Tremor</span>
+                <div className="replica-trait-bar"><span style={{ width: '94%' }} /></div>
+                <strong className="replica-threat">94%</strong>
+              </div>
+              <div className="replica-trait-row">
+                <span>Memory Drift</span>
+                <div className="replica-trait-bar"><span style={{ width: '12%' }} /></div>
+                <strong className="replica-safe">12%</strong>
+              </div>
+            </div>
+            <div className="replica-verdict">
+              <span className="verdict-tag replica">ANOMALY DETECTED: REPLICA</span>
+              <small>21 Minigames · Event-Driven State</small>
             </div>
           </div>
         </div>

@@ -20,25 +20,32 @@ describe('Project detail data integrity', () => {
     });
   });
 
-  it('validates edaan-data-space rich configuration', () => {
+  it('validates edaan-data-space configuration and ecosystem viewer architecture', () => {
     const edaan = featuredProjects.find(p => p.id === 'edaan-data-space');
     expect(edaan).toBeDefined();
     expect(edaan?.awardBadge?.es).toContain('Ecosistema Federado');
     expect(edaan?.stats?.length).toBeGreaterThanOrEqual(4);
     expect(edaan?.architectureType).toBe('metadata-pipeline');
-    expect(edaan?.sections?.length).toBe(4);
-    expect(edaan?.media?.length).toBeGreaterThanOrEqual(6);
+    expect(edaan?.roleHighlight?.es).toBeTruthy();
+    expect(edaan?.featured).toBe(true);
+  });
 
-    edaan?.sections?.forEach(sec => {
-      expect(sec.number).toBeTruthy();
-      expect(sec.title.es).toBeTruthy();
-      expect(sec.title.en).toBeTruthy();
-      expect(sec.content.es.length).toBeGreaterThan(100);
-      expect(sec.content.en.length).toBeGreaterThan(100);
-      if (sec.featuredImage) {
-        expect(imageAssets[sec.featuredImage.src]).toBeDefined();
-      }
-    });
+  it('validates new showcase projects: agrivision-agrifed, edgecardio-lora, and replica-hotel', () => {
+    const agri = featuredProjects.find(p => p.id === 'agrivision-agrifed');
+    expect(agri).toBeDefined();
+    expect(agri?.company).toBe('Khaos Research');
+    expect(agri?.category).toBe('data-science');
+    expect(agri?.stats?.length).toBeGreaterThanOrEqual(4);
+
+    const cardio = featuredProjects.find(p => p.id === 'edgecardio-lora');
+    expect(cardio).toBeDefined();
+    expect(cardio?.tag).toBe('personal');
+    expect(cardio?.stats?.some(s => s.value.includes('< 1 ms'))).toBe(true);
+
+    const replica = featuredProjects.find(p => p.id === 'replica-hotel');
+    expect(replica).toBeDefined();
+    expect(replica?.category).toBe('game-dev');
+    expect(replica?.stats?.some(s => s.value.includes('C#'))).toBe(true);
   });
 
   it('validates that all project media images map to optimized image assets', () => {

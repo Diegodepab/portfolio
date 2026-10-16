@@ -24,7 +24,7 @@ import { useLanguage } from '../../context/LanguageContext';
 import { ProjectVisual } from '../projects/ProjectVisual';
 import { ProjectRouteBackdrop } from '../ui/ambient/ProjectRouteBackdrop';
 import { IoTArchitectureFlow } from '../projects/IoTArchitectureFlow';
-import { DataSpaceArchitectureFlow } from '../projects/DataSpaceArchitectureFlow';
+import { DataSpaceEcosystemViewer } from '../projects/DataSpaceEcosystemViewer';
 import { CATEGORY_LABELS } from '../../utils/projects';
 import './ProjectDetailPage.css';
 import '../sections/Projects.css';
@@ -162,14 +162,14 @@ export const ProjectDetailPage: React.FC = () => {
           <IoTArchitectureFlow />
         </section>
       )}
-      {(project.architectureType === 'metadata-pipeline' || (project.architectureType as string) === 'data-space') && (
+      {(project.architectureType === 'metadata-pipeline' || (project.architectureType as string) === 'data-space' || project.id === 'edaan-data-space') && (
         <section className="project-architecture-section">
-          <DataSpaceArchitectureFlow />
+          <DataSpaceEcosystemViewer />
         </section>
       )}
 
       {/* CASE STUDY OR RICH DEEP DIVE SECTIONS */}
-      {project.sections && project.sections.length > 0 ? (
+      {project.id !== 'edaan-data-space' && project.sections && project.sections.length > 0 ? (
         <section className="project-deep-dive">
           <div className="project-deep-dive__intro">
             <span className="editorial-eyebrow">
@@ -300,7 +300,7 @@ export const ProjectDetailPage: React.FC = () => {
       ) : null}
 
       {/* RICH MEDIA & VIDEO SHOWCASE */}
-      {project.media && project.media.length > 0 && (
+      {project.id !== 'edaan-data-space' && project.media && project.media.length > 0 && (
         <section className="project-media-showcase">
           <div className="project-media-showcase__header">
             <div>

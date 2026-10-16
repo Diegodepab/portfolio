@@ -25,8 +25,9 @@ export const CATEGORY_LABELS: Record<ProjectCategory, { en: string; es: string }
   'full-stack': { en: 'Full-Stack', es: 'Full-Stack' },
   'backend': { en: 'Backend', es: 'Backend' },
   'infrastructure': { en: 'Infra', es: 'Infra' },
-  'data-science': { en: 'Data Science', es: 'Data Science' },
+  'data-science': { en: 'Data Science & AI', es: 'Data Science e IA' },
   'use-case': { en: 'Use Case', es: 'Caso de Uso' },
+  'game-dev': { en: 'Game Dev', es: 'Videojuegos' },
 };
 
 export const getUnifiedItems = (lang: LanguageCode): UnifiedItem[] => {

@@ -78,9 +78,9 @@
 \noindent\textbf{Software Engineer, Khaos Research} \hfill {\footnotesize\color{subtext}\textbf{Sep 2025 -- Actualidad}} \\
 {\footnotesize\color{subtext}\textit{Investigación y desarrollo de plataformas de datos federadas europeas (SEDIA \textbar\ Gaia-X)}}
 \begin{itemize}
-  \item Diseñé y desarrollé el \href{https://diegodepablo.is-a.dev/projects/edaan-data-space}{Ecosistema de Espacios de Datos (EDAAN)}: pipeline de extracción de metadatos multiformato en JSON-LD (DCAT-AP) que evolucionó a proyecto independiente con manuscrito científico en preparación.
-  \item Diseñé e integré un motor de búsqueda híbrida combinando recuperación vectorial en Qdrant y búsqueda léxica, apoyado de agentes con grafos de conocimiento para navegar por el espacio de datos.  
-  \item Reduje en un 80\% el tiempo de procesamiento de imágenes satelitales Sentinel-2 (\href{https://diegodepablo.is-a.dev/projects/landcoverpy}{LandCoverPy}) mediante una arquitectura distribuida (particionamiento por tiles y estaciones) en paralelo con Dask.
+  \item Diseñé y desarrollé el \href{https://diegodepablo.is-a.dev/projects/edaan-data-space}{Ecosistema de Espacios de Datos (EDAAN)}: extracción de metadatos multiformato en JSON-LD (DCAT-AP) y búsqueda híbrida (Qdrant + Elasticsearch) con agentes IA.
+  \item Desarrollé la plataforma en 2 fases \href{https://diegodepablo.is-a.dev/projects/agrivision-agrifed}{AgriVision \& AgriFed}: curación de imágenes (FiftyOne) y aprendizaje federado con Flower/PyTorch entre nodos agrícolas.
+  \item Reduje en un 80\% el tiempo de procesamiento satelital (\href{https://diegodepablo.is-a.dev/projects/landcoverpy}{LandCoverPy}) mediante particionamiento por tiles y estaciones con Dask.
 \end{itemize}
 
 \vspace{5pt}
@@ -111,9 +111,9 @@
 
 \vspace{4.5pt}
 
-\noindent\textbf{\href{https://diegodepablo.is-a.dev/projects/titan-workflow}{\csname faExternalLink*\endcsname\ TITAN Workflow: Orquestador y Asistente de Flujos Científicos}} \hfill {\scriptsize\color{subtext}\textbf{Stack:} FastAPI, Pydantic AI, LangChain, LLMs, Docker}
+\noindent\textbf{\href{https://diegodepablo.is-a.dev/projects/edgecardio-lora}{\csname faExternalLink*\endcsname\ EdgeCardio-LoRA: IA en el Borde para Diagnóstico de ECG}} \hfill {\scriptsize\color{subtext}\textbf{Stack:} PyTorch, PEFT (LoRA), ONNX INT8, FastAPI, DVC, MLflow}
 \begin{itemize}
-  \item Asistente inteligente para composición y validación de flujos científicos: valida esquemas de datos (JSON/Avro) y dependencias entre etapas previas a la ejecución utilizando validadores en Pydantic AI.
+  \item Framework Edge AI para arritmias (MIT-BIH): red 1D-CNN con calibración adaptativa LoRA ($<$100 KB) por paciente y cuantización dinámica INT8 sobre ONNX Runtime con latencia $<$1 ms y consumo $<$35 MB de RAM.
 \end{itemize}
 
 \section*{Formación Académica}
