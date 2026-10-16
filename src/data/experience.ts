@@ -21,17 +21,17 @@ export const experiences: JobExperience[] = [
     employmentType: 'full-time',
     highlights: {
       en: [
-        'Architected and delivered 3 core platforms (MetaDataXtract, MetaDataSearch, AlignX) for the SEDIA federated data space.',
+        'Architected the Federated Data Space Ecosystem (EDAAN): MetaDataXtract, MetaDataSearch and sovereign connectors.',
         'Designed a hybrid search engine combining Qdrant vector embeddings and Elasticsearch 8, orchestrated by Pydantic AI conversational agents.',
-        'Engineered an automated ingestion pipeline supporting 30+ scientific formats, SHA-256 validation, 70+ antivirus engines, and DCAT-AP JSON-LD export.',
+        'Engineered an automated ingestion pipeline supporting 30+ scientific formats, SHA-256 validation, 70+ antivirus engines, and DCAT-AP JSON-LD export (manuscript in preparation).',
       ],
       es: [
-        'Arquitectura y desarrollo integral de 3 plataformas clave (MetaDataXtract, MetaDataSearch, AlignX) para el espacio de datos federado SEDIA.',
+        'Arquitectura y desarrollo integral del Ecosistema de Espacios de Datos Federados (EDAAN): MetaDataXtract, MetaDataSearch y conectores soberanos.',
         'Diseño de un motor de búsqueda híbrido combinando embeddings vectoriales en Qdrant y Elasticsearch 8, orquestado por agentes conversacionales Pydantic AI.',
-        'Implementación de un pipeline de ingesta automatizado para +30 formatos científicos con validación SHA-256, 70+ motores antivirus y exportación JSON-LD DCAT-AP.',
+        'Implementación de un pipeline de ingesta automatizado para +30 formatos científicos con validación SHA-256, 70+ motores antivirus y exportación JSON-LD DCAT-AP (paper en preparación).',
       ],
     },
-    projectIds: ['metadataxtract', 'metadatasearch', 'landcoverpy', 'alignx', 'titan-workflow', 'edaan-data-space'],
+    projectIds: ['edaan-data-space', 'landcoverpy', 'alignx', 'titan-workflow'],
     photos: [
       {
         ...imageAssets['/images/khaos/logo.png'],

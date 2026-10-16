@@ -20,6 +20,27 @@ describe('Project detail data integrity', () => {
     });
   });
 
+  it('validates edaan-data-space rich configuration', () => {
+    const edaan = featuredProjects.find(p => p.id === 'edaan-data-space');
+    expect(edaan).toBeDefined();
+    expect(edaan?.awardBadge?.es).toContain('Ecosistema Federado');
+    expect(edaan?.stats?.length).toBeGreaterThanOrEqual(4);
+    expect(edaan?.architectureType).toBe('metadata-pipeline');
+    expect(edaan?.sections?.length).toBe(4);
+    expect(edaan?.media?.length).toBeGreaterThanOrEqual(6);
+
+    edaan?.sections?.forEach(sec => {
+      expect(sec.number).toBeTruthy();
+      expect(sec.title.es).toBeTruthy();
+      expect(sec.title.en).toBeTruthy();
+      expect(sec.content.es.length).toBeGreaterThan(100);
+      expect(sec.content.en.length).toBeGreaterThan(100);
+      if (sec.featuredImage) {
+        expect(imageAssets[sec.featuredImage.src]).toBeDefined();
+      }
+    });
+  });
+
   it('validates that all project media images map to optimized image assets', () => {
     featuredProjects.forEach(project => {
       project.media?.forEach(media => {

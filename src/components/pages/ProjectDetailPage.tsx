@@ -14,6 +14,7 @@ import {
   FiX,
   FiVideo,
   FiLayers,
+  FiDatabase,
 } from 'react-icons/fi';
 import { VideoPreview } from '../ui/VideoPreview';
 import { imageAssets } from '../../data/imageAssets';
@@ -23,6 +24,7 @@ import { useLanguage } from '../../context/LanguageContext';
 import { ProjectVisual } from '../projects/ProjectVisual';
 import { ProjectRouteBackdrop } from '../ui/ambient/ProjectRouteBackdrop';
 import { IoTArchitectureFlow } from '../projects/IoTArchitectureFlow';
+import { DataSpaceArchitectureFlow } from '../projects/DataSpaceArchitectureFlow';
 import { CATEGORY_LABELS } from '../../utils/projects';
 import './ProjectDetailPage.css';
 import '../sections/Projects.css';
@@ -88,7 +90,7 @@ export const ProjectDetailPage: React.FC = () => {
             </span>
             {project.awardBadge && (
               <span className="project-detail-award">
-                {project.id === 'tfg-patient-monitoring' ? <FiLayers aria-hidden="true" /> : project.id === 'landcoverpy' ? <FiFileText aria-hidden="true" /> : <FiAward aria-hidden="true" />}
+                {project.id === 'tfg-patient-monitoring' ? <FiLayers aria-hidden="true" /> : project.id === 'landcoverpy' ? <FiFileText aria-hidden="true" /> : project.id === 'edaan-data-space' ? <FiDatabase aria-hidden="true" /> : <FiAward aria-hidden="true" />}
                 <span>{project.awardBadge[lang]}</span>
               </span>
             )}
@@ -158,6 +160,11 @@ export const ProjectDetailPage: React.FC = () => {
       {project.architectureType === 'iot-telemetry' && (
         <section className="project-architecture-section">
           <IoTArchitectureFlow />
+        </section>
+      )}
+      {(project.architectureType === 'metadata-pipeline' || (project.architectureType as string) === 'data-space') && (
+        <section className="project-architecture-section">
+          <DataSpaceArchitectureFlow />
         </section>
       )}
 

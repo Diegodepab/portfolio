@@ -31,8 +31,8 @@ export const Projects: React.FC = () => {
           <SectionHeading title={lang === 'en' ? 'Selected Work' : 'Trabajos Destacados'} />
           <p className="projects-intro">
             {lang === 'en'
-              ? 'A production-grade GitOps infrastructure lab and an award-winning IoT biomedical telemetry system — engineered from hardware and containers to production.'
-              : 'Un laboratorio de infraestructura GitOps y un sistema IoT biomédico galardonado con Matrícula de Honor — diseñados desde el hardware y los contenedores hasta producción.'}
+              ? 'A federated data space ecosystem with semantic extraction and AI search, alongside an award-winning IoT biomedical telemetry system — engineered from hardware and algorithms to production.'
+              : 'Un ecosistema federado de espacios de datos con extracción semántica y búsqueda IA, junto a un sistema IoT biomédico galardonado con Matrícula de Honor — diseñados desde el hardware y los algoritmos hasta producción.'}
           </p>
         </div>
       </div>
@@ -43,6 +43,7 @@ export const Projects: React.FC = () => {
           let kind: ProjectVisualKind = 'generic';
           if (item.id === 'kubernetes-platform') kind = 'kubernetes';
           else if (item.id === 'tfg-patient-monitoring') kind = 'health';
+          else if (item.id === 'edaan-data-space') kind = 'edaan';
           else if (item.id === 'metadatasearch') kind = 'ai';
           else if (item.id === 'metadataxtract') kind = 'extract';
 

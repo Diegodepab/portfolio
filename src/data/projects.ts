@@ -49,7 +49,7 @@ export const featuredProjects: Project[] = [
         es: 'Fase 00: Local Compose. Fase 01 y 02: K8s Basics y manifiestos puros. Fase 03: Empaquetado con Helm. Fase 04: Seguridad con Sealed Secrets. Fase 05: Almacenamiento distribuido Longhorn. Fase 06: Tráfico y certificados con Envoy Gateway.',
       },
     },
-    featured: true,
+    featured: false,
   },
   {
     id: 'tfg-patient-monitoring',
@@ -326,109 +326,330 @@ export const featuredProjects: Project[] = [
 
   // ─── Khaos Research ───────────────────────────────────────────────
   {
-    id: 'metadataxtract',
-    name: { en: 'MetaDataXtract', es: 'MetaDataXtract' },
+    id: 'edaan-data-space',
+    name: {
+      en: 'Federated Data Space Ecosystem (EDAAN)',
+      es: 'Ecosistema de Espacios de Datos Federados (EDAAN)',
+    },
     description: {
-      en: 'Security-first pipeline that validates, extracts and enriches file metadata into interoperable JSON-LD for federated data spaces.',
-      es: 'Pipeline security-first que valida, extrae y enriquece metadatos de archivos en JSON-LD interoperable para espacios de datos federados.',
+      en: 'An enterprise-grade data space architecture combining automated DCAT-AP metadata extraction, hybrid AI search with conversational agents, and sovereign data exchange over high-availability Kubernetes infrastructure.',
+      es: 'Arquitectura de espacio de datos federado que integra extracción automatizada de metadatos DCAT-AP, motor de búsqueda híbrido con agentes IA conversacionales y gobernanza soberana sobre infraestructura Kubernetes de alta disponibilidad.',
     },
     shortDescription: {
-      en: 'Metadata extraction & validation pipeline',
-      es: 'Pipeline de extracción y validación de metadatos',
+      en: 'Sovereign Data Space & AI Discovery Ecosystem',
+      es: 'Ecosistema de Espacio de Datos e IA de Descubrimiento',
     },
-    technologies: ['Next.js', 'FastAPI', 'Python', 'JSON-LD', 'DCAT-AP', 'Docker'],
+    technologies: [
+      'Next.js 16',
+      'FastAPI',
+      'Python',
+      'Qdrant (Vectors)',
+      'Elasticsearch 8',
+      'Pydantic AI',
+      'DCAT-AP v2',
+      'JSON-LD',
+      'Kubernetes',
+      'Docker',
+      'Apache Tika',
+      'MongoDB',
+    ],
     tag: 'professional',
     category: 'use-case',
     company: 'Khaos Research',
-    link: 'https://khaos.uma.es/metadataextract/es/login',
-    github: 'https://github.com/KhaosResearch/MetaDataXtract/tree/main',
+    link: 'https://edaan.agora-datalab.eu/',
+    github: 'https://github.com/KhaosResearch/MetaDataXtract',
+    awardBadge: {
+      en: 'Federated Ecosystem · DCAT-AP Metadata Pipeline · Hybrid AI Search Broker',
+      es: 'Ecosistema Federado · Pipeline de Metadatos DCAT-AP · Broker de Búsqueda Híbrida IA',
+    },
+    stats: [
+      {
+        label: { en: 'Supported Formats', es: 'Formatos Soportados' },
+        value: '30+',
+        subtext: { en: 'Geospatial, Raster, Tabular, RDF', es: 'Geoespacial, Ráster, Tablas, RDF' },
+      },
+      {
+        label: { en: 'Semantic Standard', es: 'Estándar Semántico' },
+        value: 'DCAT-AP v2',
+        subtext: { en: 'UNE 0087:2025 · AGROVOC · EuroVoc', es: 'UNE 0087:2025 · AGROVOC · EuroVoc' },
+      },
+      {
+        label: { en: 'Discovery Engine', es: 'Motor de Búsqueda' },
+        value: 'Híbrido RRF',
+        subtext: { en: 'Qdrant (Vectors) + Elasticsearch', es: 'Qdrant (Vectores) + Elasticsearch' },
+      },
+      {
+        label: { en: 'Autonomous Assistant', es: 'Asistencia IA' },
+        value: 'Pydantic AI',
+        subtext: { en: 'Graph Navigation & Ingestion', es: 'Navegación e Inferencia en Grafo' },
+      },
+    ],
+    architectureType: 'metadata-pipeline',
+    sections: [
+      {
+        id: 'bottleneck',
+        number: '01',
+        title: {
+          en: 'The Annotation Bottleneck: Describing Without Disclosing',
+          es: 'El Cuello de Botella: Describir el Dato sin Entregarlo',
+        },
+        subtitle: {
+          en: 'From Kaggle and Zenodo deficiencies to critical data space requirements',
+          es: 'De las deficiencias en Zenodo y Kaggle al rigor de los espacios de datos',
+        },
+        content: {
+          en: `In open portals like **Zenodo** or **Kaggle**, dataset annotation is notoriously inconsistent: files are frequently uploaded without structural descriptions, missing spatial/temporal references, and lacking domain context. While inconvenient in open science, this ambiguity is a **fatal blocker in a Federated Data Space**.
+
+In a data space governed by data sovereignty, providers must describe what their data offers to potential consumers **before any raw file transfer takes place**. Potential buyers and collaborating researchers cannot evaluate a dataset without rigorous schema definitions, variable profiles, and licensing terms—yet providers cannot simply hand over proprietary or sensitive files uncontracted.
+
+To resolve this paradox, we engineered an **automated, format-agnostic metadata extraction pipeline**: no matter what file format is provided, the system inspects internal structure, derives technical properties, and formats the metadata precisely into the required organizational forms.`,
+          es: `En portales abiertos como **Zenodo** o **Kaggle**, la anotación de datasets suele ser deficiente: los archivos se suben frecuentemente sin descripciones estructurales claras, sin rangos temporales ni contexto de dominio. Si bien esto es problemático en ciencia abierta, en un **Espacio de Datos Federado se convierte en un cuello de botella crítico e insalvable**.
+
+En un espacio de datos regulado por la soberanía del dato, las organizaciones deben explicar exactamente qué ofrecen a los potenciales consumidores **sin entregarles el archivo todavía**. Nadie puede evaluar la utilidad de un dataset ni negociar un contrato bilateral sin conocer sus esquemas, cobertura temporal, sistemas de coordenadas y licencias; pero el proveedor tampoco puede exponer datos privados o comerciales sin un acuerdo previo.
+
+Para resolver este desafío, diseñamos un **pipeline automatizado y agnóstico al formato**: sin importar qué archivo suba el usuario, una herramienta inteligente inspecciona su estructura interna, extrae metadatos técnicos y genera especificaciones adaptadas a cualquier formulario de publicación requerido.`,
+        },
+        keyPoints: [
+          {
+            en: 'Automated structure and schema extraction across 30+ tabular, scientific, and geospatial formats.',
+            es: 'Extracción automatizada de estructura y esquemas para más de 30 formatos científicos y tabulares.',
+          },
+          {
+            en: 'Multi-engine pre-ingestion security checks: SHA-256 integrity, path-traversal guards, and 70+ AV scans.',
+            es: 'Pipeline de seguridad previa a la ingesta: integridad SHA-256, prevención de path traversal y escaneo con 70+ motores antivirus.',
+          },
+          {
+            en: 'Drastic reduction of human curation effort from hours of manual profiling to seconds of automated analysis.',
+            es: 'Reducción drástica del esfuerzo humano de catalogación, pasando de horas de redacción manual a segundos de procesado automático.',
+          },
+        ],
+        featuredImage: {
+          src: '/images/khaos/data-space/extract-upload.png',
+          alt: {
+            en: 'MetaDataXtract file upload interface',
+            es: 'Interfaz de subida y detección de formato en MetaDataXtract',
+          },
+          caption: {
+            en: 'Multi-format ingestion interface with automated MIME detection, security inspection, and assisted profiling.',
+            es: 'Interfaz de ingesta multi-formato con detección MIME, inspección de seguridad y perfilado asistido.',
+          },
+        },
+      },
+      {
+        id: 'extraction-evolution',
+        number: '02',
+        title: {
+          en: 'MetaDataXtract: Deterministic Extraction & Active Research Line',
+          es: 'MetaDataXtract: Extracción Determinista y Línea de Investigación',
+        },
+        subtitle: {
+          en: 'From an assisted publication form to an independent platform and scientific paper',
+          es: 'De un formulario asistido para EDAAN a plataforma institucional y paper en preparación',
+        },
+        content: {
+          en: `What originally began as a form helper to streamline dataset publishing on the **Agri-food Data Space of Andalusia ([EDAAN](https://edaan.agora-datalab.eu/))** quickly outgrew its initial scope. Observing how vital and technically demanding automated metadata extraction was across institutional data spaces, the system was decoupled and evolved into an independent flagship platform: **[MetaDataXtract](https://khaos.uma.es/metadataextract/es/login)**.
+
+The platform combines deterministic extraction handlers (by format family: NetCDF, GeoTIFF, HDF5, Parquet, DuckDB, RDF) with Apache Tika for embedded document metadata. Crucially, it maps domain properties against authoritative European SPARQL endpoints including **FAO AGROVOC** and **EuroVoc**, aligning outputs with the **DCAT-AP v2.0** and **UNE 0087:2025** standards. Optional LLM integrations synthesize narrative abstracts and utility recommendations while preserving strict deterministic schema validation.
+
+Recognizing the originality and architectural depth of this approach, the project evolved into an active institutional **scientific research line**, with a comprehensive research paper currently in preparation.`,
+          es: `Lo que originalmente comenzó como un formulario asistido para facilitar la publicación de conjuntos de datos y servicios en el **Espacio de Datos Agroalimentario de Andalucía ([EDAAN](https://edaan.agora-datalab.eu/))** superó rápidamente su alcance inicial. Al comprobar el valor estratégico y la complejidad técnica de la anotación en espacios de datos federados, la solución se desacopló y evolucionó hacia una plataforma de referencia institucional independiente: **[MetaDataXtract](https://khaos.uma.es/metadataextract/es/login)**.
+
+La arquitectura combina manejadores deterministas especializados por familias de formato (NetCDF, GeoTIFF, HDF5, Parquet, DuckDB, RDF) con Apache Tika para documentos embebidos. Fundamentalmente, conecta conceptos con autoridades ontológicas oficiales como **AGROVOC (FAO)** y **EuroVoc**, exportando JSON-LD estrictamente validado conforme al estándar europeo **DCAT-AP v2.0** y la norma española **UNE 0087:2025**. Integraciones auxiliares con LLMs sintetizan descripciones narrativas y resúmenes de utilidad sin comprometer la validación determinista.
+
+La madurez y solvencia técnica alcanzadas impulsaron el proyecto hacia una **línea de investigación científica formal**, contando actualmente con un manuscrito en preparación para su publicación en revista de impacto.`,
+        },
+        keyPoints: [
+          {
+            en: 'Strict JSON Schema v2.0 contract aligned with DCAT-AP and UNE 0087:2025 for interoperable data spaces.',
+            es: 'Contrato estricto JSON Schema v2.0 conforme a DCAT-AP y UNE 0087:2025 para máxima interoperabilidad federada.',
+          },
+          {
+            en: 'Dynamic ontological mapping to AGROVOC and EuroVoc vocabularies via server-side SPARQL caching.',
+            es: 'Mapeo ontológico dinámico hacia vocabularios AGROVOC y EuroVoc con caché SPARQL en backend.',
+          },
+          {
+            en: 'Institutional research line with a scientific manuscript currently in preparation for high-impact publication.',
+            es: 'Línea de investigación institucional activa con artículo científico en fase de redacción para revista internacional.',
+          },
+        ],
+        featuredImage: {
+          src: '/images/khaos/data-space/extract-form.png',
+          alt: {
+            en: 'MetaDataXtract metadata form interface',
+            es: 'Formulario de metadatos estandarizados en MetaDataXtract',
+          },
+          caption: {
+            en: 'Assisted metadata editorial form with controlled vocabulary lookup and automated DCAT-AP schema validation.',
+            es: 'Formulario asistido con consulta de vocabularios controlados y validación automática de esquemas DCAT-AP.',
+          },
+        },
+      },
+      {
+        id: 'hybrid-discovery',
+        number: '03',
+        title: {
+          en: 'MetaDataSearch: Hybrid Discovery & Conversational AI Agents',
+          es: 'MetaDataSearch: Búsqueda Híbrida y Agentes Conversacionales IA',
+        },
+        subtitle: {
+          en: 'Overcoming technical vocabulary barriers with dense vectors and Pydantic AI',
+          es: 'Superando la disparidad de vocabulario con vectores densos y Pydantic AI',
+        },
+        content: {
+          en: `Once datasets are annotated and published, locating the right asset in a federated architecture presents another major challenge. Conventional keyword search systems fail when independent organizations describe similar resources with divergent vocabularies.
+
+To overcome this, **MetaDataSearch** introduces a multimodal discovery engine that bridges lexical and semantic retrieval. Queries are dynamically routed to **Elasticsearch 8** (BM25 lexical scoring) or **Qdrant** (cosine similarity over \`paraphrase-multilingual-mpnet-base-v2\` embeddings), and unified using **Reciprocal Rank Fusion (RRF)**. 
+
+Furthermore, an autonomous conversational agent engineered with **Pydantic AI** maintains interactive chat sessions. The agent invokes live catalog search tools, explains table structures, and pinpoints suitable datasets. An interactive 2D/3D knowledge graph visualizes asset-to-app dependencies and domain relationships.`,
+          es: `Una vez que los datasets están anotados y publicados, localizarlos dentro de una arquitectura federada plantea un reto equivalente: los buscadores léxicos tradicionales fallan debido a la disparidad terminológica entre entidades independientes que describen conceptos afines con palabras distintas.
+
+Para superar esta barrera, **MetaDataSearch** implementa una capa de descubrimiento multimodal que combina recuperación léxica y semántica. El motor enruta las peticiones de forma inteligente hacia **Elasticsearch 8** (relevancia léxica BM25) y **Qdrant** (similitud vectorial densa con embeddings multilingües mpnet), unificando los resultados mediante el algoritmo **Reciprocal Rank Fusion (RRF)**.
+
+Además, un agente conversacional autónomo desarrollado con **Pydantic AI** asiste interactivamente al usuario. El agente ejecuta herramientas del catálogo en tiempo real, desglosa esquemas tabulares y sugiere recursos relevantes, mientras un visualizador de grafos 2D/3D expone las dependencias y el linaje entre datasets y aplicaciones de datos.`,
+        },
+        keyPoints: [
+          {
+            en: 'Hybrid search architecture uniting Elasticsearch 8 lexical BM25 and Qdrant dense vector embeddings via RRF.',
+            es: 'Arquitectura de búsqueda híbrida que une BM25 en Elasticsearch 8 con embeddings densos en Qdrant vía RRF.',
+          },
+          {
+            en: 'Autonomous conversational assistant built with Pydantic AI and dynamic catalog tool calling.',
+            es: 'Asistente conversacional autónomo construido con Pydantic AI y ejecución dinámica de herramientas del catálogo.',
+          },
+          {
+            en: 'Interactive 2D/3D knowledge graph illustrating relationships, providers, and consuming Data Apps.',
+            es: 'Grafo de conocimiento 2D/3D interactivo que ilustra relaciones, proveedores y aplicaciones consumidoras.',
+          },
+        ],
+        featuredImage: {
+          src: '/images/khaos/data-space/search-agent.png',
+          alt: {
+            en: 'Conversational agent in MetaDataSearch',
+            es: 'Agente conversacional en MetaDataSearch',
+          },
+          caption: {
+            en: 'Conversational AI agent in MetaDataSearch invoking backend catalog tools to answer natural language queries.',
+            es: 'Agente conversacional IA en MetaDataSearch invocando herramientas del catálogo para resolver dudas en lenguaje natural.',
+          },
+        },
+      },
+      {
+        id: 'sovereign-datasphere',
+        number: '04',
+        title: {
+          en: 'ÁGORA Data Sphere & Cloud-Native Kubernetes Infrastructure',
+          es: 'ÁGORA Data Sphere y Despliegue Cloud-Native en Kubernetes',
+        },
+        subtitle: {
+          en: 'Official web platform for the Agri-food Data Space of Andalusia (EDAAN)',
+          es: 'Plataforma oficial del Espacio de Datos Agroalimentario de Andalucía (EDAAN)',
+        },
+        content: {
+          en: `The full ecosystem culminates in the **ÁGORA Data Sphere**, the official web portal for the **Espacio de Datos Agroalimentario de Andalucía ([EDAAN](https://edaan.agora-datalab.eu/))**. 
+
+The portal orchestrates both sides of the federated market: **Provisioning** (asset upload, access policies, and transactional offers) and **Consumption** (catalog browsing, bilateral contract negotiations, and sovereign transfers). 
+
+Behind the interface, the ecosystem runs on a resilient **Kubernetes** cluster hosted at Khaos Research / UMA. The infrastructure features MongoDB replica sets as the authoritative source of truth, automated synchronization pipelines that reconcile disposable Elasticsearch and Qdrant search projections, and strict isolation of institutional authentication credentials in MariaDB with Argon2 hashing.`,
+          es: `El ecosistema culmina en **ÁGORA Data Sphere**, el portal web oficial del **Espacio de Datos Agroalimentario de Andalucía ([EDAAN](https://edaan.agora-datalab.eu/))**.
+
+El portal orquesta ambas vertientes del mercado federado: **Provisión** (publicación de recursos, definición de políticas de acceso ODRL y creación de ofertas transaccionales) y **Consumo** (exploración del catálogo, negociación bilateral de contratos y transferencias de datos seguras).
+
+En la capa de infraestructura, todo el ecosistema opera sobre un clúster de **Kubernetes** de alta disponibilidad alojado en Khaos Research / Universidad de Málaga. Cuenta con réplicas de MongoDB como fuente de verdad inmutable, sincronización continua hacia índices de búsqueda desechables en Elasticsearch y Qdrant, y aislamiento estricto de credenciales institucionales en MariaDB con hashing Argon2.`,
+        },
+        keyPoints: [
+          {
+            en: 'Sovereign contract negotiation and ODRL policy management within the official regional data space.',
+            es: 'Negociación bilateral de contratos y gestión de políticas ODRL en el espacio de datos agroalimentario regional.',
+          },
+          {
+            en: 'Modern bilingual web portal engineered with Next.js 16, React 19, and tailored UX workflows.',
+            es: 'Portal web bilingüe moderno desarrollado con Next.js 16, React 19 y flujos UX optimizados para provisión y consumo.',
+          },
+          {
+            en: 'Production-ready Kubernetes deployment with automated index reconciliation and zero-downtime microservices.',
+            es: 'Despliegue en producción sobre Kubernetes con reconciliación automática de índices y microservicios resilientes.',
+          },
+        ],
+        featuredImage: {
+          src: '/images/khaos/data-space/search-graph.png',
+          alt: {
+            en: 'Knowledge graph interface in MetaDataSearch',
+            es: 'Grafo de conocimiento y dependencias en MetaDataSearch',
+          },
+          caption: {
+            en: 'Topological relationship graph displaying links between cataloged datasets and consuming applications.',
+            es: 'Grafo topológico de relaciones que visualiza enlaces entre datasets catalogados y aplicaciones consumidoras.',
+          },
+        },
+      },
+    ],
     media: [
       {
         type: 'image',
-        src: '/images/khaos/metadataxtract/example-of-use.png',
-        title: { en: 'Assisted publishing workflow', es: 'Flujo de publicación asistida' },
-        alt: { en: 'MetaDataXtract application interface', es: 'Interfaz de la aplicación MetaDataXtract' },
+        src: '/images/khaos/data-space/extract-upload.png',
+        title: { en: 'Multi-Format Ingestion', es: 'Ingesta Multi-Formato' },
+        alt: { en: 'MetaDataXtract ingestion interface', es: 'Interfaz de subida y detección de formato' },
+        caption: {
+          en: 'Automated structure detection for 30+ scientific and tabular formats.',
+          es: 'Detección automática de estructura para más de 30 formatos científicos y tabulares.',
+        },
       },
-    ],
-    roleHighlight: {
-      en: 'End-to-end ownership of a SEDIA deliverable — architecture, security pipeline, extraction engine, LLM integrations and production deployment.',
-      es: 'Responsabilidad end-to-end sobre un entregable SEDIA — arquitectura, pipeline de seguridad, motor de extracción, integraciones LLM y despliegue en producción.',
-    },
-    repositoryNotice: {
-      en: 'Institutional repository. Access may require authorization from the organization.',
-      es: 'Repositorio institucional. El acceso puede requerir autorización de la organización.',
-    },
-    caseStudy: {
-      title: {
-        en: 'From raw files to interoperable metadata',
-        es: 'De archivos en bruto a metadatos interoperables',
-      },
-      challenge: {
-        en: 'Data providers must manually document schemas, temporal ranges and geospatial systems before publishing. This bottleneck slows cataloguing and introduces inconsistencies across the data space.',
-        es: 'Los proveedores deben documentar manualmente esquemas, rangos temporales y sistemas geoespaciales antes de publicar. Este cuello de botella ralentiza la catalogación e introduce inconsistencias en el espacio de datos.',
-      },
-      solution: {
-        en: 'A modular pipeline that validates file integrity (SHA-256, magic bytes, 70+ AV engines), extracts structure with specialized parsers for 30+ formats, enriches with LLM-generated descriptions and controlled vocabularies (AGROVOC, EuroVoc), and outputs validated JSON-LD aligned with DCAT-AP.',
-        es: 'Un pipeline modular que valida la integridad del archivo (SHA-256, bytes mágicos, 70+ motores AV), extrae estructura con parsers especializados para +30 formatos, enriquece con descripciones LLM y vocabularios controlados (AGROVOC, EuroVoc), y produce JSON-LD validado conforme a DCAT-AP.',
-      },
-      contribution: {
-        en: 'Full ownership of this SEDIA deliverable: security pipeline, modular extraction engine, semantic enrichment, LLM integrations, validation layer and production deployment infrastructure.',
-        es: 'Responsabilidad total sobre este entregable SEDIA: pipeline de seguridad, motor modular de extracción, enriquecimiento semántico, integraciones LLM, capa de validación e infraestructura de despliegue.',
-      },
-      evolution: {
-        en: 'Next: VirusTotal-inspired threat analysis and SHACL validation for cross-tool interoperability.',
-        es: 'Próximo: análisis de amenazas inspirado en VirusTotal y validación SHACL para interoperabilidad entre herramientas.',
-      },
-    },
-    featured: false,
-  },
-  {
-    id: 'metadatasearch',
-    name: { en: 'MetaDataSearch', es: 'MetaDataSearch' },
-    description: {
-      en: 'Multimodal metadata broker enabling conversational AI search, semantic filtering and knowledge graph exploration for federated data spaces.',
-      es: 'Broker de metadatos multimodal con búsqueda semántica, IA conversacional y exploración mediante grafos de conocimiento para espacios de datos federados.',
-    },
-    shortDescription: {
-      en: 'Multimodal Search Broker',
-      es: 'Buscador Multimodal IA',
-    },
-    technologies: ['Next.js', 'FastAPI', 'Elasticsearch', 'Qdrant', 'MongoDB', 'LLMs'],
-    tag: 'professional',
-    category: 'full-stack',
-    company: 'Khaos Research',
-    github: 'https://github.com/KhaosResearch/metadataSearchTool',
-    media: [
       {
         type: 'image',
-        src: '/images/khaos/metadatasearch/exampleView.png',
-        title: { en: 'Discovery Interface', es: 'Interfaz de descubrimiento' },
-        alt: { en: 'MetaDataSearch user interface', es: 'Interfaz de usuario de MetaDataSearch' },
+        src: '/images/khaos/data-space/extract-form.png',
+        title: { en: 'Assisted Metadata Profiling', es: 'Perfilado de Metadatos Asistido' },
+        alt: { en: 'MetaDataXtract metadata form', es: 'Formulario de metadatos estandarizados' },
+        caption: {
+          en: 'Dynamic ontological enrichment with AGROVOC and EuroVoc vocabularies.',
+          es: 'Enriquecimiento ontológico dinámico con vocabularios AGROVOC y EuroVoc.',
+        },
+      },
+      {
+        type: 'image',
+        src: '/images/khaos/data-space/extract-preview.png',
+        title: { en: 'DCAT-AP v2 JSON-LD Export', es: 'Exportación JSON-LD DCAT-AP v2' },
+        alt: { en: 'MetaDataXtract JSON-LD preview', es: 'Previsualización y exportación JSON-LD' },
+        caption: {
+          en: 'Strict schema validation compliant with European interoperability standards.',
+          es: 'Validación estricta de esquemas conforme a estándares europeos de interoperabilidad.',
+        },
+      },
+      {
+        type: 'image',
+        src: '/images/khaos/data-space/search-catalog.png',
+        title: { en: 'Multimodal Discovery Layer', es: 'Capa de Descubrimiento Multimodal' },
+        alt: { en: 'MetaDataSearch catalog view', es: 'Vista de catálogo y filtros en MetaDataSearch' },
+        caption: {
+          en: 'Faceted search interface backed by Elasticsearch 8 and Qdrant dense vector indexes.',
+          es: 'Interfaz de búsqueda facetada respaldada por índices en Elasticsearch 8 y Qdrant.',
+        },
+      },
+      {
+        type: 'image',
+        src: '/images/khaos/data-space/search-agent.png',
+        title: { en: 'Pydantic AI Conversational Agent', es: 'Agente Conversacional Pydantic AI' },
+        alt: { en: 'MetaDataSearch AI assistant', es: 'Asistente conversacional IA en MetaDataSearch' },
+        caption: {
+          en: 'Autonomous assistant invoking live catalog tools to explain schemas and guide queries.',
+          es: 'Asistente autónomo que ejecuta herramientas en vivo para explicar esquemas y guiar consultas.',
+        },
+      },
+      {
+        type: 'image',
+        src: '/images/khaos/data-space/search-graph.png',
+        title: { en: 'Knowledge Graph & Lineage', es: 'Grafo de Conocimiento y Linaje' },
+        alt: { en: 'Knowledge graph view', es: 'Vista de grafo de conocimiento' },
+        caption: {
+          en: 'Interactive topological view revealing connections between datasets and Data Apps.',
+          es: 'Visualizador topológico interactivo que expone conexiones entre datasets y aplicaciones.',
+        },
       },
     ],
     roleHighlight: {
-      en: 'End-to-end development covering search engines, inference handling, LLM orchestration and web UI.',
-      es: 'Desarrollo integral abarcando motores de búsqueda, manejo de inferencias, orquestación de LLMs e interfaz web.',
+      en: 'Architected and developed the federated data space ecosystem: from deterministic extraction and security pipelines to hybrid vector search, Pydantic AI agent integration, and Kubernetes operations.',
+      es: 'Diseñé y desarrollé integralmente el ecosistema de espacios de datos: desde los pipelines de extracción y seguridad hasta la búsqueda híbrida vectorial, agentes en Pydantic AI y despliegue en Kubernetes.',
     },
-    caseStudy: {
-      title: {
-        en: 'Architecting a Multi-Index Discovery Layer',
-        es: 'Arquitectura de una Capa de Descubrimiento Multi-Índice',
-      },
-      challenge: {
-        en: 'In federated data architectures, discovering assets is difficult due to technical heterogeneity and rigid keyword-based search systems.',
-        es: 'En arquitecturas federadas de datos, localizar información es complejo debido a la variabilidad en vocabularios técnicos y la dependencia de búsquedas léxicas estrictas.',
-      },
-      solution: {
-        en: 'A decoupled architecture featuring an intelligent orchestration engine that dynamically routes queries to Lexical (Elasticsearch 8) or Semantic (Qdrant) engines based on query intent. The system is backed by MongoDB as the source of truth, synchronizing data to disposable search indexes. An interactive Pydantic AI agent provides conversational context.',
-        es: 'Una arquitectura desacoplada con un orquestador inteligente que enruta peticiones a motores Léxicos (Elasticsearch 8) o Semánticos (Qdrant) según la intención. Respaldado por MongoDB como fuente de verdad, sincronizando datos hacia índices de búsqueda desechables. Un agente conversacional con Pydantic AI proporciona contexto adicional.',
-      },
-      contribution: {
-        en: 'Total ownership of the project architecture, from vector embeddings and index synchronization pipelines to the Next.js frontend, authentication middleware, and robust containerized deployments.',
-        es: 'Responsabilidad total sobre la arquitectura del proyecto, desde embeddings y sincronización de índices hasta el frontend en Next.js, middleware de autenticación y despliegue robusto en contenedores.',
-      },
-    },
-    featured: false,
+    featured: true,
   },
   {
     id: 'titan-workflow',
@@ -467,43 +688,6 @@ export const featuredProjects: Project[] = [
         en: 'Spearheaded the LLM web integration, enhanced its reasoning prompts, and developed the execution hooks to generate actionable pipeline structures on the TITAN interface.',
         es: 'Lideré la integración web del LLM, mejoré sus prompts de razonamiento y desarrollé los hooks de ejecución para generar estructuras de pipeline funcionales en la interfaz de TITAN.',
       }
-    },
-    featured: false,
-  },
-
-  {
-    id: 'edaan-data-space',
-    name: { en: 'EDAAN Data Space', es: 'Espacio de Datos EDAAN' },
-    description: {
-      en: 'Agri-food Data Space of Andalusia (EDAAN). Implemented frontend architectures, interactive dataset exploration, and data connector integrations within a cloud-native Kubernetes environment.',
-      es: 'Espacio de Datos Agroalimentario de Andalucía (EDAAN). Implementé arquitecturas frontend, exploración interactiva de conjuntos de datos e integración de conectores dentro de un entorno cloud nativo en Kubernetes.',
-    },
-    shortDescription: {
-      en: 'Agri-food Data Space',
-      es: 'Espacio de Datos Agroalimentario',
-    },
-    technologies: ['Kubernetes', 'Data Connectors', 'React', 'Infrastructure'],
-    tag: 'professional',
-    category: 'use-case',
-    company: 'Khaos Research',
-    link: 'https://edaan.agora-datalab.eu/',
-    roleHighlight: {
-      en: 'Engineered frontend interfaces and data connector workflows, integrating complex agricultural datasets with resilient Kubernetes infrastructure.',
-      es: 'Desarrollé interfaces y flujos de conexión de datos, integrando catálogos agrícolas complejos sobre una infraestructura resiliente en Kubernetes.',
-    },
-    caseStudy: {
-      challenge: {
-        en: 'As one of the most critical platforms within SEDIA, the system needed a robust, high-performance interface to handle complex agricultural datasets, manage transactional offers, and present federated data intuitively.',
-        es: 'Como una de las plataformas clave dentro de SEDIA, el sistema necesitaba una interfaz robusta y de alto rendimiento para gestionar datasets agrícolas complejos, administrar ofertas transaccionales y presentar datos federados de forma intuitiva.',
-      },
-      solution: {
-        en: 'A decoupled data space portal streamlining dataset operations, backed by a resilient Kubernetes cluster configuration for high availability and elastic scalability.',
-        es: 'Un portal desacoplado para espacios de datos que agiliza las operaciones con datasets, respaldado por una configuración resiliente de Kubernetes para alta disponibilidad y escalabilidad elástica.',
-      },
-      contribution: {
-        en: 'Engineered responsive UI/UX workflows for dataset offering and discovery, connecting frontend components to backend microservices and collaborating on Kubernetes deployment configurations.',
-        es: 'Desarrollé flujos UI/UX responsivos para publicación y descubrimiento de datos, integrando componentes frontend con microservicios backend y colaborando en configuraciones de despliegue sobre Kubernetes.',
-      },
     },
     featured: false,
   },

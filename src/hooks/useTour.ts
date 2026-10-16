@@ -118,21 +118,21 @@ const useTourController = () => {
       },
     },
     {
-      element: '#project-dock-item-metadataxtract',
+      element: '#project-dock-item-edaan-data-space',
       onHighlightStarted: () => {
-        const trigger = document.querySelector<HTMLButtonElement>('#project-dock-item-metadataxtract button');
+        const trigger = document.querySelector<HTMLButtonElement>('#project-dock-item-edaan-data-space button');
         if (trigger?.getAttribute('aria-expanded') === 'false') trigger.click();
         later(() => driverObj.current?.refresh(), 16);
       },
       onDeselected: () => {
-        const trigger = document.querySelector<HTMLButtonElement>('#project-dock-item-metadataxtract button');
+        const trigger = document.querySelector<HTMLButtonElement>('#project-dock-item-edaan-data-space button');
         if (trigger?.getAttribute('aria-expanded') === 'true') trigger.click();
       },
       popover: {
-        title: 'MetaDataXtract',
+        title: lang === 'en' ? 'Data Space Ecosystem' : 'Ecosistema de Espacios de Datos',
         description: lang === 'en'
-          ? 'Among my professional projects, I built this secure metadata extraction and enrichment pipeline.'
-          : 'Entre mis proyectos profesionales, destaco este pipeline seguro de extracción y enriquecimiento de metadatos.',
+          ? 'Among my professional projects, I built this federated data space ecosystem with semantic extraction and AI discovery.'
+          : 'Entre mis proyectos profesionales, destaco este ecosistema de espacios de datos con extracción semántica y búsqueda IA.',
         side: 'bottom',
         align: 'center',
       },

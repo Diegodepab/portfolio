@@ -21,6 +21,66 @@ export const imageAssets: Record<string, ResponsiveImageAsset> = {
       "srcSet": "/images/optimized/khaos-alignx-screenshot-thumb-50.webp 50w, /images/optimized/khaos-alignx-screenshot-thumb-100.webp 100w"
     }
   },
+  "/images/khaos/data-space/extract-form.png": {
+    "src": "/images/optimized/khaos-data-space-extract-form-640.webp",
+    "srcSet": "/images/optimized/khaos-data-space-extract-form-320.webp 320w, /images/optimized/khaos-data-space-extract-form-640.webp 640w, /images/optimized/khaos-data-space-extract-form-960.webp 960w",
+    "width": 1505,
+    "height": 897,
+    "thumbnail": {
+      "src": "/images/optimized/khaos-data-space-extract-form-thumb-50.webp",
+      "srcSet": "/images/optimized/khaos-data-space-extract-form-thumb-50.webp 50w, /images/optimized/khaos-data-space-extract-form-thumb-100.webp 100w"
+    }
+  },
+  "/images/khaos/data-space/extract-preview.png": {
+    "src": "/images/optimized/khaos-data-space-extract-preview-640.webp",
+    "srcSet": "/images/optimized/khaos-data-space-extract-preview-320.webp 320w, /images/optimized/khaos-data-space-extract-preview-640.webp 640w, /images/optimized/khaos-data-space-extract-preview-960.webp 960w",
+    "width": 1394,
+    "height": 900,
+    "thumbnail": {
+      "src": "/images/optimized/khaos-data-space-extract-preview-thumb-50.webp",
+      "srcSet": "/images/optimized/khaos-data-space-extract-preview-thumb-50.webp 50w, /images/optimized/khaos-data-space-extract-preview-thumb-100.webp 100w"
+    }
+  },
+  "/images/khaos/data-space/extract-upload.png": {
+    "src": "/images/optimized/khaos-data-space-extract-upload-640.webp",
+    "srcSet": "/images/optimized/khaos-data-space-extract-upload-320.webp 320w, /images/optimized/khaos-data-space-extract-upload-640.webp 640w, /images/optimized/khaos-data-space-extract-upload-960.webp 960w",
+    "width": 1410,
+    "height": 901,
+    "thumbnail": {
+      "src": "/images/optimized/khaos-data-space-extract-upload-thumb-50.webp",
+      "srcSet": "/images/optimized/khaos-data-space-extract-upload-thumb-50.webp 50w, /images/optimized/khaos-data-space-extract-upload-thumb-100.webp 100w"
+    }
+  },
+  "/images/khaos/data-space/search-agent.png": {
+    "src": "/images/optimized/khaos-data-space-search-agent-640.webp",
+    "srcSet": "/images/optimized/khaos-data-space-search-agent-320.webp 320w, /images/optimized/khaos-data-space-search-agent-640.webp 640w, /images/optimized/khaos-data-space-search-agent-960.webp 960w",
+    "width": 1713,
+    "height": 893,
+    "thumbnail": {
+      "src": "/images/optimized/khaos-data-space-search-agent-thumb-50.webp",
+      "srcSet": "/images/optimized/khaos-data-space-search-agent-thumb-50.webp 50w, /images/optimized/khaos-data-space-search-agent-thumb-100.webp 100w"
+    }
+  },
+  "/images/khaos/data-space/search-catalog.png": {
+    "src": "/images/optimized/khaos-data-space-search-catalog-640.webp",
+    "srcSet": "/images/optimized/khaos-data-space-search-catalog-320.webp 320w, /images/optimized/khaos-data-space-search-catalog-640.webp 640w, /images/optimized/khaos-data-space-search-catalog-960.webp 960w",
+    "width": 1713,
+    "height": 893,
+    "thumbnail": {
+      "src": "/images/optimized/khaos-data-space-search-catalog-thumb-50.webp",
+      "srcSet": "/images/optimized/khaos-data-space-search-catalog-thumb-50.webp 50w, /images/optimized/khaos-data-space-search-catalog-thumb-100.webp 100w"
+    }
+  },
+  "/images/khaos/data-space/search-graph.png": {
+    "src": "/images/optimized/khaos-data-space-search-graph-640.webp",
+    "srcSet": "/images/optimized/khaos-data-space-search-graph-320.webp 320w, /images/optimized/khaos-data-space-search-graph-640.webp 640w, /images/optimized/khaos-data-space-search-graph-960.webp 960w",
+    "width": 1263,
+    "height": 898,
+    "thumbnail": {
+      "src": "/images/optimized/khaos-data-space-search-graph-thumb-50.webp",
+      "srcSet": "/images/optimized/khaos-data-space-search-graph-thumb-50.webp 50w, /images/optimized/khaos-data-space-search-graph-thumb-100.webp 100w"
+    }
+  },
   "/images/khaos/equipo-exterior.webp": {
     "src": "/images/optimized/khaos-equipo-exterior-640.webp",
     "srcSet": "/images/optimized/khaos-equipo-exterior-320.webp 320w, /images/optimized/khaos-equipo-exterior-640.webp 640w, /images/optimized/khaos-equipo-exterior-960.webp 960w",

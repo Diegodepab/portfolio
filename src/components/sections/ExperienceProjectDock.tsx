@@ -9,9 +9,10 @@ import type { JobExperience, LanguageCode, Project } from '../../types/portfolio
 import { ProjectVisual } from '../projects/ProjectVisual';
 import { useTour } from '../../hooks/useTour';
 
-const VISUAL_KINDS: Record<string, 'kubernetes' | 'health' | 'extract' | 'ai' | 'titan' | 'alignx' | 'surgery' | 'smotts' | 'twins'> = {
+const VISUAL_KINDS: Record<string, 'kubernetes' | 'health' | 'extract' | 'ai' | 'titan' | 'alignx' | 'surgery' | 'smotts' | 'twins' | 'edaan'> = {
   'kubernetes-platform': 'kubernetes',
   'tfg-patient-monitoring': 'health',
+  'edaan-data-space': 'edaan',
   'metadataxtract': 'extract',
   'metadatasearch': 'ai',
   'titan-workflow': 'titan',

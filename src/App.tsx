@@ -188,6 +188,8 @@ function MainApp({ routeOverrides }: { routeOverrides?: RouteOverrides } = {}) {
               <Route path="/" element={<ResolvedHomePage />} />
               <Route path="/projects" element={<ResolvedProjectsPage />} />
               <Route path="/projects/circlescope" element={<Navigate to="/projects/instagram-epic-tool" replace />} />
+              <Route path="/projects/metadataxtract" element={<Navigate to="/projects/edaan-data-space" replace />} />
+              <Route path="/projects/metadatasearch" element={<Navigate to="/projects/edaan-data-space" replace />} />
               <Route path="/projects/:id" element={<ResolvedProjectDetailPage />} />
               <Route path="/experience" element={<main><Suspense fallback={null}><ResolvedExperience /></Suspense></main>} />
               <Route path="/blog" element={<main><ResolvedBlogList /></main>} />
